@@ -70,6 +70,7 @@ int main()
 		{
 			edit_mode(input);
 		}
+
 	}
 	
 	finish();
@@ -172,7 +173,7 @@ void command_mode()
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     read_file(args);
-                    clear();
+                    //clear();
                     display_map(map);
                 }
                 else if(startsWith("n ", command) != 0)
@@ -289,10 +290,10 @@ void display_map(char* map)
         addch(ACS_S1);
     }
     move(height + 5,0);
+
     clrtobot();
     mvprintw(height + 5,0,"The current author is: %s", author);
     mvprintw(height + 6,0,"The current map title is: %s", title);
-
 
 	move(x, y);
 }
@@ -392,17 +393,15 @@ void finish()
 	// method for ending program 
 	endwin();
 
-
-	if (author){
-		free(author);
-	}
-	if (title){
-		free(title);
-	}
-	if (map){
+	//if (author){
+	//	free(author);
+	//}
+	//if (title){
+	//	free(title);
+	//}
+	//if (map){
 		free(map);
-	}
-    
+	//}
 
 	exit(0);
 }
@@ -433,15 +432,14 @@ void write_file(char* file)
 
 void read_file(char* file)
 {
-<<<<<<< HEAD
 	/* method for reading map information from file */
 	int temp_height;
 	int temp_width;
 
-=======
->>>>>>> bab34717ab8665d40d9a8e6c7b686cead8d34b2e
     size_t len;
     char *temp = NULL;
+    char *temp_author = NULL;
+    char *temp_title = NULL;
     char c;
 
     char path[strlen(DIRECTORY) + strlen(file) + 1];
@@ -453,8 +451,17 @@ void read_file(char* file)
     if(f == NULL)
         return;
 
-    getline(&author, &len, f);
-    getline(&title, &len, f);
+    getline(&temp_author, &len, f);
+    getline(&temp_title, &len, f);
+
+    author = malloc(sizeof(char) * (strlen(temp_author) + 1));
+    memcpy(author, &temp_author[0], strlen(temp_author));
+    author[strlen(temp_author)] = '\0';
+
+    title = malloc(sizeof(char) * (strlen(temp_title) + 1));
+    memcpy(title, &temp_title[0], strlen(temp_title));
+    title[strlen(temp_title)] = '\0';
+
 
     getline(&temp, &len, f);
     sscanf(temp, "%d", &temp_height);
@@ -476,6 +483,8 @@ void read_file(char* file)
     }
 
     free(temp);
+    free(temp_author);
+    free(temp_title);
 
     fclose(f);
 }
