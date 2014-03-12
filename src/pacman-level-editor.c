@@ -39,28 +39,28 @@ int main()
 	height = 15;
 	width = 40;
 
-  // initialise curses
+  /** initialise curses */
 	initscr();
-  // enable the use of function keys, allow navigating the cursor using arrow keys
+  /** enable the use of function keys, allow navigating the cursor using arrow keys */
 	keypad(stdscr, TRUE);
-  // disable echo when getch
+  /** disable echo when getch */
 	noecho(); 
-  // take input chars, does not wait until new line or carriage return
+  /** take input chars, does not wait until new line or carriage return */
 	cbreak();
 
 	map = create_map(height, width);
 
-  // run until program is ended
+  /** run until program is ended */
 	while(!end_program)
 	{
-  	// display current map from the memory
+  	/** display current map from the memory */
 		display_map(map);
 
-    // get input command
+    /** get input command */
 
 		input = getch();
 
-    // check for ":" to enter command mode
+    /** check for ":" to enter command mode */
 		if (input == ':')
 
 		{
@@ -131,10 +131,8 @@ void command_mode()
 
     if (input == 10)
     {
-        
-
         switch (strlen(command)){
-        	// check for user input in command mode
+        	/** check for user input in command mode */
             case 1:
                 if(strcmp(command, "q") == 0)
                 {
@@ -299,7 +297,7 @@ void display_map(char* map)
 
 void edit_mode(int input)
 {
-	// method for handling in editing map mode 
+	/** method for handling in editing map mode  */
 	switch(input)
     {
         case KEY_UP:
@@ -354,7 +352,7 @@ void edit_mode(int input)
 
 void new(char* args)
 {
-	// method for hadling new map creation
+	/** method for hadling new map creation */
     int temp_height;
     int temp_width;
     int count = 0;
@@ -389,7 +387,7 @@ void new(char* args)
 
 void finish()
 {
-	// method for ending program 
+	/** method for ending program */
 	endwin();
 
 
@@ -403,14 +401,13 @@ void finish()
 		free(map);
 	}
     
-
 	exit(0);
 }
 
 void write_file(char* file)
 {
 	
-	// method for writing map information to file
+	/** method for writing map information to file */
     char path[strlen(DIRECTORY) + strlen(file) + 1];
     strcpy(path, DIRECTORY);
     strcat(path, file);
@@ -433,13 +430,10 @@ void write_file(char* file)
 
 void read_file(char* file)
 {
-<<<<<<< HEAD
-	/* method for reading map information from file */
+	/** method for reading map information from file */
 	int temp_height;
 	int temp_width;
 
-=======
->>>>>>> bab34717ab8665d40d9a8e6c7b686cead8d34b2e
     size_t len;
     char *temp = NULL;
     char c;
@@ -482,6 +476,7 @@ void read_file(char* file)
 
 char *create_map(int new_height, int new_width)
 {
+	/** method for storing the initial map */
     height = new_height;
     width = new_width;
 
