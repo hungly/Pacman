@@ -377,10 +377,6 @@ void new(char* args)
         count++;
     }
 
-    if (map)
-    {
-        free(map);
-    }
     map = create_map(temp_height, temp_width);
 }
 
@@ -439,8 +435,8 @@ void read_file(char* file)
     if(f == NULL)
         return;
 
-    getline(&author, &len, f);
-    getline(&title, &len, f);
+    getline(&temp_author, &len, f);
+    getline(&temp_title, &len, f);
 
     author = malloc(sizeof(char) * (strlen(temp_author) + 1));
  	memcpy(author, &temp_author[0], strlen(temp_author));
