@@ -170,7 +170,6 @@ void command_mode()
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     read_file(args);
-                    clear();
                     display_map(map);
                 }
                 else if(startsWith("n ", command) != 0)
@@ -390,16 +389,7 @@ void finish()
 	/** method for ending program */
 	endwin();
 
-
-	if (author){
-		free(author);
-	}
-	if (title){
-		free(title);
-	}
-	if (map){
-		free(map);
-	}
+	free(map);
     
 	exit(0);
 }
@@ -436,6 +426,8 @@ void read_file(char* file)
 
     size_t len;
     char *temp = NULL;
+    char *temp_author = NULL;
+    char *temp_title = NULL;
     char c;
 
     char path[strlen(DIRECTORY) + strlen(file) + 1];
@@ -449,6 +441,14 @@ void read_file(char* file)
 
     getline(&author, &len, f);
     getline(&title, &len, f);
+
+    author = malloc(sizeof(char) * (strlen(temp_author) + 1));
+ 	memcpy(author, &temp_author[0], strlen(temp_author));
+ 	author[strlen(temp_author)] = '\0';
+
+ 	title = malloc(sizeof(char) * (strlen(temp_title) + 1));
+ 	memcpy(title, &temp_title[0], strlen(temp_title));
+ 	title[strlen(temp_title)] = '\0';
 
     getline(&temp, &len, f);
     sscanf(temp, "%d", &temp_height);
@@ -470,6 +470,8 @@ void read_file(char* file)
     }
 
     free(temp);
+    free(temp_author);
+    free(temp_title);
 
     fclose(f);
 }
