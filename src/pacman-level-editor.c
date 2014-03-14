@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
+#include <regex.h>
+#include <sys/types.h>
 
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_WIDTH 30
@@ -30,12 +32,18 @@ int width;
 int x = 0;
 int y = 0;
 
+/** regex is used to to check for input pattern */
+regex_t regex;
+int reti;
+
+
 int main()
 {
 	int input;
 
 	author = "Hung Ly Quoc <s3426511@rmit.edu.vn>, Liem Ly Quan <s3426110@rmit.edu.vn>";
 	title = "Default title";
+	file_name = "level.pac";
 	height = 15;
 	width = 40;
 
@@ -53,6 +61,7 @@ int main()
   /** run until program is ended */
 	while(!end_program)
 	{
+
   	/** display current map from the memory */
 		display_map(map);
 
@@ -71,7 +80,6 @@ int main()
 			edit_mode(input);
 		}
 	}
-	
 	finish();
 }
 
@@ -109,9 +117,7 @@ void command_mode()
 			mvprintw(height + 1, count, "     ");
             move(height + 1, count);
             count--;
-
             input = getch();
-
             continue;
 		}
 		
@@ -139,7 +145,7 @@ void command_mode()
                     end_program = 1;
                     return;
                 } else if (strcmp(command,"w") == 0) {
-                    write_file("level.pac");
+                    write_file(file_name);
                     clrtoeol();
                 }
                 break;
@@ -165,6 +171,7 @@ void command_mode()
                     write_file(args);
                     clrtoeol();
                 }
+
                 else if(startsWith("r ", command) != 0)
                 {
                     memcpy(args, &command[2], strlen(command));
@@ -177,7 +184,6 @@ void command_mode()
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     new(args);
-                    clear();
                     display_map(map);
                 }
                 else if(startsWith("a ", command) != 0)
@@ -285,10 +291,10 @@ void display_map(char* map)
     {
         addch(ACS_S1);
     }
-    move(height + 5,0);
+    move(height + 6,0);
     clrtobot();
-    mvprintw(height + 5,0,"The current author is: %s", author);
-    mvprintw(height + 6,0,"The current map title is: %s", title);
+    mvprintw(height + 6,0,"The current author is: %s", author);
+    mvprintw(height + 7,0,"The current map title is: %s", title);
 
 
 	move(x, y);
@@ -355,29 +361,64 @@ void new(char* args)
     int temp_height;
     int temp_width;
     int count = 0;
+    int error = 0;
     char *token = NULL;
 
     token = strtok(args, " ");
-    while(token != NULL) {
-        switch(count)
+    while (token != NULL) 
+    {
+        if (count == 0)
+        {   
+        	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+            reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the file name correctly");
+				error = 1;
+				break;	
+            }
+            regfree(&regex);
+            file_name = malloc(sizeof(char) * (strlen(token) + 1));
+ 			memcpy(file_name, &token[0], strlen(token));
+ 			file_name[strlen(token)] = '\0';
+        } 
+        else if (count == 1)
         {
-            case 0:
-                file_name = token;
-                break;
-            case 1:
-                sscanf(token, "%d", &temp_height);
-                break;
-            case 2:
-                sscanf(token, "%d", &temp_width);
-                break;
-            default:
-                break;
+        	reti = regcomp(&regex,"^[[:digit:]]",0);
+			reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the number of rows correctly");
+				error = 1;
+            	break;
+            }
+            regfree(&regex);
+            sscanf(token, "%d", &temp_height);
+        } 
+        else if (count == 2)
+        {
+        	reti = regcomp(&regex,"^[[:digit:]]",0);
+			reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the number of column correctly");
+				error = 1;
+				break;
+            }
+            regfree(&regex);
+            sscanf(token, "%d", &temp_width); 
+        } else {
+        	break; 
         }
+
         token = strtok(NULL, " ");
         count++;
     }
-
-    map = create_map(temp_height, temp_width);
+    
+    if (error == 0){
+   		map = create_map(temp_height, temp_width);
+   		clear();
+	}
 }
 
 void finish()
@@ -386,90 +427,116 @@ void finish()
 	endwin();
 
 	free(map);
-    
+
 	exit(0);
 }
 
 void write_file(char* file)
-{
-	
+{	
 	/** method for writing map information to file */
-    char path[strlen(DIRECTORY) + strlen(file) + 1];
-    strcpy(path, DIRECTORY);
-    strcat(path, file);
 
-    int i;
-    FILE *f = fopen(path,"w");
-    fprintf(f, "%s\n", author);
-    fprintf(f, "%s\n%i\n%i\n", title, height, width);
-
-    for (i = 0; i < height * width; i++){
-        if (i % width == 0 && i != 0)
-            fprintf(f,"\n");
-        fprintf(f,"%c",map[i]);
+	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+	reti = regexec(&regex,file,0, NULL, 0);
+	if (reti == REG_NOMATCH)
+    {
+		mvprintw(height+5,0, "Please specify the file name to be save or use 'w' to save the file with default name");
+    } 
+    else if (strcmp(&file[1],"-") != 0)
+    {
+        mvprintw(height+5,0, "Cannot start the file name with -");
     }
+    else 
+    {
+        char path[strlen(DIRECTORY) + strlen(file) + 1];
+        strcpy(path, DIRECTORY);
+        strcat(path, file);
 
-    fprintf(f, "\n");
+        int i;
+        FILE *f = fopen(path,"w");
+        fprintf(f, "%s\n", author);
+        fprintf(f, "%s\n%i\n%i\n", title, height, width);
 
-    fclose(f);
+        for (i = 0; i < height * width; i++){
+            if (i % width == 0 && i != 0)
+                fprintf(f,"\n");
+            fprintf(f,"%c",map[i]);
+        }
+
+        fprintf(f, "\n");
+
+        fclose(f);
+	}
+	regfree(&regex);
 }
 
 void read_file(char* file)
 {
 	/** method for reading map information from file */
-	int temp_height;
-	int temp_width;
+	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+	reti = regexec(&regex,file,0, NULL, 0);
+	if (reti == REG_NOMATCH) {
+		mvprintw(height+5,0, "Please specify the file name to be open");
+	} 
+    else 
+	{
+		int temp_height;
+		int temp_width;
 
-    size_t len;
-    char *temp = NULL;
-    char *temp_author = NULL;
-    char *temp_title = NULL;
-    char c;
+    	size_t len;
+    	char *temp = NULL;
+    	char *temp_author = NULL;
+    	char *temp_title = NULL;
+    	char c;
 
-    char path[strlen(DIRECTORY) + strlen(file) + 1];
-    strcpy(path, DIRECTORY);
-    strcat(path, file);
+    	char path[strlen(DIRECTORY) + strlen(file) + 1];
+    	strcpy(path, DIRECTORY);
+    	strcat(path, file);
 
-    FILE *f = fopen(path, "r");
+    	FILE *f = fopen(path, "r");
 
-    if(f == NULL)
-        return;
-
-    getline(&temp_author, &len, f);
-    getline(&temp_title, &len, f);
-
-    author = malloc(sizeof(char) * (strlen(temp_author) + 1));
- 	memcpy(author, &temp_author[0], strlen(temp_author));
- 	author[strlen(temp_author)] = '\0';
-
- 	title = malloc(sizeof(char) * (strlen(temp_title) + 1));
- 	memcpy(title, &temp_title[0], strlen(temp_title));
- 	title[strlen(temp_title)] = '\0';
-
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_height);
-
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_width);
-
-    map = create_map(temp_height, temp_width);
-
-    for (int row = 0; row < temp_height; row++)
-    {
-        getline(&temp, &len, f);
-
-        for (int col = 0; col < temp_width; col++)
+    	if (f == NULL)
         {
+    		mvprintw(height+5,0,"No such file found");
+        	return;
+        }
+                
+    	getline(&temp_author, &len, f);
+    	getline(&temp_title, &len, f);
+
+    	author = malloc(sizeof(char) * (strlen(temp_author) + 1));
+ 		memcpy(author, &temp_author[0], strlen(temp_author));
+ 		author[strlen(temp_author)] = '\0';
+
+ 		title = malloc(sizeof(char) * (strlen(temp_title) + 1));
+ 		memcpy(title, &temp_title[0], strlen(temp_title));
+ 		title[strlen(temp_title)] = '\0';
+
+    	getline(&temp, &len, f);
+    	sscanf(temp, "%d", &temp_height);
+
+    	getline(&temp, &len, f);
+    	sscanf(temp, "%d", &temp_width);
+
+    	map = create_map(temp_height, temp_width);
+
+    	for (int row = 0; row < temp_height; row++)
+    	{
+        	getline(&temp, &len, f);
+
+        	for (int col = 0; col < temp_width; col++)
+        	{
             c = temp[col];
             map[row * width + col] = temp[col];
-        }
-    }
+        	}
+    	}
 
-    free(temp);
-    free(temp_author);
-    free(temp_title);
+    	free(temp);
+    	free(temp_author);
+    	free(temp_title);
 
-    fclose(f);
+    	fclose(f);
+    	clear();
+	}
 }
 
 char *create_map(int new_height, int new_width)
