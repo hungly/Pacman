@@ -2,21 +2,52 @@
 #include <string.h>
 #include <curses.h>
 #include <regex.h>
-#include <sys/types.h>
 
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_WIDTH 30
 #define DIRECTORY "../levels/"
 
 void command_mode();
-void display_map(char* map);
-void edit_mode(int input);
-void new(char* args);
-void write_file(char* file);
-void read_file(char* file);
-void finish();
 
+/** Display a map using an array
+  * @param char* map is the pointer to the array of character
+  */
+void display_map(char* map);
+
+/** Handling changes in editing map mode 
+  * @param int input the is key code of the input in the ascii code
+  */
+void edit_mode(int input);
+
+/** Handling new map creation using :n in command mode
+  * @param char* args is pointer to the array of character, which includes new file name, height, and width
+  */
+void new(char* args);
+
+/** Writing map information to file 
+  * @param char* file is pointer to the array of character, which indicates the file name to write
+  */
+void write_file(char* file);
+
+/** Reading map information from file 
+  * @param char* file is pointer to the array of character, which indicates the file name to read
+  */
+void read_file(char* file);
+
+/** Storing the initial map 
+  * @param height is the height of map
+  * @param width is the width of map
+  * Return pointer to an array of char which represent the map 
+  */
 char *create_map(int height, int width);
+
+/** Function for checking the beginning of the string 
+  * @param const char *pre is the pointer to an array of char which we want to check whether the string begin with that or not 
+  * @param const char *str is the pointer to an array of char which is the string we want to check
+  * Return 0 if false and other numbers if true
+  * Reference:
+  * http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c
+  */
 int startsWith(const char *pre, const char *str);
 
 char *new_map;
@@ -80,7 +111,11 @@ int main()
 			edit_mode(input);
 		}
 	}
-	finish();
+	endwin();
+
+    free(map);
+
+    exit(0);
 }
 
 
@@ -213,7 +248,6 @@ void command_mode()
 
 void display_map(char* map)
 {
-	// method for drawing a map using an array
 	move(0, 0);
 
 	for (int i = 0; i < height * width; i++)
@@ -302,7 +336,6 @@ void display_map(char* map)
 
 void edit_mode(int input)
 {
-	/** method for handling in editing map mode  */
 	switch(input)
     {
         case KEY_UP:
@@ -356,8 +389,7 @@ void edit_mode(int input)
 }
 
 void new(char* args)
-{
-	/** method for hadling new map creation */
+{	
     int temp_height;
     int temp_width;
     int count = 0;
@@ -421,30 +453,15 @@ void new(char* args)
 	}
 }
 
-void finish()
-{
-	/** method for ending program */
-	endwin();
-
-	free(map);
-
-	exit(0);
-}
 
 void write_file(char* file)
 {	
-	/** method for writing map information to file */
-
 	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
 	reti = regexec(&regex,file,0, NULL, 0);
 	if (reti == REG_NOMATCH)
     {
 		mvprintw(height+5,0, "Please specify the file name to be save or use 'w' to save the file with default name");
     } 
-    else if (strcmp(&file[1],"-") != 0)
-    {
-        mvprintw(height+5,0, "Cannot start the file name with -");
-    }
     else 
     {
         char path[strlen(DIRECTORY) + strlen(file) + 1];
@@ -471,7 +488,7 @@ void write_file(char* file)
 
 void read_file(char* file)
 {
-	/** method for reading map information from file */
+	
 	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
 	reti = regexec(&regex,file,0, NULL, 0);
 	if (reti == REG_NOMATCH) {
@@ -541,7 +558,7 @@ void read_file(char* file)
 
 char *create_map(int new_height, int new_width)
 {
-	/** method for storing the initial map */
+	
     height = new_height;
     width = new_width;
 
@@ -578,11 +595,7 @@ char *create_map(int new_height, int new_width)
 
 int startsWith(const char *pre, const char *str)
 {
-	/** 
-	 * Function for checking the beginning of the string 
-	 * reference:
-	 * http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c
-	 */
+	
     size_t lenpre = strlen(pre),
            lenstr = strlen(str);
     return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
