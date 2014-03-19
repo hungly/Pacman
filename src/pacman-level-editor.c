@@ -1,20 +1,82 @@
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
+#include <regex.h>
 
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_WIDTH 30
 #define DIRECTORY "../levels/"
+#define DEFAULT_AUTHOR "Anonymous"
+#define DEAFULT_TITTLE "Unknown"
+#define DEAFULT_FILE_NAME "level.pac"
 
+/**
+  * VI liked command mode for map pacman editor.
+  * This function will check if the input command is either q, w, n, r or wq and performed the following actions:
+  * q: quit the program and exit to the terminal.
+  * w: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name "level.pac".
+  * wq: save and then quit the program, this command perform the same actions as the "w" command and then the "q" command.
+  * n: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.
+  * r: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.
+  */
 void command_mode();
-void display_map(char* map);
-void edit_mode(int input);
-void new(char* args);
-void write_file(char* file);
-void read_file(char* file);
-void finish();
 
+/** 
+  * Display current loaded map from an array in the heap memory.
+  *
+  * @param char * map the pointer to the array of character using to represent the current loaded map.
+  */
+void display_map(char * map);
+
+/**
+  * Handling input that change the current edited map.
+  *
+  * @param int input the ASCII code of the input command.
+  */
+void edit_mode(int input);
+
+/**
+  * Handling new map creation using with n command in command mode and when the program is loaded.
+  *
+  * @param char * args the pointer to the array of characters which includes all three parameters which are new file name, height, and width.
+  */
+void new(char * args);
+
+/**
+  * Writing the current map and related information into a file.
+
+  * @param char * file the pointer to the array of characters which indicates the file name to write into the disk.
+  */
+void write_file(char*  file);
+
+/**
+  * Reading the current map and related information into a file.
+  *
+  * @param char* file the pointer to the array of characters which indicates the file name to read from the disk.
+  */
+void read_file(char * file);
+
+/**
+  * Create a new map with desire height and width.
+  *
+  * @param height is the height of map.
+  * @param width is the width of map.
+  *
+  * Return pointer to an array of characters which represent the map .
+  */
 char *create_map(int height, int width);
+
+/**
+  * Function for checking the beginning of the string
+  *
+  * @param const char *pre is the pointer to an array of char which we want to check whether the string begin with that or not.
+  * @param const char *str is the pointer to an array of char which is the string we want to check.
+  *
+  * Return 0 if false and other numbers if true.
+  *
+  * Reference:
+  * http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c
+  */
 int startsWith(const char *pre, const char *str);
 
 char *new_map;
@@ -30,37 +92,55 @@ int width;
 int x = 0;
 int y = 0;
 
+/** regex is used to to check for input pattern */
+regex_t regex;
+int reti;
+
 int main()
 {
 	int input;
 
-	author = "Hung Ly Quoc <s3426511@rmit.edu.vn>, Liem Ly Quan <s3426110@rmit.edu.vn>";
-	title = "Default title";
-	height = 15;
-	width = 40;
+	/** default values for author, title, file name, height and width*/
+	author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
+    memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
+    author[strlen(DEFAULT_AUTHOR)] = '\0';
 
-  // initialise curses
+    title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
+    memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
+    title[strlen(DEAFULT_TITTLE)] = '\0';
+
+    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
+    memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
+    file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
+
+	height = DEFAULT_HEIGHT;
+	width = DEFAULT_WIDTH;
+
+	/** initialise ncurses screen */
 	initscr();
-  // enable the use of function keys, allow navigating the cursor using arrow keys
+
+	/** enable the use of function keys, allow navigating the cursor using arrow keys */
 	keypad(stdscr, TRUE);
-  // disable echo when getch
+
+	/** disable echo when getch */
 	noecho(); 
-  // take input chars, does not wait until new line or carriage return
+
+	/** take input chars, does not wait until new line or carriage return */
 	cbreak();
 
 	map = create_map(height, width);
 
-  // run until program is ended
+	/** run until program is ended */
 	while(!end_program)
 	{
-  	// display current map from the memory
+
+  		/** display current map from the memory */
 		display_map(map);
 
-    // get input command
-
+    	/** get input command */
 		input = getch();
 
-    // check for ":" to enter command mode
+    	/** check for ":" to enter command mode */
 		if (input == ':')
 
 		{
@@ -70,22 +150,17 @@ int main()
 		{
 			edit_mode(input);
 		}
-
 	}
-	
-	finish();
+	endwin();
+
+    free(map);
+    free(author);
+    free(title);
+    free(file_name);
+
+    exit(0);
 }
 
-
-/**
-* VI liked command mode for map editor.
-* This function will check if the input command is either q, w, n, r or wq and performed the following actions:
-* q: quit the program and exit to the terminal command prompt.
-* w: save the current map to the levels directory, this command accepts a parameter as the saved file name, if there is no file name, the map will be saved using the default name "pacman.pac".
-* wq: save and then quit the program, this command perform the same actions as the "w" command and then the "q" command.
-* n: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map.
-* r: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.
-*/
 void command_mode()
 {
 	char args[1000];
@@ -95,6 +170,7 @@ void command_mode()
 
 	char command[1000];
 
+    /** display the input characters on the screen */
 	echo();
 
 	mvprintw(height + 1, 0, ":");
@@ -110,9 +186,7 @@ void command_mode()
 			mvprintw(height + 1, count, "     ");
             move(height + 1, count);
             count--;
-
             input = getch();
-
             continue;
 		}
 		
@@ -132,18 +206,16 @@ void command_mode()
 
     if (input == 10)
     {
-        
-
+        clrtoeol();
         switch (strlen(command)){
-        	// check for user input in command mode
+        	/** check for user input in command mode */
             case 1:
                 if(strcmp(command, "q") == 0)
                 {
                     end_program = 1;
                     return;
                 } else if (strcmp(command,"w") == 0) {
-                    write_file("level.pac");
-                    clrtoeol();
+                    write_file(file_name);
                 }
                 break;
             case 2:
@@ -166,14 +238,13 @@ void command_mode()
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     write_file(args);
-                    clrtoeol();
                 }
+
                 else if(startsWith("r ", command) != 0)
                 {
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     read_file(args);
-                    //clear();
                     display_map(map);
                 }
                 else if(startsWith("n ", command) != 0)
@@ -181,37 +252,31 @@ void command_mode()
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
                     new(args);
-                    clear();
                     display_map(map);
                 }
                 else if(startsWith("a ", command) != 0)
                 {
+                    free(author);
                 	author = malloc(sizeof(char) * (strlen(command) - 1));
                 	memcpy(author, &command[2], strlen(command));
                 	author[strlen(command) - 2] = '\0';
-                	clrtoeol();
                 }
                 else if (startsWith("t ", command) != 0)
                 {
+                    free(title);
                 	title = malloc(sizeof(char) * (strlen(command) - 1));
                 	memcpy(title, &command[2], strlen(command));
                 	title[strlen(command) - 2] = '\0';
-                	clrtoeol();
                 }
-                else
-                {
-                    clrtoeol();
-                }
-                break;
         }
     }
 
+    /** disable display input characters on the screen */
 	noecho();
 }
 
 void display_map(char* map)
 {
-	// method for drawing a map using an array
 	move(0, 0);
 
 	for (int i = 0; i < height * width; i++)
@@ -289,18 +354,17 @@ void display_map(char* map)
     {
         addch(ACS_S1);
     }
-    move(height + 5,0);
-
+    move(height + 6,0);
     clrtobot();
-    mvprintw(height + 5,0,"The current author is: %s", author);
-    mvprintw(height + 6,0,"The current map title is: %s", title);
+    mvprintw(height + 6,0,"The current author is: %s", author);
+    mvprintw(height + 7,0,"The current map title is: %s", title);
+
 
 	move(x, y);
 }
 
 void edit_mode(int input)
 {
-	// method for handling in editing map mode 
 	switch(input)
     {
         case KEY_UP:
@@ -354,143 +418,179 @@ void edit_mode(int input)
 }
 
 void new(char* args)
-{
-	// method for hadling new map creation
+{	
     int temp_height;
     int temp_width;
     int count = 0;
+    int error = 0;
     char *token = NULL;
 
     token = strtok(args, " ");
-    while(token != NULL) {
-        switch(count)
+    while (token != NULL) 
+    {
+        if (count == 0)
+        {   
+        	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+            reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the file name correctly");
+				error = 1;
+				break;	
+            }
+            regfree(&regex);
+            file_name = malloc(sizeof(char) * (strlen(token) + 1));
+ 			memcpy(file_name, &token[0], strlen(token));
+ 			file_name[strlen(token)] = '\0';
+        } 
+        else if (count == 1)
         {
-            case 0:
-                file_name = token;
-                break;
-            case 1:
-                sscanf(token, "%d", &temp_height);
-                break;
-            case 2:
-                sscanf(token, "%d", &temp_width);
-                break;
-            default:
-                break;
+        	reti = regcomp(&regex,"^[[:digit:]]",0);
+			reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the number of rows correctly");
+				error = 1;
+            	break;
+            }
+            regfree(&regex);
+            sscanf(token, "%d", &temp_height);
+        } 
+        else if (count == 2)
+        {
+        	reti = regcomp(&regex,"^[[:digit:]]",0);
+			reti = regexec(&regex,token,0, NULL, 0);
+			if (reti == REG_NOMATCH)
+			{
+				mvprintw(height+5,0, "Please specify the number of column correctly");
+				error = 1;
+				break;
+            }
+            regfree(&regex);
+            sscanf(token, "%d", &temp_width); 
+        } else {
+        	break; 
         }
+
         token = strtok(NULL, " ");
         count++;
     }
-
-    if (map)
+    
+    if (error == 0)
     {
-        free(map);
-    }
-    map = create_map(temp_height, temp_width);
+   		map = create_map(temp_height, temp_width);
+   		clear();
+	}
 }
 
-void finish()
-{
-	// method for ending program 
-	endwin();
-
-	//if (author){
-	//	free(author);
-	//}
-	//if (title){
-	//	free(title);
-	//}
-	//if (map){
-		free(map);
-	//}
-
-	exit(0);
-}
 
 void write_file(char* file)
-{
-	
-	// method for writing map information to file
-    char path[strlen(DIRECTORY) + strlen(file) + 1];
-    strcpy(path, DIRECTORY);
-    strcat(path, file);
+{	
+	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+	reti = regexec(&regex,file,0, NULL, 0);
+	if (reti == REG_NOMATCH)
+    {
+		mvprintw(height+5,0, "Please specify the file name to be save or use 'w' to save the file with default name");
+    } 
+    else 
+    {
+        char path[strlen(DIRECTORY) + strlen(file) + 1];
+        strcpy(path, DIRECTORY);
+        strcat(path, file);
 
-    int i;
-    FILE *f = fopen(path,"w");
-    fprintf(f, "%s\n", author);
-    fprintf(f, "%s\n%i\n%i\n", title, height, width);
+        int i;
+        FILE *f = fopen(path,"w");
+        fprintf(f, "%s\n", author);
+        fprintf(f, "%s\n%i\n%i\n", title, height, width);
 
-    for (i = 0; i < height * width; i++){
-        if (i % width == 0 && i != 0)
-            fprintf(f,"\n");
-        fprintf(f,"%c",map[i]);
-    }
+        for (i = 0; i < height * width; i++){
+            if (i % width == 0 && i != 0)
+                fprintf(f,"\n");
+            fprintf(f,"%c",map[i]);
+        }
 
-    fprintf(f, "\n");
+        fprintf(f, "\n");
 
-    fclose(f);
+        fclose(f);
+	}
+	regfree(&regex);
 }
 
 void read_file(char* file)
 {
-	/* method for reading map information from file */
-	int temp_height;
-	int temp_width;
+	
+	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+	reti = regexec(&regex,file,0, NULL, 0);
+	if (reti == REG_NOMATCH) {
+		mvprintw(height+5,0, "Please specify the file name to be open");
+	} 
+    else 
+	{
+		int temp_height;
+		int temp_width;
 
-    size_t len;
-    char *temp = NULL;
-    char *temp_author = NULL;
-    char *temp_title = NULL;
-    char c;
+    	size_t len;
+    	char *temp = NULL;
+    	char *temp_author = NULL;
+    	char *temp_title = NULL;
+    	char c;
 
-    char path[strlen(DIRECTORY) + strlen(file) + 1];
-    strcpy(path, DIRECTORY);
-    strcat(path, file);
+    	char path[strlen(DIRECTORY) + strlen(file) + 1];
+    	strcpy(path, DIRECTORY);
+    	strcat(path, file);
 
-    FILE *f = fopen(path, "r");
+    	FILE *f = fopen(path, "r");
 
-    if(f == NULL)
-        return;
-
-    getline(&temp_author, &len, f);
-    getline(&temp_title, &len, f);
-
-    author = malloc(sizeof(char) * (strlen(temp_author) + 1));
-    memcpy(author, &temp_author[0], strlen(temp_author));
-    author[strlen(temp_author)] = '\0';
-
-    title = malloc(sizeof(char) * (strlen(temp_title) + 1));
-    memcpy(title, &temp_title[0], strlen(temp_title));
-    title[strlen(temp_title)] = '\0';
-
-
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_height);
-
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_width);
-
-    map = create_map(temp_height, temp_width);
-
-    for (int row = 0; row < temp_height; row++)
-    {
-        getline(&temp, &len, f);
-
-        for (int col = 0; col < temp_width; col++)
+    	if (f == NULL)
         {
+    		mvprintw(height+5,0,"No such file found");
+        	return;
+        }
+                
+    	getline(&temp_author, &len, f);
+    	getline(&temp_title, &len, f);
+
+        free(author);
+    	author = malloc(sizeof(char) * (strlen(temp_author) + 1));
+ 		memcpy(author, &temp_author[0], strlen(temp_author));
+ 		author[strlen(temp_author)] = '\0';
+
+        free(title);
+ 		title = malloc(sizeof(char) * (strlen(temp_title) + 1));
+ 		memcpy(title, &temp_title[0], strlen(temp_title));
+ 		title[strlen(temp_title)] = '\0';
+
+    	getline(&temp, &len, f);
+    	sscanf(temp, "%d", &temp_height);
+
+    	getline(&temp, &len, f);
+    	sscanf(temp, "%d", &temp_width);
+
+    	map = create_map(temp_height, temp_width);
+
+    	for (int row = 0; row < temp_height; row++)
+    	{
+        	getline(&temp, &len, f);
+
+        	for (int col = 0; col < temp_width; col++)
+        	{
             c = temp[col];
             map[row * width + col] = temp[col];
-        }
-    }
+        	}
+    	}
 
-    free(temp);
-    free(temp_author);
-    free(temp_title);
+    	free(temp);
+    	free(temp_author);
+    	free(temp_title);
 
-    fclose(f);
+    	fclose(f);
+    	clear();
+	}
 }
 
 char *create_map(int new_height, int new_width)
 {
+	
     height = new_height;
     width = new_width;
 
@@ -527,11 +627,6 @@ char *create_map(int new_height, int new_width)
 
 int startsWith(const char *pre, const char *str)
 {
-	/** 
-	 * Function for checking the beginning of the string 
-	 * reference:
-	 * http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c
-	 */
     size_t lenpre = strlen(pre),
            lenstr = strlen(str);
     return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
