@@ -3,12 +3,23 @@
 #include <curses.h>
 #include <regex.h>
 
-#define DEFAULT_HEIGHT 10
-#define DEFAULT_WIDTH 30
-#define DIRECTORY "../levels/"
-#define DEFAULT_AUTHOR "Anonymous"
-#define DEAFULT_TITTLE "Unknown"
-#define DEAFULT_FILE_NAME "level.pac"
+#define DEFAULT_HEIGHT          10
+#define DEFAULT_WIDTH           30
+#define DIRECTORY               "../levels/"
+#define DEFAULT_AUTHOR          "Anonymous"
+#define DEAFULT_TITTLE          "Unknown"
+#define DEAFULT_FILE_NAME       "level.pac"
+
+#define COLOR_BACKGROUND        0
+#define COLOR_ERROR_BACKGROUND  1
+#define COLOR_NORMAL            2
+#define COLOR_WALL              3
+#define COLOR_PACMAN            4
+#define COLOR_FRUIT             5
+#define COLOR_GHOST_1           6
+#define COLOR_GHOST_2           7
+#define COLOR_GHOST_3           8
+#define COLOR_GHOST_4           9
 
 /**
   * VI liked command mode for map pacman editor.
@@ -91,6 +102,7 @@ int height;
 int width;
 int x = 0;
 int y = 0;
+int error_msg_count = 1;
 
 /** regex is used to to check for input pattern */
 regex_t regex;
@@ -128,11 +140,31 @@ int main()
 	/** take input chars, does not wait until new line or carriage return */
 	cbreak();
 
+    if(has_colors())
+    {
+        start_color();
+
+        init_pair(1, COLOR_NORMAL,  COLOR_BACKGROUND);
+        init_pair(2, COLOR_NORMAL,  COLOR_ERROR_BACKGROUND);
+        init_pair(3, COLOR_WALL,    COLOR_BACKGROUND);
+        init_pair(4, COLOR_PACMAN,  COLOR_BACKGROUND);
+        init_pair(5, COLOR_FRUIT,   COLOR_BACKGROUND);
+        init_pair(6, COLOR_GHOST_1, COLOR_BACKGROUND);
+        init_pair(7, COLOR_GHOST_2, COLOR_BACKGROUND);
+        init_pair(8, COLOR_GHOST_3, COLOR_BACKGROUND);
+        init_pair(9, COLOR_GHOST_4, COLOR_BACKGROUND);
+    }
+
 	map = create_map(height, width);
 
 	/** run until program is ended */
 	while(!end_program)
 	{
+        if (error_msg_count <= 0)
+        {            
+            move(height + 5, 0);
+            clrtoeol();
+        }
 
   		/** display current map from the memory */
 		display_map(map);
@@ -142,12 +174,19 @@ int main()
 
     	/** check for ":" to enter command mode */
 		if (input == ':')
-
 		{
+            if (error_msg_count > 0)
+            {
+                error_msg_count--;
+            }
 			command_mode();
 		}
 		else
 		{
+            if (error_msg_count > 0)
+            {
+                error_msg_count--;
+            }
 			edit_mode(input);
 		}
 	}
@@ -279,6 +318,8 @@ void display_map(char* map)
 {
 	move(0, 0);
 
+    attrset(COLOR_PAIR(3));
+
 	for (int i = 0; i < height * width; i++)
 	{
 		if (i != 0 && i % width == 0)
@@ -305,10 +346,14 @@ void display_map(char* map)
 	            addch(ACS_VLINE);
     	        break;
 	        case 's':
+                attrset(COLOR_PAIR(4));
     	        addch(ACS_BULLET);
+                attrset(COLOR_PAIR(3));
         	    break;
         	case 'S':
+                attrset(COLOR_PAIR(1));
             	addch(ACS_DEGREE);
+                attrset(COLOR_PAIR(3));
             	break;
         	case 'z':
         	case 'Z':
@@ -332,15 +377,21 @@ void display_map(char* map)
                 break;
         	case 'g':
         	case 'G':
+                attrset(COLOR_PAIR(6));
             	addch(ACS_PI);
+                attrset(COLOR_PAIR(3));
             	break;
         	case 'p':
         	case 'P':
+                attrset(COLOR_PAIR(4));
             	addch(ACS_STERLING);
+                attrset(COLOR_PAIR(3));
             	break;
         	case 'f':
         	case 'F':
+                attrset(COLOR_PAIR(5));
 	            addch(ACS_DIAMOND);
+                attrset(COLOR_PAIR(3));
     	        break;
         	default:
             	addch(' ');
@@ -359,6 +410,7 @@ void display_map(char* map)
     mvprintw(height + 6,0,"The current author is: %s", author);
     mvprintw(height + 7,0,"The current map title is: %s", title);
 
+    attrset(COLOR_PAIR(1));
 
 	move(x, y);
 }
@@ -434,8 +486,10 @@ void new(char* args)
             reti = regexec(&regex,token,0, NULL, 0);
 			if (reti == REG_NOMATCH)
 			{
-				mvprintw(height+5,0, "Please specify the file name correctly");
+                attrset(COLOR_PAIR(2));
+				mvprintw(height + 5, 0, "Please specify the file name correctly");
 				error = 1;
+                attrset(COLOR_PAIR(1));
 				break;	
             }
             regfree(&regex);
@@ -449,8 +503,10 @@ void new(char* args)
 			reti = regexec(&regex,token,0, NULL, 0);
 			if (reti == REG_NOMATCH)
 			{
-				mvprintw(height+5,0, "Please specify the number of rows correctly");
+                attrset(COLOR_PAIR(2));
+				mvprintw(height + 5, 0, "Please specify the number of rows correctly");
 				error = 1;
+                attrset(COLOR_PAIR(1));
             	break;
             }
             regfree(&regex);
@@ -462,8 +518,10 @@ void new(char* args)
 			reti = regexec(&regex,token,0, NULL, 0);
 			if (reti == REG_NOMATCH)
 			{
-				mvprintw(height+5,0, "Please specify the number of column correctly");
+                attrset(COLOR_PAIR(2));
+				mvprintw(height + 5, 0, "Please specify the number of column correctly");
 				error = 1;
+                attrset(COLOR_PAIR(1));
 				break;
             }
             regfree(&regex);
@@ -481,6 +539,10 @@ void new(char* args)
    		map = create_map(temp_height, temp_width);
    		clear();
 	}
+    else
+    {
+        error_msg_count = 1;
+    }
 }
 
 
@@ -490,7 +552,10 @@ void write_file(char* file)
 	reti = regexec(&regex,file,0, NULL, 0);
 	if (reti == REG_NOMATCH)
     {
-		mvprintw(height+5,0, "Please specify the file name to be save or use 'w' to save the file with default name");
+        attrset(COLOR_PAIR(2));
+		mvprintw(height + 5, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
+        attrset(COLOR_PAIR(1));
+        error_msg_count = 1;
     } 
     else 
     {
@@ -522,7 +587,10 @@ void read_file(char* file)
 	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
 	reti = regexec(&regex,file,0, NULL, 0);
 	if (reti == REG_NOMATCH) {
-		mvprintw(height+5,0, "Please specify the file name to be open");
+        attrset(COLOR_PAIR(2));
+		mvprintw(height + 5, 0, "Please specify the file name to be open");
+        attrset(COLOR_PAIR(1));
+        error_msg_count = 1;
 	} 
     else 
 	{
@@ -543,7 +611,10 @@ void read_file(char* file)
 
     	if (f == NULL)
         {
-    		mvprintw(height+5,0,"No such file found");
+            attrset(COLOR_PAIR(2));
+    		mvprintw(height + 5, 0,"No such file found");
+            attrset(COLOR_PAIR(1));
+            error_msg_count = 1;
         	return;
         }
                 
