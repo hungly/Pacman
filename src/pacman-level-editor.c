@@ -151,29 +151,30 @@ int main()
 
 	/** default values for author, title, file name, height and width*/
 	author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
-  memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
-  author[strlen(DEFAULT_AUTHOR)] = '\0';
+ 	memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
+  	author[strlen(DEFAULT_AUTHOR)] = '\0';
 
-  title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
-  memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
-  title[strlen(DEAFULT_TITTLE)] = '\0';
+  	title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
+  	memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
+  	title[strlen(DEAFULT_TITTLE)] = '\0';
 
-  file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
-  memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
-  file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
+  	file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
+  	memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
+  	file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
 
 	height = DEFAULT_HEIGHT;
 	width = DEFAULT_WIDTH;
 
+  	
 	/** initialise ncurses screen */
 	initscr();
-
+	if (getenv ("ESCDELAY") == NULL)
+ 		ESCDELAY = 25;
 	/** enable the use of function keys, allow navigating the cursor using arrow keys */
 	keypad(stdscr, TRUE);
 
 	/** disable echo when getch */
 	noecho(); 
-
 	/** take input chars, does not wait until new line or carriage return */
 	cbreak();
 
@@ -252,7 +253,6 @@ void command_mode()
 	mvprintw(height + 1, 0, ":");
 
 	input = getch();
-
 	while (input != 27 && input != 10)
 	{
         move(height + 1, count + 1);
@@ -274,10 +274,14 @@ void command_mode()
 
             count++;
         }
-		
-        input = getch();
+				
+        input = getch();       
 	}
-
+	
+	if (input == 27){
+		move(height+1,0);
+		clrtoeol();
+	}
 	command[count] = '\0';
 
     if (input == 10)
