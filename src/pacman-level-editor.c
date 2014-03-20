@@ -5,7 +5,7 @@
 
 #define DEFAULT_HEIGHT          10
 #define DEFAULT_WIDTH           30
-#define DIRECTORY               "../levels/"
+#define DIRECTORY               "levels/"
 #define DEFAULT_AUTHOR          "Anonymous"
 #define DEAFULT_TITTLE          "Unknown"
 #define DEAFULT_FILE_NAME       "level.pac"
@@ -145,7 +145,7 @@ regex_t regex;
 int reti;
 
 
-int main()
+int main(int argc, char* argv[])
 {
 	int input;
 
@@ -168,6 +168,7 @@ int main()
   	
 	/** initialise ncurses screen */
 	initscr();
+
 	if (getenv ("ESCDELAY") == NULL)
  		ESCDELAY = 25;
 	/** enable the use of function keys, allow navigating the cursor using arrow keys */
@@ -178,10 +179,10 @@ int main()
 	/** take input chars, does not wait until new line or carriage return */
 	cbreak();
 
+	
     if(has_colors())
     {
         start_color();
-
         init_pair(1, COLOR_NORMAL,  COLOR_BACKGROUND);
         init_pair(2, COLOR_NORMAL,  COLOR_ERROR_BACKGROUND);
         init_pair(3, COLOR_WALL,    COLOR_BACKGROUND);
@@ -193,8 +194,26 @@ int main()
         init_pair(9, COLOR_GHOST_4, COLOR_BACKGROUND);
     }
 
-	map = create_map(height, width);
+   	if (argc == 2)
+   	{
+   		char path[strlen(DIRECTORY) + strlen(argv[1]) + 1];
+   		strcpy(path,DIRECTORY);
+   		strcat(path,argv[1]);
+   		FILE *f = fopen(path,"r");
+   		if (f != NULL){
+	   		read_file(argv[1]);
+   			display_map(map);
+   		} else {
+   			map = create_map(height, width);
+   		}
 
+   	} 
+   	else 
+   	{
+		map = create_map(height, width);
+	}
+	
+	
 	/** run until program is ended */
 	while(!end_program)
 	{
