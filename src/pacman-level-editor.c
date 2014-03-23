@@ -147,39 +147,43 @@ int reti;
 
 int main(int argc, char* argv[])
 {
-	int input;
+    int input;
 
-	/** default values for author, title, file name, height and width*/
-	author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
- 	memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
-  	author[strlen(DEFAULT_AUTHOR)] = '\0';
+    /** default values for author, title, file name, height and width*/
+    author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
+    memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
+    author[strlen(DEFAULT_AUTHOR)] = '\0';
 
-  	title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
-  	memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
-  	title[strlen(DEAFULT_TITTLE)] = '\0';
+    title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
+    memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
+    title[strlen(DEAFULT_TITTLE)] = '\0';
 
-  	file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
-  	memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
-  	file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
+    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
+    memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
+    file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
 
-	height = DEFAULT_HEIGHT;
-	width = DEFAULT_WIDTH;
+    height = DEFAULT_HEIGHT;
+    width = DEFAULT_WIDTH;
 
-  	
-	/** initialise ncurses screen */
-	initscr();
+    
+    /** initialise ncurses screen */
+    initscr();
 
-	if (getenv ("ESCDELAY") == NULL)
- 		ESCDELAY = 25;
-	/** enable the use of function keys, allow navigating the cursor using arrow keys */
-	keypad(stdscr, TRUE);
+    /** 
+     * http://en.chys.info/2009/09/esdelay-ncurses/
+     */
+    if (getenv ("ESCDELAY") == NULL)
+        ESCDELAY = 25;
 
-	/** disable echo when getch */
-	noecho(); 
-	/** take input chars, does not wait until new line or carriage return */
-	cbreak();
+    /** enable the use of function keys, allow navigating the cursor using arrow keys */
+    keypad(stdscr, TRUE);
 
-	
+    /** disable echo when getch */
+    noecho(); 
+    /** take input chars, does not wait until new line or carriage return */
+    cbreak();
+
+    
     if(has_colors())
     {
         start_color();
@@ -194,97 +198,99 @@ int main(int argc, char* argv[])
         init_pair(9, COLOR_GHOST_4, COLOR_BACKGROUND);
     }
 
-   	if (argc == 2)
-   	{
-   		char path[strlen(DIRECTORY) + strlen(argv[1]) + 1];
-   		strcpy(path,DIRECTORY);
-   		strcat(path,argv[1]);
-   		FILE *f = fopen(path,"r");
-   		if (f != NULL){
-	   		read_file(argv[1]);
-   			display_map(map);
-   		} else {
-   			map = create_map(height, width);
-   		}
+    if (argc == 2)
+    {
+        char path[strlen(DIRECTORY) + strlen(argv[1]) + 1];
+        strcpy(path,DIRECTORY);
+        strcat(path,argv[1]);
+        FILE *f = fopen(path,"r");
+        if (f != NULL){
+            read_file(argv[1]);
+            display_map(map);
+        } else {
+            map = create_map(height, width);
+            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
+            memcpy(file_name, &argv[1][0], strlen(argv[1]));
+            file_name[strlen(argv[1])] = '\0';
+        }
 
-   	} 
-   	else 
-   	{
-		map = create_map(height, width);
-	}
-	
-	
-	/** run until program is ended */
-	while(!end_program)
-	{
+    } 
+    else 
+    {
+        map = create_map(height, width);
+    }
+    
+    /** run until program is ended */
+    while(!end_program)
+    {
         if (error_msg_count <= 0)
         {            
-            move(height + 5, 0);
+            move(height + 4, 0);
             clrtoeol();
         }
 
-  		/** display current map from the memory */
-		display_map(map);
+        /** display current map from the memory */
+        display_map(map);
 
-    	/** get input command */
-		input = getch();
+        /** get input command */
+        input = getch();
 
     /** check for ":" to enter command mode */
-		if (input == ':')
-		{
+        if (input == ':')
+        {
             if (error_msg_count > 0)
             {
                 error_msg_count--;
             }
-			command_mode();
-		}
-		else
-		{
+            command_mode();
+        }
+        else
+        {
             if (error_msg_count > 0)
             {
                 error_msg_count--;
             }
-			edit_mode(input);
-		}
-	}
-	endwin();
+            edit_mode(input);
+        }
+    }
+    endwin();
 
-  free(map);
-  free(author);
-  free(title);
-  free(file_name);
+    free(map);
+    free(author);
+    free(title);
+    free(file_name);
 
-  exit(0);
+    exit(0);
 }
 
 void command_mode()
 {
-	char args[1000];
+    char args[1000];
 
-	int count = 0;
-	int input;
+    int count = 0;
+    int input;
 
-	char command[1000];
+    char command[1000];
 
     /** display the input characters on the screen */
-	echo();
+    echo();
 
-	mvprintw(height + 1, 0, ":");
+    mvprintw(height + 1, 0, ":");
 
-	input = getch();
-	while (input != 27 && input != 10)
-	{
+    input = getch();
+    while (input != 27 && input != 10)
+    {
         move(height + 1, count + 1);
 
-		if (input == KEY_BACKSPACE  && count != 0)
-		{
-			mvprintw(height + 1, count, "     ");
+        if (input == KEY_BACKSPACE  && count != 0)
+        {
+            mvprintw(height + 1, count, "     ");
             move(height + 1, count);
             count--;
             input = getch();
             continue;
-		}
-		
+        }
+        
         if (input != KEY_UP && input != KEY_DOWN && input != KEY_LEFT && input != KEY_RIGHT && input != KEY_BACKSPACE)
         {
             move(height + 1, count + 2);
@@ -293,21 +299,21 @@ void command_mode()
 
             count++;
         }
-				
+                
         input = getch();       
-	}
-	
-	if (input == 27){
-		move(height+1,0);
-		clrtoeol();
-	}
-	command[count] = '\0';
+    }
+    
+    if (input == 27){
+        move(height+1,0);
+        clrtoeol();
+    }
+    command[count] = '\0';
 
     if (input == 10)
     {
         clrtoeol();
         switch (strlen(command)){
-        	/** check for user input in command mode */
+            /** check for user input in command mode */
             case 1:
                 if(strcmp(command, "q") == 0)
                 {
@@ -356,73 +362,73 @@ void command_mode()
                 else if(startsWith("a ", command) != 0)
                 {
                     free(author);
-                	author = malloc(sizeof(char) * (strlen(command) - 1));
-                	memcpy(author, &command[2], strlen(command));
-                	author[strlen(command) - 2] = '\0';
+                    author = malloc(sizeof(char) * (strlen(command) - 1));
+                    memcpy(author, &command[2], strlen(command));
+                    author[strlen(command) - 2] = '\0';
                 }
                 else if (startsWith("t ", command) != 0)
                 {
                     free(title);
-                	title = malloc(sizeof(char) * (strlen(command) - 1));
-                	memcpy(title, &command[2], strlen(command));
-                	title[strlen(command) - 2] = '\0';
+                    title = malloc(sizeof(char) * (strlen(command) - 1));
+                    memcpy(title, &command[2], strlen(command));
+                    title[strlen(command) - 2] = '\0';
                 }
         }
     }
 
     /** disable display input characters on the screen */
-	noecho();
+    noecho();
 }
 
 void display_map(char* map)
 {
-	move(0, 0);
+    move(0, 0);
 
     attrset(COLOR_PAIR(3));
 
-	for (int i = 0; i < height * width; i++)
-	{
-		if (i != 0 && i % width == 0)
-		{
-			printw("\n");
-		}
+    for (int i = 0; i < height * width; i++)
+    {
+        if (i != 0 && i % width == 0)
+        {
+            printw("\n");
+        }
 
-		switch (map[i])
-    	{
-        	case 'q':
-	        case 'Q':
-    	        addch(ACS_ULCORNER);
-            	break;
-	        case 'w':
-    	    case 'x':
-        	    addch(ACS_HLINE);
-            	break;
-        	case 'e':
-        	case 'E':
-            	addch(ACS_URCORNER);
-            	break;
-        	case 'a':
-        	case 'd':
-	            addch(ACS_VLINE);
-    	        break;
-	        case 's':
+        switch (map[i])
+        {
+            case 'q':
+            case 'Q':
+                addch(ACS_ULCORNER);
+                break;
+            case 'w':
+            case 'x':
+                addch(ACS_HLINE);
+                break;
+            case 'e':
+            case 'E':
+                addch(ACS_URCORNER);
+                break;
+            case 'a':
+            case 'd':
+                addch(ACS_VLINE);
+                break;
+            case 's':
                 attrset(COLOR_PAIR(4));
-    	        addch(ACS_BULLET);
+                addch(ACS_BULLET);
                 attrset(COLOR_PAIR(3));
-        	    break;
-        	case 'S':
+                break;
+            case 'S':
                 attrset(COLOR_PAIR(1));
-            	addch(ACS_DEGREE);
+                addch(ACS_DEGREE);
                 attrset(COLOR_PAIR(3));
-            	break;
-        	case 'z':
-        	case 'Z':
-            	addch(ACS_LLCORNER);
-            	break;        
-        	case 'c':
-        	case 'C':
-            	addch(ACS_LRCORNER);
-            	break;        
+                break;
+            case 'z':
+            case 'Z':
+                addch(ACS_LLCORNER);
+                break;        
+            case 'c':
+            case 'C':
+                addch(ACS_LRCORNER);
+                break;        
             case 'W':
                 addch(ACS_TTEE);
                 break;
@@ -435,29 +441,29 @@ void display_map(char* map)
             case 'D':
                 addch(ACS_RTEE);
                 break;
-        	case 'g':
-        	case 'G':
+            case 'g':
+            case 'G':
                 attrset(COLOR_PAIR(6));
-            	addch(ACS_PI);
+                addch(ACS_PI);
                 attrset(COLOR_PAIR(3));
-            	break;
-        	case 'p':
-        	case 'P':
+                break;
+            case 'p':
+            case 'P':
                 attrset(COLOR_PAIR(4));
-            	addch(ACS_STERLING);
+                addch(ACS_STERLING);
                 attrset(COLOR_PAIR(3));
-            	break;
-        	case 'f':
-        	case 'F':
+                break;
+            case 'f':
+            case 'F':
                 attrset(COLOR_PAIR(5));
-	            addch(ACS_DIAMOND);
+                addch(ACS_DIAMOND);
                 attrset(COLOR_PAIR(3));
-    	        break;
-        	default:
-            	addch(' ');
-            	break;
-    	}
-	}
+                break;
+            default:
+                addch(' ');
+                break;
+        }
+    }
 
     move(height, 0);
 
@@ -465,19 +471,20 @@ void display_map(char* map)
     {
         addch(ACS_S1);
     }
-    move(height + 6,0);
+    move(height + 5,0);
     clrtobot();
+    mvprintw(height + 5,0,"The current file is: %s", file_name);
     mvprintw(height + 6,0,"The current author is: %s", author);
     mvprintw(height + 7,0,"The current map title is: %s", title);
 
     attrset(COLOR_PAIR(1));
 
-	move(x, y);
+    move(x, y);
 }
 
 void edit_mode(int input)
 {
-	switch(input)
+    switch(input)
     {
         case KEY_UP:
             if(x > 0)
@@ -498,30 +505,30 @@ void edit_mode(int input)
         case 'q':
         case 'Q':
         case 'w':
-   	    case 'x':
-       	case 'e':
-       	case 'E':
-       	case 'a':
-       	case 'd':
+        case 'x':
+        case 'e':
+        case 'E':
+        case 'a':
+        case 'd':
         case 'W':
         case 'X':
         case 'A':
         case 'D':
         case 's':
-       	case 'S':
-       	case 'z':
-       	case 'Z':
-       	case 'c':
-       	case 'C':
-       	case 'g':
-       	case 'G':
-       	case 'p':
-       	case 'P':
+        case 'S':
+        case 'z':
+        case 'Z':
+        case 'c':
+        case 'C':
+        case 'g':
+        case 'G':
+        case 'p':
+        case 'P':
         case 'f':
         case 'F':
         case ' ':
-        	map[x * width + y] = input;
-        	break;
+            map[x * width + y] = input;
+            break;
         default:
             break;
     }
@@ -530,7 +537,7 @@ void edit_mode(int input)
 }
 
 void new(char* args)
-{	
+{   
     int temp_height;
     int temp_width;
     int count = 0;
@@ -542,57 +549,55 @@ void new(char* args)
     {
         if (count == 0)
         {   
-        	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-          reti = regexec(&regex,token,0, NULL, 0);
-			    if (reti == REG_NOMATCH)
-			    {
-          attrset(COLOR_PAIR(2));
-				  mvprintw(height + 5, 0, "Please specify the file name correctly");
-				  error = 1;
-          attrset(COLOR_PAIR(1));
-				  break;	
-          }
-          regfree(&regex);
-          file_name = malloc(sizeof(char) * (strlen(token) + 1));
- 			    memcpy(file_name, &token[0], strlen(token));
- 			    file_name[strlen(token)] = '\0';
+            reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+            reti = regexec(&regex,token,0, NULL, 0);
+            if (reti == REG_NOMATCH)
+            {
+                attrset(COLOR_PAIR(2));
+                mvprintw(height + 4, 0, "Please specify the file name correctly");
+                error = 1;
+                attrset(COLOR_PAIR(1));
+                break;    
+            }
+            regfree(&regex);
+            file_name = malloc(sizeof(char) * (strlen(token) + 1));
+            memcpy(file_name, &token[0], strlen(token));
+            file_name[strlen(token)] = '\0';
         } 
         else if (count == 1)
         {
-          reti = regcomp(&regex,"^[[:digit:]]",0);
-			    reti = regexec(&regex,token,0, NULL, 0);
-			    
-          if (reti == REG_NOMATCH)
-			    {
-          attrset(COLOR_PAIR(2));
-				  mvprintw(height + 5, 0, "Please specify the number of rows correctly");
-				  error = 1;
-          attrset(COLOR_PAIR(1));
-          break;
-          }
+            reti = regcomp(&regex,"^[[:digit:]]",0);
+            reti = regexec(&regex,token,0, NULL, 0);    
+            if (reti == REG_NOMATCH)
+            {
+                attrset(COLOR_PAIR(2));
+                mvprintw(height + 4, 0, "Please specify the number of rows correctly");
+                error = 1;
+                attrset(COLOR_PAIR(1));
+                break;
+            }
 
-          regfree(&regex);
-          sscanf(token, "%d", &temp_height);
+            regfree(&regex);
+            sscanf(token, "%d", &temp_height);
         } 
         else if (count == 2)
         {
-        	reti = regcomp(&regex,"^[[:digit:]]",0);
-			    reti = regexec(&regex,token,0, NULL, 0);
-			    
-          if (reti == REG_NOMATCH)
-			    {
-            attrset(COLOR_PAIR(2));
-				    mvprintw(height + 5, 0, "Please specify the number of column correctly");
-				    error = 1;
-            attrset(COLOR_PAIR(1));
-				    break;
-          }
+            reti = regcomp(&regex,"^[[:digit:]]",0);
+            reti = regexec(&regex,token,0, NULL, 0);
+                
+            if (reti == REG_NOMATCH)
+            {
+                attrset(COLOR_PAIR(2));
+                mvprintw(height + 4, 0, "Please specify the number of column correctly");
+                error = 1;
+                attrset(COLOR_PAIR(1));
+                break;
+            }
 
-          regfree(&regex);
-          sscanf(token, "%d", &temp_width);
-
+            regfree(&regex);
+            sscanf(token, "%d", &temp_width);
         } else {
-        	break; 
+            break; 
         }
 
         token = strtok(NULL, " ");
@@ -602,9 +607,9 @@ void new(char* args)
 
     if (error == 0)
     {
-   		map = create_map(temp_height, temp_width);
-   		clear();
-	  }
+        map = create_map(temp_height, temp_width);
+        clear();
+    }
     else
     {
         error_msg_count = 1;
@@ -613,15 +618,15 @@ void new(char* args)
 
 
 void write_file(char* file)
-{	
-	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-	reti = regexec(&regex,file,0, NULL, 0);
-	if (reti == REG_NOMATCH)
+{   
+    reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+    reti = regexec(&regex,file,0, NULL, 0);
+    if (reti == REG_NOMATCH)
     {
-      attrset(COLOR_PAIR(2));
-		  mvprintw(height + 5, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
-      attrset(COLOR_PAIR(1));
-      error_msg_count = 1;
+        attrset(COLOR_PAIR(2));
+        mvprintw(height + 4, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
+        attrset(COLOR_PAIR(1));
+        error_msg_count = 1;
     } 
     else 
     {
@@ -643,128 +648,127 @@ void write_file(char* file)
         fprintf(f, "\n");
 
         fclose(f);
-	}
-	regfree(&regex);
+        error_msg_count = 0;
+    }
+    regfree(&regex);
 }
 
 void read_file(char* file)
 {
-	
-	reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-	reti = regexec(&regex,file,0, NULL, 0);
-	if (reti == REG_NOMATCH) {
-    attrset(COLOR_PAIR(2));
-		mvprintw(height + 5, 0, "Please specify the file name to be open");
-    attrset(COLOR_PAIR(1));
-    error_msg_count = 1;
-	}
-
-  else 
-	{
-		int temp_height;
-		int temp_width;
-
-    size_t len;
-    char *temp = NULL;
-    char *temp_author = NULL;
-    char *temp_title = NULL;
-    char c;
-
-    free(file_name);
-    file_name = malloc(sizeof(char)*(strlen(file) + 1));
-    memcpy(file_name, &file[0], strlen(file));
-    file_name[strlen(file)] = '\0';
-
-    char path[strlen(DIRECTORY) + strlen(file) + 1];
-    strcpy(path, DIRECTORY);
-    strcat(path, file);
-
-    FILE *f = fopen(path, "r");
-    if (f == NULL)
+    reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
+    reti = regexec(&regex,file,0, NULL, 0);
+    if (reti == REG_NOMATCH) {
+        attrset(COLOR_PAIR(2));
+        mvprintw(height + 4, 0, "Please specify the file name to be open");
+        attrset(COLOR_PAIR(1));
+        error_msg_count = 1;
+    }
+    else 
     {
-      attrset(COLOR_PAIR(2));
-    	mvprintw(height + 5, 0,"No such file found");
-      attrset(COLOR_PAIR(1));
-      error_msg_count = 1;
-      return;
-    }
-                
-    getline(&temp_author, &len, f);
-    getline(&temp_title, &len, f);
+        int temp_height;
+        int temp_width;
 
-    free(author);
-    author = malloc(sizeof(char) * (strlen(temp_author)));
- 		memcpy(author, &temp_author[0], strlen(temp_author) - 1);
- 		author[strlen(temp_author) - 1] = '\0';
+        size_t len;
+        char *temp = NULL;
+        char *temp_author = NULL;
+        char *temp_title = NULL;
+        char c;
 
-    free(title);
- 		title = malloc(sizeof(char) * (strlen(temp_title)));
- 		memcpy(title, &temp_title[0], strlen(temp_title) - 1);
- 		title[strlen(temp_title) - 1] = '\0';
+        free(file_name);
+        file_name = malloc(sizeof(char)*(strlen(file) + 1));
+        memcpy(file_name, &file[0], strlen(file));
+        file_name[strlen(file)] = '\0';
 
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_height);
+        char path[strlen(DIRECTORY) + strlen(file) + 1];
+        strcpy(path, DIRECTORY);
+        strcat(path, file);
 
-    getline(&temp, &len, f);
-    sscanf(temp, "%d", &temp_width);
-
-    	map = create_map(temp_height, temp_width);
-
-    	for (int row = 0; row < temp_height; row++)
-    	{
-        	getline(&temp, &len, f);
-
-        	for (int col = 0; col < temp_width; col++)
-        	{
-            c = temp[col];
-            map[row * width + col] = temp[col];
+        FILE *f = fopen(path, "r");
+        if (f == NULL)
+        {
+            attrset(COLOR_PAIR(2));
+            mvprintw(height + 4, 0,"No such file found");
+            attrset(COLOR_PAIR(1));
+            error_msg_count = 1;
+           return;
         }
+                
+        getline(&temp_author, &len, f);
+        getline(&temp_title, &len, f);
+
+        free(author);
+        author = malloc(sizeof(char) * (strlen(temp_author)));
+        memcpy(author, &temp_author[0], strlen(temp_author) - 1);
+        author[strlen(temp_author) - 1] = '\0';
+
+        free(title);
+        title = malloc(sizeof(char) * (strlen(temp_title)));
+        memcpy(title, &temp_title[0], strlen(temp_title) - 1);
+        title[strlen(temp_title) - 1] = '\0';
+
+        getline(&temp, &len, f);
+        sscanf(temp, "%d", &temp_height);
+
+        getline(&temp, &len, f);
+        sscanf(temp, "%d", &temp_width);
+
+        map = create_map(temp_height, temp_width);
+
+        for (int row = 0; row < temp_height; row++)
+        {
+            getline(&temp, &len, f);
+
+            for (int col = 0; col < temp_width; col++)
+            {
+                c = temp[col];
+                map[row * width + col] = temp[col];
+            }
+        }
+
+        free(temp);
+        free(temp_author);
+        free(temp_title);
+
+        fclose(f);
+        clear();
     }
-
-    free(temp);
-    free(temp_author);
-    free(temp_title);
-
-    fclose(f);
-    clear();
-	}
 }
 
 char *create_map(int new_height, int new_width)
 {
-	
+    
     height = new_height;
     width = new_width;
 
-    if(new_map)
+    if (new_map)
     {
-		free(new_map);
-	}
-	new_map = malloc(sizeof(char) * (height * width));
+        free(new_map);
+    }
+    new_map = malloc(sizeof(char) * (height * width));
 
-	for (int i = 0; i < (height * width); i++)
-	{
-		new_map[i] = ' ';
-	}
+    for (int i = 0; i < (height * width); i++)
+    {
+        new_map[i] = ' ';
+    }
 
-	for (int row = 1; row < height - 1; row++)
-	{
-		new_map[row * width] = 'a';
-		new_map[row * width + width - 1] = 'd';
-	}
+    for (int row = 1; row < height - 1; row++)
+    {
+        new_map[row * width] = 'a';
+        new_map[row * width + width - 1] = 'd';
+    }
 
-	for (int col = 1; col < width - 1; col++)
-	{
-		new_map[col] = 'w';
-		new_map[width * (height - 1) + col] = 'x';
-	}
+    for (int col = 1; col < width - 1; col++)
+    {
+        new_map[col] = 'w';
+        new_map[width * (height - 1) + col] = 'x';
+    }
 
-	new_map[0] = 'q';
-	new_map[width - 1] = 'e';
-	new_map[(height - 1) * width] = 'z';
-	new_map[height * width - 1] = 'c';
+    new_map[0] = 'q';
+    new_map[width - 1] = 'e';
+    new_map[(height - 1) * width] = 'z';
+    new_map[height * width - 1] = 'c';
 
-	return new_map;
+    return new_map;
 }
 
 int startsWith(const char *pre, const char *str)
