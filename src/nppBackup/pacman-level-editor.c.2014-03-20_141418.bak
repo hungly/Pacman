@@ -223,7 +223,7 @@ void command_mode()
 		if (input == KEY_BACKSPACE  && count != 0)
 		{
             move(height + 1, count);
-            clrtoeol();
+            clreol();
             count--;
             input = getch();
             continue;

@@ -215,6 +215,7 @@ void command_mode()
 	mvprintw(height + 1, 0, ":");
 
 	input = getch();
+  timeout(0);
 
 	while (input != 27 && input != 10)
 	{
@@ -222,8 +223,8 @@ void command_mode()
 
 		if (input == KEY_BACKSPACE  && count != 0)
 		{
+			mvprintw(height + 1, count, "     ");
             move(height + 1, count);
-            clrtoeol();
             count--;
             input = getch();
             continue;
