@@ -282,8 +282,14 @@ void command_mode()
     {
         move(height + 1, count + 1);
 
+<<<<<<< HEAD
+        if (input == KEY_BACKSPACE  && count != 0)
+        {
+            mvprintw(height + 1, count, "     ");
+=======
 		if (input == KEY_BACKSPACE  && count != 0)
 		{
+>>>>>>> origin/hung
             move(height + 1, count);
             clrtoeol();
             count--;
