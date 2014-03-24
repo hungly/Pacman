@@ -2,24 +2,26 @@
 #include <string.h>
 #include <curses.h>
 #include <regex.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #define DEFAULT_HEIGHT          10
 #define DEFAULT_WIDTH           30
-#define DIRECTORY               "levels/"
+#define DIRECTORY_SH            "levels/"
+#define DIRECTORY_SRC           "../levels/"
 #define DEFAULT_AUTHOR          "Anonymous"
 #define DEAFULT_TITTLE          "Unknown"
 #define DEAFULT_FILE_NAME       "level.pac"
 
 #define COLOR_BACKGROUND        0
-#define COLOR_ERROR_BACKGROUND  1
-#define COLOR_NORMAL            2
-#define COLOR_WALL              3
-#define COLOR_PACMAN            4
-#define COLOR_FRUIT             5
-#define COLOR_GHOST_1           6
-#define COLOR_GHOST_2           7
-#define COLOR_GHOST_3           8
-#define COLOR_GHOST_4           9
+#define COLOR_MAP_BACKGROUND    1
+#define COLOR_ERROR_BACKGROUND  2
+#define COLOR_NORMAL            3
+#define COLOR_WALL              4
+#define COLOR_PACMAN            5
+#define COLOR_FRUIT             6
+#define COLOR_GHOST             7
 
 /**
   * VI liked command mode for map pacman editor.
@@ -129,12 +131,18 @@ char *author;
 char *title;
 char *file_name;
 
+char *directory;
+
+struct winsize w;
+
 int end_program = 0;
 int height;
 int width;
 int x = 0;
 int y = 0;
 int error_msg_count = 1;
+int x_offset;
+int y_offset;
 
 /** regex is used to to check for input pattern */
 regex_t regex;
@@ -148,6 +156,8 @@ int reti;
 int main(int argc, char* argv[])
 {
     int input;
+
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
     /** default values for author, title, file name, height and width*/
     author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
@@ -165,6 +175,14 @@ int main(int argc, char* argv[])
     height = DEFAULT_HEIGHT;
     width = DEFAULT_WIDTH;
 
+    if (startsWith("./src/", argv[0]))
+    {
+        directory = DIRECTORY_SH;
+    }
+    else
+    {
+        directory = DIRECTORY_SRC;
+    }
     
     /** initialise ncurses screen */
     initscr();
@@ -182,27 +200,24 @@ int main(int argc, char* argv[])
     noecho(); 
     /** take input chars, does not wait until new line or carriage return */
     cbreak();
-
     
     if(has_colors())
     {
         start_color();
         init_pair(1, COLOR_NORMAL,  COLOR_BACKGROUND);
         init_pair(2, COLOR_NORMAL,  COLOR_ERROR_BACKGROUND);
-        init_pair(3, COLOR_WALL,    COLOR_BACKGROUND);
-        init_pair(4, COLOR_PACMAN,  COLOR_BACKGROUND);
-        init_pair(5, COLOR_FRUIT,   COLOR_BACKGROUND);
-        init_pair(6, COLOR_GHOST_1, COLOR_BACKGROUND);
-        init_pair(7, COLOR_GHOST_2, COLOR_BACKGROUND);
-        init_pair(8, COLOR_GHOST_3, COLOR_BACKGROUND);
-        init_pair(9, COLOR_GHOST_4, COLOR_BACKGROUND);
+        init_pair(3, COLOR_WALL,    COLOR_MAP_BACKGROUND);
+        init_pair(4, COLOR_PACMAN,  COLOR_MAP_BACKGROUND);
+        init_pair(5, COLOR_FRUIT,   COLOR_MAP_BACKGROUND);
+        init_pair(6, COLOR_NORMAL,   COLOR_MAP_BACKGROUND);
+        init_pair(7, COLOR_GHOST, COLOR_MAP_BACKGROUND);
     }
 
     if (argc == 2)
     {
-        char path[strlen(DIRECTORY) + strlen(argv[1]) + 1];
-        strcpy(path,DIRECTORY);
-        strcat(path,argv[1]);
+        char path[strlen(directory) + strlen(argv[1]) + 1];
+        strcpy(path, directory);
+        strcat(path, argv[1]);
         FILE *f = fopen(path,"r");
         if (f != NULL){
             read_file(argv[1]);
@@ -216,17 +231,19 @@ int main(int argc, char* argv[])
 
     } 
     else 
-    {
+    {        
         map = create_map(height, width);
     }
     
     /** run until program is ended */
     while(!end_program)
     {
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
         if (error_msg_count <= 0)
         {            
-            move(height + 4, 0);
-            clrtoeol();
+            move(w.ws_row - 2, 0);
+            clrtobot();
         }
 
         /** display current map from the memory */
@@ -235,13 +252,20 @@ int main(int argc, char* argv[])
         /** get input command */
         input = getch();
 
-    /** check for ":" to enter command mode */
+        /** check for ":" to enter command mode */
         if (input == ':')
         {
             if (error_msg_count > 0)
             {
                 error_msg_count--;
             }
+
+            if (error_msg_count <= 0)
+            {            
+                move(w.ws_row - 2, 0);
+                clrtobot();
+            }
+
             command_mode();
         }
         else
@@ -275,16 +299,16 @@ void command_mode()
     /** display the input characters on the screen */
     echo();
 
-    mvprintw(height + 1, 0, ":");
+    mvprintw(w.ws_row - 1, 0, ":");
 
     input = getch();
     while (input != 27 && input != 10)
     {
-        move(height + 1, count + 1);
+        move(w.ws_row - 1, count + 1);
 
-		if (input == KEY_BACKSPACE  && count != 0)
-		{
-            move(height + 1, count);
+        if (input == KEY_BACKSPACE  && count != 0)
+        {
+            move(w.ws_row - 1, count);
             clrtoeol();
             count--;
             input = getch();
@@ -293,7 +317,7 @@ void command_mode()
         
         if (input != KEY_UP && input != KEY_DOWN && input != KEY_LEFT && input != KEY_RIGHT && input != KEY_BACKSPACE)
         {
-            move(height + 1, count + 2);
+            move(w.ws_row - 1, count + 2);
 
             command[count] = input;
 
@@ -304,7 +328,7 @@ void command_mode()
     }
     
     if (input == 27){
-        move(height+1,0);
+        move(w.ws_row - 1, 0);
         clrtoeol();
     }
     command[count] = '\0';
@@ -382,7 +406,23 @@ void command_mode()
 
 void display_map(char* map)
 {
+    int count = 0;
+
+    attrset(COLOR_PAIR(1));
+
     move(0, 0);
+    clrtoeol();
+    mvprintw(0, 0, "The current file is:      %s", file_name);
+
+    move(1, 0);
+    clrtoeol();
+    mvprintw(1, 0, "The current author is:    %s", author);
+
+    move(2, 0);
+    clrtoeol();
+    mvprintw(2, 0, "The current map title is: %s", title);
+
+    move(4 + x_offset, 0 + y_offset);
 
     attrset(COLOR_PAIR(3));
 
@@ -390,7 +430,8 @@ void display_map(char* map)
     {
         if (i != 0 && i % width == 0)
         {
-            printw("\n");
+        //    printw("\n");
+            move(4 + x_offset + (i / width), y_offset);
         }
 
         switch (map[i])
@@ -417,7 +458,7 @@ void display_map(char* map)
                 attrset(COLOR_PAIR(3));
                 break;
             case 'S':
-                attrset(COLOR_PAIR(1));
+                attrset(COLOR_PAIR(6));
                 addch(ACS_DEGREE);
                 attrset(COLOR_PAIR(3));
                 break;
@@ -442,10 +483,20 @@ void display_map(char* map)
                 addch(ACS_RTEE);
                 break;
             case 'g':
-            case 'G':
-                attrset(COLOR_PAIR(6));
+            case 'G':                
+                attrset(COLOR_PAIR(4 + count));
                 addch(ACS_PI);
                 attrset(COLOR_PAIR(3));
+
+                if (count <= 3)
+                {
+                    count++;
+                }
+                else
+                {
+                    count = 0;
+                }
+
                 break;
             case 'p':
             case 'P':
@@ -465,21 +516,9 @@ void display_map(char* map)
         }
     }
 
-    move(height, 0);
-
-    for (int i = 0; i < width; i++)
-    {
-        addch(ACS_S1);
-    }
-    move(height + 5,0);
-    clrtobot();
-    mvprintw(height + 5,0,"The current file is: %s", file_name);
-    mvprintw(height + 6,0,"The current author is: %s", author);
-    mvprintw(height + 7,0,"The current map title is: %s", title);
-
     attrset(COLOR_PAIR(1));
 
-    move(x, y);
+    move(x + 4 + x_offset, y + y_offset);
 }
 
 void edit_mode(int input)
@@ -533,7 +572,7 @@ void edit_mode(int input)
             break;
     }
 
-    move(x, y);
+    move(x + 4 + x_offset, y + y_offset);
 }
 
 void new(char* args)
@@ -549,12 +588,12 @@ void new(char* args)
     {
         if (count == 0)
         {   
-            reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-            reti = regexec(&regex,token,0, NULL, 0);
+            reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
+            reti = regexec(&regex, token, 0, NULL, 0);
             if (reti == REG_NOMATCH)
             {
                 attrset(COLOR_PAIR(2));
-                mvprintw(height + 4, 0, "Please specify the file name correctly");
+                mvprintw(w.ws_row - 2, 0, "Please specify the file name correctly");
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;    
@@ -566,12 +605,12 @@ void new(char* args)
         } 
         else if (count == 1)
         {
-            reti = regcomp(&regex,"^[[:digit:]]",0);
-            reti = regexec(&regex,token,0, NULL, 0);    
+            reti = regcomp(&regex,"^[[:digit:]]", 0);
+            reti = regexec(&regex, token, 0, NULL, 0);    
             if (reti == REG_NOMATCH)
             {
                 attrset(COLOR_PAIR(2));
-                mvprintw(height + 4, 0, "Please specify the number of rows correctly");
+                mvprintw(w.ws_row - 2, 0, "Please specify the number of rows correctly");
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;
@@ -579,16 +618,25 @@ void new(char* args)
 
             regfree(&regex);
             sscanf(token, "%d", &temp_height);
+
+            if (temp_height > w.ws_row - 6 || temp_height < 1)
+            {
+                attrset(COLOR_PAIR(2));
+                mvprintw(w.ws_row - 2, 0, "Please enter a valid height (1 to %d)", w.ws_row - 6);
+                error = 1;
+                attrset(COLOR_PAIR(1));
+                break;            
+            }
         } 
         else if (count == 2)
         {
-            reti = regcomp(&regex,"^[[:digit:]]",0);
-            reti = regexec(&regex,token,0, NULL, 0);
+            reti = regcomp(&regex,"^[[:digit:]]", 0);
+            reti = regexec(&regex, token, 0, NULL, 0);
                 
             if (reti == REG_NOMATCH)
             {
                 attrset(COLOR_PAIR(2));
-                mvprintw(height + 4, 0, "Please specify the number of column correctly");
+                mvprintw(w.ws_row - 2, 0, "Please specify the number of column correctly");
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;
@@ -596,6 +644,15 @@ void new(char* args)
 
             regfree(&regex);
             sscanf(token, "%d", &temp_width);
+
+            if (temp_width > w.ws_col -1 || temp_width < 1)
+            {
+                attrset(COLOR_PAIR(2));
+                mvprintw(w.ws_row - 2, 0, "Please enter a valid width (1 to %d)", w.ws_col - 1);
+                error = 1;
+                attrset(COLOR_PAIR(1));
+                break;            
+            }
         } else {
             break; 
         }
@@ -619,19 +676,19 @@ void new(char* args)
 
 void write_file(char* file)
 {   
-    reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-    reti = regexec(&regex,file,0, NULL, 0);
+    reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
+    reti = regexec(&regex, file, 0, NULL, 0);
     if (reti == REG_NOMATCH)
     {
         attrset(COLOR_PAIR(2));
-        mvprintw(height + 4, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
+        mvprintw(w.ws_row - 2, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
     } 
     else 
     {
-        char path[strlen(DIRECTORY) + strlen(file) + 1];
-        strcpy(path, DIRECTORY);
+        char path[strlen(directory) + strlen(file) + 1];
+        strcpy(path, directory);
         strcat(path, file);
 
         int i;
@@ -642,7 +699,7 @@ void write_file(char* file)
         for (i = 0; i < height * width; i++){
             if (i % width == 0 && i != 0)
                 fprintf(f,"\n");
-            fprintf(f,"%c",map[i]);
+            fprintf(f,"%c", map[i]);
         }
 
         fprintf(f, "\n");
@@ -655,11 +712,11 @@ void write_file(char* file)
 
 void read_file(char* file)
 {
-    reti = regcomp(&regex,"^[[:alnum:][:punct:]]",0);
-    reti = regexec(&regex,file,0, NULL, 0);
+    reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
+    reti = regexec(&regex, file, 0, NULL, 0);
     if (reti == REG_NOMATCH) {
         attrset(COLOR_PAIR(2));
-        mvprintw(height + 4, 0, "Please specify the file name to be open");
+        mvprintw(w.ws_row - 2, 0, "Please specify the file name to be open");
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
     }
@@ -679,15 +736,15 @@ void read_file(char* file)
         memcpy(file_name, &file[0], strlen(file));
         file_name[strlen(file)] = '\0';
 
-        char path[strlen(DIRECTORY) + strlen(file) + 1];
-        strcpy(path, DIRECTORY);
+        char path[strlen(directory) + strlen(file) + 1];
+        strcpy(path, directory);
         strcat(path, file);
 
         FILE *f = fopen(path, "r");
         if (f == NULL)
         {
             attrset(COLOR_PAIR(2));
-            mvprintw(height + 4, 0,"No such file found");
+            mvprintw(w.ws_row - 2, 0,"No such file found");
             attrset(COLOR_PAIR(1));
             error_msg_count = 1;
            return;
@@ -736,9 +793,11 @@ void read_file(char* file)
 
 char *create_map(int new_height, int new_width)
 {
-    
     height = new_height;
     width = new_width;
+
+    x_offset = (((w.ws_row - 6) / 2) - (height / 2)) > 0 ? ((w.ws_row -6) / 2) - (height / 2): 0;
+    y_offset = ((w.ws_col / 2) - (width / 2)) > 0 ? (w.ws_col / 2) - (width / 2): 0;
 
     if (new_map)
     {
