@@ -582,6 +582,7 @@ void new(char* args)
     int count = 0;
     int error = 0;
     char *token = NULL;
+    char *temp_file_name = NULL;
 
     token = strtok(args, " ");
     while (token != NULL) 
@@ -599,9 +600,7 @@ void new(char* args)
                 break;    
             }
             regfree(&regex);
-            file_name = malloc(sizeof(char) * (strlen(token) + 1));
-            memcpy(file_name, &token[0], strlen(token));
-            file_name[strlen(token)] = '\0';
+            temp_file_name = token;
         } 
         else if (count == 1)
         {
@@ -664,6 +663,9 @@ void new(char* args)
 
     if (error == 0)
     {
+	file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
+        memcpy(file_name, &temp_file_name[0], strlen(temp_file_name));
+        file_name[strlen(temp_file_name)] = '\0';
         map = create_map(temp_height, temp_width);
         clear();
     }
