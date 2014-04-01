@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 
 pacman-level-editor: pacman-level-editor.c
 	$(CC) $(CFLAGS) -o pacman-level-editor pacman-level-editor.c -lncurses 
