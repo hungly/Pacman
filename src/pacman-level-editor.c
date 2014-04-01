@@ -6,31 +6,59 @@
 #include <stdio.h>
 #include <unistd.h>
 
+/** Define default height of map */
 #define DEFAULT_HEIGHT          10
+
+/** Define default width of the map */
 #define DEFAULT_WIDTH           30
+
+/** Define the directory when opening using sh file in root folder of project*/
 #define DIRECTORY_SH            "levels/"
+
+/** Define the directory when opening using the executable file in source folder*/
 #define DIRECTORY_SRC           "../levels/"
+
+/** Define the default author */
 #define DEFAULT_AUTHOR          "Anonymous"
+
+/** Define the default title */
 #define DEAFULT_TITTLE          "Unknown"
+
+/** Define the default file name */
 #define DEAFULT_FILE_NAME       "level.pac"
 
+/** Define ColorPallette1 for terminal background */
 #define COLOR_BACKGROUND        0
+
+/** Define ColorPallette2 for map background */
 #define COLOR_MAP_BACKGROUND    1
+
+/** Define ColorPallette3 for error message */
 #define COLOR_ERROR_BACKGROUND  2
-#define COLOR_NORMAL            3
+
+/** Define ColorPallette4 for letters */
+#define COLOR_LETTER            3
+
+/** Define ColorPallette5 for wall in map */
 #define COLOR_WALL              4
+
+/** Define ColorPallette6 for pacman */
 #define COLOR_PACMAN            5
+
+/** Define ColorPallette7 for fruit */
 #define COLOR_FRUIT             6
+
+/** Define ColorPallette8 for ghost */
 #define COLOR_GHOST             7
 
 /**
   * VI liked command mode for map pacman editor.
-  * This function will check if the input command is either q, w, n, r or wq and performed the following actions:
-  * q: quit the program and exit to the terminal.
-  * w: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name "level.pac".
-  * wq: save and then quit the program, this command perform the same actions as the "w" command and then the "q" command.
-  * n: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.
-  * r: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.
+  * <p>This function will check if the input command is either q, w, n, r or wq and performed the following actions:</p>
+  * <p>q: quit the program and exit to the terminal.</p>
+  * <p>w: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name "level.pac".</p>
+  * <p>wq: save and then quit the program, this command perform the same actions as the "w" command and then the "q" command.</p>
+  * <p>n: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.</p>
+  * <p>r: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.</p>
   */
 void command_mode();
 
@@ -92,28 +120,52 @@ char *create_map(int height, int width);
   */
 int startsWith(const char *pre, const char *str);
 
-char *new_map;
+/** Pointer to array of char which indicates the current map */
 char *map;
 
+/** Pointer to array to char which indicates the author of current map */
 char *author;
+
+/** Pointer to array to char which indicates the title of current map */
 char *title;
+
+/** Pointer to array to char which indicates the file name of current map */
 char *file_name;
 
+/** Pointer to array to char which indicates the present working directory */
 char *directory;
 
+/** The size of ncruses terminal in characters of height and width */
 struct winsize w;
 
+/** An integer value which indicate the program is ended or not */
 int end_program = 0;
-int height;
-int width;
-int x = 0;
-int y = 0;
+
+/** An integer value which indicate the number of error message */
 int error_msg_count = 1;
+
+/** An integer value which indicates the height of map */
+int height;
+
+/** An integer value which indicates the width of map */
+int width;
+
+/** An integer value which indicates the row where the cursor is located in the map */
+int x = 0;
+
+/** An integer value which indicates the column where the cursor is located in the map */
+int y = 0;
+
+/** An integer value which indicates the distance (in rows) between the top of terminal and the first row of the map */
 int x_offset;
+
+/** An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map */
 int y_offset;
 
-/** regex is used to to check for input pattern */
+/** regex is used to  check for input pattern */
 regex_t regex;
+
+/** reti is an integer which store the result of regex comparision */
 int reti;
 
 
@@ -167,12 +219,12 @@ int main(int argc, char* argv[])
     if(has_colors())
     {
         start_color();
-        init_pair(1, COLOR_NORMAL,  COLOR_BACKGROUND);
-        init_pair(2, COLOR_NORMAL,  COLOR_ERROR_BACKGROUND);
+        init_pair(1, COLOR_LETTER,  COLOR_BACKGROUND);
+        init_pair(2, COLOR_LETTER,  COLOR_ERROR_BACKGROUND);
         init_pair(3, COLOR_WALL,    COLOR_MAP_BACKGROUND);
         init_pair(4, COLOR_PACMAN,  COLOR_MAP_BACKGROUND);
         init_pair(5, COLOR_FRUIT,   COLOR_MAP_BACKGROUND);
-        init_pair(6, COLOR_NORMAL,   COLOR_MAP_BACKGROUND);
+        init_pair(6, COLOR_LETTER,   COLOR_MAP_BACKGROUND);
         init_pair(7, COLOR_GHOST, COLOR_MAP_BACKGROUND);
     }
 
@@ -259,7 +311,7 @@ void command_mode()
 
     char command[1000];
 
-    /** display the input characters on the screen */
+    /* display the input characters on the screen */
     echo();
 
     mvprintw(w.ws_row - 1, 0, ":");
@@ -300,7 +352,7 @@ void command_mode()
     {
         clrtoeol();
         switch (strlen(command)){
-            /** check for user input in command mode */
+            /* check for user input in command mode */
             case 1:
                 if(strcmp(command, "q") == 0)
                 {
@@ -363,7 +415,7 @@ void command_mode()
         }
     }
 
-    /** disable display input characters on the screen */
+    /* disable display input characters on the screen */
     noecho();
 }
 
@@ -767,35 +819,35 @@ char *create_map(int new_height, int new_width)
     x = 0;
     y = 0;
 
-    if (new_map)
+    if (map)
     {
-        free(new_map);
+        free(map);
     }
-    new_map = malloc(sizeof(char) * (height * width));
+    map = malloc(sizeof(char) * (height * width));
 
     for (int i = 0; i < (height * width); i++)
     {
-        new_map[i] = ' ';
+        map[i] = ' ';
     }
 
     for (int row = 1; row < height - 1; row++)
     {
-        new_map[row * width] = 'a';
-        new_map[row * width + width - 1] = 'd';
+        map[row * width] = 'a';
+        map[row * width + width - 1] = 'd';
     }
 
     for (int col = 1; col < width - 1; col++)
     {
-        new_map[col] = 'w';
-        new_map[width * (height - 1) + col] = 'x';
+        map[col] = 'w';
+        map[width * (height - 1) + col] = 'x';
     }
 
-    new_map[0] = 'q';
-    new_map[width - 1] = 'e';
-    new_map[(height - 1) * width] = 'z';
-    new_map[height * width - 1] = 'c';
+    map[0] = 'q';
+    map[width - 1] = 'e';
+    map[(height - 1) * width] = 'z';
+    map[height * width - 1] = 'c';
 
-    return new_map;
+    return map;
 }
 
 int startsWith(const char *pre, const char *str)

@@ -31,7 +31,7 @@
 \item 
 \#define \hyperlink{pacman-level-editor_8c_a74d87509e98e202c778b5a9e4ae89f09}{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~2
 \item 
-\#define \hyperlink{pacman-level-editor_8c_ac366dc6682d1d12bcae1eb1ae8ae09c5}{C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L}~3
+\#define \hyperlink{pacman-level-editor_8c_ab604bbfe7359083e9abc00907e8acb12}{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}~3
 \item 
 \#define \hyperlink{pacman-level-editor_8c_a528521b4019fe0dbc561165851660df5}{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}~4
 \item 
@@ -65,8 +65,6 @@ int \hyperlink{pacman-level-editor_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-char $\ast$ \hyperlink{pacman-level-editor_8c_a3e0e8a927adf89de850b9bc86160819b}{new\-\_\-map}
-\item 
 char $\ast$ \hyperlink{pacman-level-editor_8c_a7b00b1bfd666e26484471bd17a74eaa9}{map}
 \item 
 char $\ast$ \hyperlink{pacman-level-editor_8c_a70d51dcba75e5d70d4708c7885550468}{author}
@@ -81,6 +79,8 @@ struct winsize \hyperlink{pacman-level-editor_8c_a114d2a5a196322c42d4cd57cccb1f4
 \item 
 int \hyperlink{pacman-level-editor_8c_a1bee207ff2415ab72a1e22c86a93f100}{end\-\_\-program} = 0
 \item 
+int \hyperlink{pacman-level-editor_8c_ae0ebb9a2dde9db7a8070d03799386e18}{error\-\_\-msg\-\_\-count} = 1
+\item 
 int \hyperlink{pacman-level-editor_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}
 \item 
 int \hyperlink{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}{width}
@@ -88,8 +88,6 @@ int \hyperlink{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}{width}
 int \hyperlink{pacman-level-editor_8c_a6150e0515f7202e2fb518f7206ed97dc}{x} = 0
 \item 
 int \hyperlink{pacman-level-editor_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y} = 0
-\item 
-int \hyperlink{pacman-level-editor_8c_ae0ebb9a2dde9db7a8070d03799386e18}{error\-\_\-msg\-\_\-count} = 1
 \item 
 int \hyperlink{pacman-level-editor_8c_a87147769c08c4f0fef7b0ec6077b338d}{x\-\_\-offset}
 \item 
@@ -105,49 +103,49 @@ int \hyperlink{pacman-level-editor_8c_aefa902538b1cd5840102ccc807fe3f37}{reti}
 \hypertarget{pacman-level-editor_8c_af27cfac70191e90ee59f2fbfc0142df5}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
 \index{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~0}}\label{pacman-level-editor_8c_af27cfac70191e90ee59f2fbfc0142df5}
-\hypertarget{pacman-level-editor_8c_a74d87509e98e202c778b5a9e4ae89f09}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+Define Color\-Pallette1 for terminal background \hypertarget{pacman-level-editor_8c_a74d87509e98e202c778b5a9e4ae89f09}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
 \index{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~2}}\label{pacman-level-editor_8c_a74d87509e98e202c778b5a9e4ae89f09}
-\hypertarget{pacman-level-editor_8c_aa621edd711419dc69326010aabdb01bb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}}
+Define Color\-Pallette3 for error message \hypertarget{pacman-level-editor_8c_aa621edd711419dc69326010aabdb01bb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}}
 \index{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T~6}}\label{pacman-level-editor_8c_aa621edd711419dc69326010aabdb01bb}
-\hypertarget{pacman-level-editor_8c_a4dff2b6100530a45e7c3b38c9484f454}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}}
+Define Color\-Pallette7 for fruit \hypertarget{pacman-level-editor_8c_a4dff2b6100530a45e7c3b38c9484f454}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}}
 \index{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T~7}}\label{pacman-level-editor_8c_a4dff2b6100530a45e7c3b38c9484f454}
-\hypertarget{pacman-level-editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+Define Color\-Pallette8 for ghost \hypertarget{pacman-level-editor_8c_ab604bbfe7359083e9abc00907e8acb12}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}}
+\index{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R~3}}\label{pacman-level-editor_8c_ab604bbfe7359083e9abc00907e8acb12}
+Define Color\-Pallette4 for letters \hypertarget{pacman-level-editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
 \index{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~1}}\label{pacman-level-editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}
-\hypertarget{pacman-level-editor_8c_ac366dc6682d1d12bcae1eb1ae8ae09c5}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L@{C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L}}
-\index{C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L@{C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
-\subsubsection[{C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-N\-O\-R\-M\-A\-L~3}}\label{pacman-level-editor_8c_ac366dc6682d1d12bcae1eb1ae8ae09c5}
-\hypertarget{pacman-level-editor_8c_a977b7c2763deb11541bc962426297045}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}}
+Define Color\-Pallette2 for map background \hypertarget{pacman-level-editor_8c_a977b7c2763deb11541bc962426297045}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}}
 \index{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N~5}}\label{pacman-level-editor_8c_a977b7c2763deb11541bc962426297045}
-\hypertarget{pacman-level-editor_8c_a528521b4019fe0dbc561165851660df5}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}}
+Define Color\-Pallette6 for pacman \hypertarget{pacman-level-editor_8c_a528521b4019fe0dbc561165851660df5}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}}
 \index{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L~4}}\label{pacman-level-editor_8c_a528521b4019fe0dbc561165851660df5}
-\hypertarget{pacman-level-editor_8c_afd9e8106b9402bf121477c457c8c9316}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}}
+Define Color\-Pallette5 for wall in map \hypertarget{pacman-level-editor_8c_afd9e8106b9402bf121477c457c8c9316}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}}
 \index{D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-A\-F\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E~\char`\"{}level.\-pac\char`\"{}}}\label{pacman-level-editor_8c_afd9e8106b9402bf121477c457c8c9316}
-\hypertarget{pacman-level-editor_8c_a4b3befe82323eb5de5dc65ccf44283ea}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}}
+Define the default file name \hypertarget{pacman-level-editor_8c_a4b3befe82323eb5de5dc65ccf44283ea}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}}
 \index{D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E@{D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-A\-F\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E~\char`\"{}Unknown\char`\"{}}}\label{pacman-level-editor_8c_a4b3befe82323eb5de5dc65ccf44283ea}
-\hypertarget{pacman-level-editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R@{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}}
+Define the default title \hypertarget{pacman-level-editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R@{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}}
 \index{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R@{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R~\char`\"{}Anonymous\char`\"{}}}\label{pacman-level-editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}
-\hypertarget{pacman-level-editor_8c_a1879f9e5604a01f0983829846001ab23}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T@{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}}
+Define the default author \hypertarget{pacman-level-editor_8c_a1879f9e5604a01f0983829846001ab23}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T@{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}}
 \index{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T@{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T~10}}\label{pacman-level-editor_8c_a1879f9e5604a01f0983829846001ab23}
-\hypertarget{pacman-level-editor_8c_a93493eb8fae5549bd5be67f3449245e0}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H@{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}}
+Define default height of map \hypertarget{pacman-level-editor_8c_a93493eb8fae5549bd5be67f3449245e0}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H@{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}}
 \index{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H@{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H~30}}\label{pacman-level-editor_8c_a93493eb8fae5549bd5be67f3449245e0}
-\hypertarget{pacman-level-editor_8c_a7a602a4376595097bdde82a739d7fc9c}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}}
+Define default width of the map \hypertarget{pacman-level-editor_8c_a7a602a4376595097bdde82a739d7fc9c}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}}
 \index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H~\char`\"{}levels/\char`\"{}}}\label{pacman-level-editor_8c_a7a602a4376595097bdde82a739d7fc9c}
-\hypertarget{pacman-level-editor_8c_a680ab63d028a68a793615c14b807244e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}}
+Define the directory when opening using sh file in root folder of project \hypertarget{pacman-level-editor_8c_a680ab63d028a68a793615c14b807244e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}}
 \index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C~\char`\"{}../levels/\char`\"{}}}\label{pacman-level-editor_8c_a680ab63d028a68a793615c14b807244e}
-
+Define the directory when opening using the executable file in source folder 
 
 \subsection{Function Documentation}
 \hypertarget{pacman-level-editor_8c_af892ff919e1c7850c0bd85827b9b648e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!command\-\_\-mode@{command\-\_\-mode}}
@@ -157,11 +155,19 @@ int \hyperlink{pacman-level-editor_8c_aefa902538b1cd5840102ccc807fe3f37}{reti}
 {}
 \end{DoxyParamCaption}
 )}}\label{pacman-level-editor_8c_af892ff919e1c7850c0bd85827b9b648e}
-V\-I liked command mode for map pacman editor. This function will check if the input command is either q, w, n, r or wq and performed the following actions\-: q\-: quit the program and exit to the terminal. w\-: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name \char`\"{}level.\-pac\char`\"{}. wq\-: save and then quit the program, this command perform the same actions as the \char`\"{}w\char`\"{} command and then the \char`\"{}q\char`\"{} command. n\-: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively. r\-: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map. display the input characters on the screen
+V\-I liked command mode for map pacman editor. 
 
-check for user input in command mode
+This function will check if the input command is either q, w, n, r or wq and performed the following actions\-:
 
-disable display input characters on the screen \hypertarget{pacman-level-editor_8c_a8a62b1ef65d0697d60b3b762c9cf0799}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!create\-\_\-map@{create\-\_\-map}}
+q\-: quit the program and exit to the terminal.
+
+w\-: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name \char`\"{}level.\-pac\char`\"{}.
+
+wq\-: save and then quit the program, this command perform the same actions as the \char`\"{}w\char`\"{} command and then the \char`\"{}q\char`\"{} command.
+
+n\-: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.
+
+r\-: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.\hypertarget{pacman-level-editor_8c_a8a62b1ef65d0697d60b3b762c9cf0799}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!create\-\_\-map@{create\-\_\-map}}
 \index{create\-\_\-map@{create\-\_\-map}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{create\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ create\-\_\-map (
 \begin{DoxyParamCaption}
@@ -285,51 +291,49 @@ Writing the current map and related information into a file.
 \hypertarget{pacman-level-editor_8c_a70d51dcba75e5d70d4708c7885550468}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!author@{author}}
 \index{author@{author}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{author}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ author}}\label{pacman-level-editor_8c_a70d51dcba75e5d70d4708c7885550468}
-\hypertarget{pacman-level-editor_8c_a8eadc6730ef4fbdae87a20414b789faf}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!directory@{directory}}
+Pointer to array to char which indicates the author of current map \hypertarget{pacman-level-editor_8c_a8eadc6730ef4fbdae87a20414b789faf}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!directory@{directory}}
 \index{directory@{directory}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{directory}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ directory}}\label{pacman-level-editor_8c_a8eadc6730ef4fbdae87a20414b789faf}
-\hypertarget{pacman-level-editor_8c_a1bee207ff2415ab72a1e22c86a93f100}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!end\-\_\-program@{end\-\_\-program}}
+Pointer to array to char which indicates the present working directory \hypertarget{pacman-level-editor_8c_a1bee207ff2415ab72a1e22c86a93f100}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!end\-\_\-program@{end\-\_\-program}}
 \index{end\-\_\-program@{end\-\_\-program}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{end\-\_\-program}]{\setlength{\rightskip}{0pt plus 5cm}int end\-\_\-program = 0}}\label{pacman-level-editor_8c_a1bee207ff2415ab72a1e22c86a93f100}
-\hypertarget{pacman-level-editor_8c_ae0ebb9a2dde9db7a8070d03799386e18}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}}
+An integer value which indicate the program is ended or not \hypertarget{pacman-level-editor_8c_ae0ebb9a2dde9db7a8070d03799386e18}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}}
 \index{error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{error\-\_\-msg\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int error\-\_\-msg\-\_\-count = 1}}\label{pacman-level-editor_8c_ae0ebb9a2dde9db7a8070d03799386e18}
-\hypertarget{pacman-level-editor_8c_a8505c513bc640d1f69e5f76fb32b24a8}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!file\-\_\-name@{file\-\_\-name}}
+An integer value which indicate the number of error message \hypertarget{pacman-level-editor_8c_a8505c513bc640d1f69e5f76fb32b24a8}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!file\-\_\-name@{file\-\_\-name}}
 \index{file\-\_\-name@{file\-\_\-name}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{file\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ file\-\_\-name}}\label{pacman-level-editor_8c_a8505c513bc640d1f69e5f76fb32b24a8}
-\hypertarget{pacman-level-editor_8c_ad12fc34ce789bce6c8a05d8a17138534}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!height@{height}}
+Pointer to array to char which indicates the file name of current map \hypertarget{pacman-level-editor_8c_ad12fc34ce789bce6c8a05d8a17138534}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!height@{height}}
 \index{height@{height}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height}}\label{pacman-level-editor_8c_ad12fc34ce789bce6c8a05d8a17138534}
-\hypertarget{pacman-level-editor_8c_a7b00b1bfd666e26484471bd17a74eaa9}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!map@{map}}
+An integer value which indicates the height of map \hypertarget{pacman-level-editor_8c_a7b00b1bfd666e26484471bd17a74eaa9}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!map@{map}}
 \index{map@{map}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ map}}\label{pacman-level-editor_8c_a7b00b1bfd666e26484471bd17a74eaa9}
-\hypertarget{pacman-level-editor_8c_a3e0e8a927adf89de850b9bc86160819b}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!new\-\_\-map@{new\-\_\-map}}
-\index{new\-\_\-map@{new\-\_\-map}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
-\subsubsection[{new\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ new\-\_\-map}}\label{pacman-level-editor_8c_a3e0e8a927adf89de850b9bc86160819b}
-\hypertarget{pacman-level-editor_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!regex@{regex}}
+Pointer to array of char which indicates the current map \hypertarget{pacman-level-editor_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!regex@{regex}}
 \index{regex@{regex}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{regex}]{\setlength{\rightskip}{0pt plus 5cm}regex\-\_\-t regex}}\label{pacman-level-editor_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}
-regex is used to to check for input pattern \hypertarget{pacman-level-editor_8c_aefa902538b1cd5840102ccc807fe3f37}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!reti@{reti}}
+regex is used to check for input pattern \hypertarget{pacman-level-editor_8c_aefa902538b1cd5840102ccc807fe3f37}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!reti@{reti}}
 \index{reti@{reti}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{reti}]{\setlength{\rightskip}{0pt plus 5cm}int reti}}\label{pacman-level-editor_8c_aefa902538b1cd5840102ccc807fe3f37}
-\hypertarget{pacman-level-editor_8c_af06d911bb9e05f491ef3da520d03796c}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!title@{title}}
+reti is an integer which store the result of regex comparision \hypertarget{pacman-level-editor_8c_af06d911bb9e05f491ef3da520d03796c}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!title@{title}}
 \index{title@{title}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ title}}\label{pacman-level-editor_8c_af06d911bb9e05f491ef3da520d03796c}
-\hypertarget{pacman-level-editor_8c_a114d2a5a196322c42d4cd57cccb1f43b}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!w@{w}}
+Pointer to array to char which indicates the title of current map \hypertarget{pacman-level-editor_8c_a114d2a5a196322c42d4cd57cccb1f43b}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!w@{w}}
 \index{w@{w}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{pacman-level-editor_8c_a114d2a5a196322c42d4cd57cccb1f43b}
-\hypertarget{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!width@{width}}
+The size of ncruses terminal in characters of height and width \hypertarget{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!width@{width}}
 \index{width@{width}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width}}\label{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}
-\hypertarget{pacman-level-editor_8c_a6150e0515f7202e2fb518f7206ed97dc}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!x@{x}}
+An integer value which indicates the width of map \hypertarget{pacman-level-editor_8c_a6150e0515f7202e2fb518f7206ed97dc}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!x@{x}}
 \index{x@{x}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}int x = 0}}\label{pacman-level-editor_8c_a6150e0515f7202e2fb518f7206ed97dc}
-\hypertarget{pacman-level-editor_8c_a87147769c08c4f0fef7b0ec6077b338d}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!x\-\_\-offset@{x\-\_\-offset}}
+An integer value which indicates the row where the cursor is located in the map \hypertarget{pacman-level-editor_8c_a87147769c08c4f0fef7b0ec6077b338d}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!x\-\_\-offset@{x\-\_\-offset}}
 \index{x\-\_\-offset@{x\-\_\-offset}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{x\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int x\-\_\-offset}}\label{pacman-level-editor_8c_a87147769c08c4f0fef7b0ec6077b338d}
-\hypertarget{pacman-level-editor_8c_a0a2f84ed7838f07779ae24c5a9086d33}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!y@{y}}
+An integer value which indicates the distance (in rows) between the top of terminal and the first row of the map \hypertarget{pacman-level-editor_8c_a0a2f84ed7838f07779ae24c5a9086d33}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!y@{y}}
 \index{y@{y}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}int y = 0}}\label{pacman-level-editor_8c_a0a2f84ed7838f07779ae24c5a9086d33}
-\hypertarget{pacman-level-editor_8c_abaa275d8b2c76fd77dd271402a4425d3}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!y\-\_\-offset@{y\-\_\-offset}}
+An integer value which indicates the column where the cursor is located in the map \hypertarget{pacman-level-editor_8c_abaa275d8b2c76fd77dd271402a4425d3}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!y\-\_\-offset@{y\-\_\-offset}}
 \index{y\-\_\-offset@{y\-\_\-offset}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{y\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int y\-\_\-offset}}\label{pacman-level-editor_8c_abaa275d8b2c76fd77dd271402a4425d3}
+An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map 
