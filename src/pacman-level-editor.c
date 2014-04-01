@@ -120,6 +120,17 @@ char *create_map(int height, int width);
   */
 int startsWith(const char *pre, const char *str);
 
+/**
+  * Reference:
+  * http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c
+  */
+int endsWithPac(const char *str);
+
+/**
+  * Function for automatically filling small pellet on all of the space on the maze alley of the map (not all of the space will be filled)
+  */
+void autoFill(int x, int y, const int filled);
+
 /** Pointer to array of char which indicates the current map */
 char *map;
 
@@ -233,17 +244,19 @@ int main(int argc, char* argv[])
         char path[strlen(directory) + strlen(argv[1]) + 1];
         strcpy(path, directory);
         strcat(path, argv[1]);
-        FILE *f = fopen(path,"r");
+
+        FILE *f = fopen(path, "r");
         if (f != NULL){
+        	fclose(f);
             read_file(argv[1]);
             display_map(map);
         } else {
             map = create_map(height, width);
-            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
-            memcpy(file_name, &argv[1][0], strlen(argv[1]));
-            file_name[strlen(argv[1])] = '\0';
-        }
 
+            free(file_name);
+            file_name = malloc(sizeof(char) * strlen(argv[1]));
+            strcpy(file_name, argv[1]);
+        }
     } 
     else 
     {        
@@ -360,12 +373,12 @@ void command_mode()
                     return;
                 } else if (strcmp(command,"w") == 0) {
                     write_file(file_name);
-                }
+                } 
                 break;
             case 2:
                 if (strcmp(command,"wq") == 0)
                 {
-                    write_file("level.pac");
+                    write_file(file_name);
                     end_program = 1;
                 }
                 break;
@@ -374,6 +387,7 @@ void command_mode()
                 {
                     memcpy(args, &command[3], strlen(command));
                     args[strlen(command) - 3] = '\0';
+
                     write_file(args);
                     end_program = 1;
                 }
@@ -381,6 +395,7 @@ void command_mode()
                 {
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
+
                     write_file(args);
                 }
 
@@ -411,6 +426,8 @@ void command_mode()
                     title = malloc(sizeof(char) * (strlen(command) - 1));
                     memcpy(title, &command[2], strlen(command));
                     title[strlen(command) - 2] = '\0';
+                }else if (strcmp(command,"auto") == 0){
+                	autoFill(1, 1, 1);
                 }
         }
     }
@@ -427,15 +444,15 @@ void display_map(char* map)
 
     move(0, 0);
     clrtoeol();
-    mvprintw(0, 0, "The current file is:      %s", file_name);
+    mvprintw(0, 0, "Map file name: %s", file_name);
 
     move(1, 0);
     clrtoeol();
-    mvprintw(1, 0, "The current author is:    %s", author);
+    mvprintw(1, 0, "Author:        %s", author);
 
     move(2, 0);
     clrtoeol();
-    mvprintw(2, 0, "The current map title is: %s", title);
+    mvprintw(2, 0, "Map title:     %s", title);
 
     move(4 + x_offset, 0 + y_offset);
 
@@ -597,6 +614,7 @@ void new(char* args)
     int error = 0;
     char *token = NULL;
     char *temp_file_name = NULL;
+    char *arguments[] = {"file name","map height","map width"};
 
     token = strtok(args, " ");
     while (token != NULL) 
@@ -674,15 +692,37 @@ void new(char* args)
         count++;
     }
     
+    if (count < 3)
+    {
+    	attrset(COLOR_PAIR(2));
+        mvprintw(w.ws_row - 2, 0, "Not enough arguments, need: file name, map height and map width");
+
+        mvprintw(w.ws_row - 1, 0, "Found: %s", arguments[0]);
+        for (int i = 1; i < count; i++)
+        {
+        	printw(", %s", arguments[i]);
+        }
+
+        error = 1;
+        attrset(COLOR_PAIR(1));
+    }
 
     if (error == 0)
     {
-	file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
-        memcpy(file_name, &temp_file_name[0], strlen(temp_file_name));
-        file_name[strlen(temp_file_name)] = '\0';
-        map = create_map(temp_height, temp_width);
-        clear();
-	move(x + 4 + x_offset, y + y_offset);
+    	free(file_name);
+        if (endsWithPac(temp_file_name))
+        {
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
+            strcpy(file_name, temp_file_name);
+        } else {
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 5));
+            strcpy(file_name, temp_file_name);
+            strcat(file_name, ".pac");
+        }
+
+       map = create_map(temp_height, temp_width);
+       clear();
+	   move(x + 4 + x_offset, y + y_offset);
     }
     else
     {
@@ -692,7 +732,7 @@ void new(char* args)
 
 
 void write_file(char* file)
-{   
+{
     reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
     reti = regexec(&regex, file, 0, NULL, 0);
     if (reti == REG_NOMATCH)
@@ -704,24 +744,44 @@ void write_file(char* file)
     } 
     else 
     {
-        char path[strlen(directory) + strlen(file) + 1];
-        strcpy(path, directory);
-        strcat(path, file);
+    	int length = strlen(file);
+    	char * temp = malloc(sizeof(char) * length);
+    	strcpy(temp, file);
+    	free(file_name);
 
-        int i;
-        FILE *f = fopen(path,"w");
-        fprintf(f, "%s\n", author);
-        fprintf(f, "%s\n%i\n%i\n", title, height, width);
-
-        for (i = 0; i < height * width; i++){
-            if (i % width == 0 && i != 0)
-                fprintf(f,"\n");
-            fprintf(f,"%c", map[i]);
+        if (endsWithPac(temp))
+        {
+            file_name = malloc(sizeof(char) * (length + 1));
+            strcpy(file_name, temp);
+        } else {
+            file_name = malloc(sizeof(char) * (length + 5));
+            strcpy(file_name, temp);
+            strcat(file_name, ".pac");
         }
 
-        fprintf(f, "\n");
+        free(temp);
 
-        fclose(f);
+        char path[strlen(directory) + strlen(file_name) + 1];
+        strcpy(path, directory);
+        strcat(path, file_name);
+
+        int i;
+
+        FILE *f = fopen(path, "w");
+
+       	fprintf(f, "%s\n", author);
+       	fprintf(f, "%s\n%i\n%i\n", title, height, width);
+
+       	for (i = 0; i < height * width; i++){
+           	if (i % width == 0 && i != 0)
+               	fprintf(f,"\n");
+           	fprintf(f,"%c", map[i]);
+       	}
+
+       	fprintf(f, "\n");
+
+       	fclose(f);
+        
         error_msg_count = 0;
     }
     regfree(&regex);
@@ -749,15 +809,15 @@ void read_file(char* file)
         char c;
 
         free(file_name);
-        file_name = malloc(sizeof(char)*(strlen(file) + 1));
-        memcpy(file_name, &file[0], strlen(file));
-        file_name[strlen(file)] = '\0';
+        file_name = malloc(sizeof(char) * (strlen(file) + 1));
+        strcpy(file_name, file);
 
         char path[strlen(directory) + strlen(file) + 1];
         strcpy(path, directory);
         strcat(path, file);
 
         FILE *f = fopen(path, "r");
+
         if (f == NULL)
         {
             attrset(COLOR_PAIR(2));
@@ -855,4 +915,114 @@ int startsWith(const char *pre, const char *str)
   size_t lenpre = strlen(pre),
   lenstr = strlen(str);
   return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
+}
+
+int endsWithPac(const char *str)
+{
+  if (!str)
+    return 0;
+  
+  size_t lenstr = strlen(str);
+  size_t lensuffix = strlen(".pac");
+
+  if (lensuffix >  lenstr)
+    return 0;
+
+  return strncmp(str + lenstr - lensuffix, ".pac", lensuffix) == 0;
+}
+
+void autoFill(int x, int y, const int filled)
+{
+	if((x >= 0 && x < height) && (y >= 0 && y < width) && filled)
+	{
+		map[x * width + y] = 's';
+
+		if (map[(x + 1) * width + y] == ' ')
+		{
+			autoFill(x + 1, y, 1);
+		}
+		else
+		{
+			switch (map[(x + 1) * width + y])
+			{
+				case 's':
+				case 'S':
+				case 'f':
+				case 'F':
+				case 'g':
+				case 'G':
+				case 'p':
+				case 'P':
+					autoFill(x + 1, y, 0);
+					break;
+			}
+		}
+
+		if (map[(x - 1) * width + y] == ' ')
+		{
+			autoFill(x - 1, y, 1);
+		}
+		else
+		{
+			switch (map[(x - 1) * width + y])
+			{
+				case 's':
+				case 'S':
+				case 'f':
+				case 'F':
+				case 'g':
+				case 'G':
+				case 'p':
+				case 'P':
+					autoFill(x - 1, y, 0);
+					break;
+			}
+		}
+
+		if (map[x * width + y + 1] == ' ')
+		{
+			autoFill(x, y + 1, 1);
+		}
+		else
+		{
+			switch (map[x * width + y + 1])
+			{
+				case 's':
+				case 'S':
+				case 'f':
+				case 'F':
+				case 'g':
+				case 'G':
+				case 'p':
+				case 'P':
+					autoFill(x, y + 1, 0);
+					break; 
+			}
+		}
+
+		if (map[x * width + y - 1] == ' ')
+		{
+			autoFill(x, y - 1, 1);
+		}
+		else
+		{
+			switch (map[x * width + y - 1])
+			{
+				case 's':
+				case 'S':
+				case 'f':
+				case 'F':
+				case 'g':
+				case 'G':
+				case 'p':
+				case 'P':
+					autoFill(x, y - 1, 0);
+					break;
+			}
+		}
+	}
+	else
+	{
+		return;
+	}
 }
