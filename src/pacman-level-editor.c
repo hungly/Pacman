@@ -393,7 +393,6 @@ void display_map(char* map)
     {
         if (i != 0 && i % width == 0)
         {
-        //    printw("\n");
             move(4 + x_offset + (i / width), y_offset);
         }
 
@@ -631,6 +630,7 @@ void new(char* args)
         file_name[strlen(temp_file_name)] = '\0';
         map = create_map(temp_height, temp_width);
         clear();
+	move(x + 4 + x_offset, y + y_offset);
     }
     else
     {
@@ -763,6 +763,9 @@ char *create_map(int new_height, int new_width)
 
     x_offset = (((w.ws_row - 6) / 2) - (height / 2)) > 0 ? ((w.ws_row -6) / 2) - (height / 2): 0;
     y_offset = ((w.ws_col / 2) - (width / 2)) > 0 ? (w.ws_col / 2) - (width / 2): 0;
+
+    x = 0;
+    y = 0;
 
     if (new_map)
     {
