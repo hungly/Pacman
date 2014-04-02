@@ -67,7 +67,7 @@ void command_mode();
   *
   * @param map the pointer to the array of character using to represent the current loaded map.
   */
-void display_map(char * map);
+void display_map(char *map);
 
 /**
   * Handling input that change the current edited map.
@@ -81,21 +81,21 @@ void edit_mode(int input);
   *
   * @param args the pointer to the array of characters which includes all three parameters which are new file name, height, and width.
   */
-void new(char * args);
+void new_map(char *args);
 
 /**
   * Writing the current map and related information into a file.
 
   * @param file the pointer to the array of characters which indicates the file name to write into the disk.
   */
-void write_file(char*  file);
+void write_file(char *file);
 
 /**
   * Reading the current map and related information into a file.
   *
   * @param file the pointer to the array of characters which indicates the file name to read from the disk.
   */
-void read_file(char * file);
+void read_file(char *file);
 
 /**
   * Create a new map with desire height and width.
@@ -131,7 +131,12 @@ int endsWithPac(const char *str);
   */
 void auto_fill_pellet(int x, int y);
 
+/**
+  * Function for searching for the first orcurence of pacman spawn point in the map. if there is no spawn point the function will return an errorl
+  */
 void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y);
+
+int isValidAuthor(char * author_arg);
 
 /** Pointer to array of char which indicates the current map */
 char *map;
@@ -182,10 +187,10 @@ regex_t regex;
 int reti;
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     int input;
 
+    /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
     /* default values for author, title, file name, height and width */
@@ -198,36 +203,35 @@ int main(int argc, char* argv[])
     file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
     strcpy(file_name, DEAFULT_FILE_NAME);
 
+    /* set default height and width */
     height = DEFAULT_HEIGHT;
     width = DEFAULT_WIDTH;
 
-    if (startsWith("./src/", argv[0]))
-    {
+    /* determine the current working directory and the levels folder for save map */
+    if (startsWith("./src/", argv[0])) {
         directory = DIRECTORY_SH;
-    }
-    else
-    {
+    } else {
         directory = DIRECTORY_SRC;
     }
     
     /* initialise ncurses screen */
     initscr();
 
-    /* Method are given from http://en.chys.info/2009/09/esdelay-ncurses/ */
+    /* method are given from http://en.chys.info/2009/09/esdelay-ncurses/ */
     if (getenv ("ESCDELAY") == NULL)
         ESCDELAY = 25;
 
-    /* Enable the use of function keys, allow navigating the cursor using arrow keys */
+    /* enable the use of function keys, allow navigating the cursor using arrow keys */
     keypad(stdscr, TRUE);
 
-    /* Disable echo when getch */
+    /* disable echo when getch */
     noecho();
  
-    /* Take input chars, does not wait until new line or carriage return */
+    /* take input chars, does not wait until new line or carriage return */
     cbreak();
     
-    if(has_colors())
-    {
+    /* set color pairs */
+    if(has_colors()) {
         start_color();
         init_pair(1, COLOR_LETTER,  COLOR_BACKGROUND);
         init_pair(2, COLOR_LETTER,  COLOR_ERROR_BACKGROUND);
@@ -240,37 +244,43 @@ int main(int argc, char* argv[])
         init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
     }
 
-    if (argc == 2)
-    {
+    /* if there is an argument for the program */
+    if (argc == 2) {
+    	/* get the path to the file */
         char path[strlen(directory) + strlen(argv[1]) + 1];
         strcpy(path, directory);
         strcat(path, argv[1]);
 
+        /* try to get open the file */
         FILE *f = fopen(path, "r");
+
+        /* if there is a file with the path */
         if (f != NULL){
+        	/* red the file */
         	fclose(f);
             read_file(argv[1]);
             display_map(map);
+        /* if the is no file with the path */
         } else {
+        	/* create a new map with default height and width and assign the file name with the argument */
             map = create_map(height, width);
 
             free(file_name);
             file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
             strcpy(file_name, argv[1]);
         }
-    } 
-    else 
-    {        
+    /* if there is no argunment provided */
+    } else {        
         map = create_map(height, width);
     }
     
     /* Run until program is ended */
-    while(!end_program)
-    {
+    while(!end_program) {
+    	/* refresh the terinal size */
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-        if (error_msg_count <= 0)
-        {            
+        /* clear the screen if message error count is 0, to clear the error message */
+        if (error_msg_count <= 0) {            
             clear();
         }
 
@@ -281,156 +291,197 @@ int main(int argc, char* argv[])
         input = getch();
 
         /* check for ":" to enter command mode */
-        if (input == ':')
-        {
-            if (error_msg_count > 0)
-            {
+        if (input == ':') {
+        	/* if message error count is not 0 then decrase it */
+            if (error_msg_count > 0) {
                 error_msg_count--;
-            }
-
-            if (error_msg_count <= 0)
-            {            
+            } else {            
                 move(w.ws_row - 2, 0);
                 clrtobot();
             }
 
             command_mode();
+        } else if (error_msg_count > 0) {
+            error_msg_count--;
         }
-        else
-        {
-            if (error_msg_count > 0)
-            {
-                error_msg_count--;
-            }
-            edit_mode(input);
-        }
+
+        edit_mode(input);
     }
+
+    /* close the terminal */
     endwin();
 
+    /* free the memory */
     free(map);
     free(author);
     free(title);
     free(file_name);
 
+    /* exit the program */
     exit(0);
 }
 
-void command_mode()
-{
+void command_mode() {
+	/* character array to store the command and its arguments */
     char args[1000];
-
-    int count = 0;
-    int input;
-
     char command[1000];
+
+    /* number of characters in the command string */
+    int count = 0;
+
+    /* pressed key on the keyboard */
+    int input;
 
     /* display the input characters on the screen */
     echo();
 
+    /* print the ":" character at the bottom of screen indicate the command mode is activated */
     mvprintw(w.ws_row - 1, 0, ":");
 
+    /* get the pressed key from keyboard */
     input = getch();
-    while (input != 27 && input != 10)
-    {
+
+    /* if pressed key is not "Enter" or "Escape" */
+    while (input != 27 && input != 10) {
+
+    	/* move the cursor right 1 character */
         move(w.ws_row - 1, count + 1);
 
-        if (input == KEY_BACKSPACE  && count != 0)
-        {
+        /* if "Backspace" is pressed */
+        if (input == KEY_BACKSPACE  && count != 0) {
+        	/* move cursor left 1 character and clear everything on the right */
             move(w.ws_row - 1, count);
             clrtoeol();
             count--;
+
+            /* wait for another input */
             input = getch();
+
+            /* run another iteration of the loop */
             continue;
         }
         
-        if (input != KEY_UP && input != KEY_DOWN && input != KEY_LEFT && input != KEY_RIGHT && input != KEY_BACKSPACE)
-        {
+        /* if key other than "Left", "Right", "Up", "Down" and "Backspace" is pressed */
+        if (input != KEY_UP && input != KEY_DOWN && input != KEY_LEFT && input != KEY_RIGHT && input != KEY_BACKSPACE) {
+
+        	/* move the cursor to the right 1 character */
             move(w.ws_row - 1, count + 2);
 
+            /* save the input character to the memory */
             command[count] = input;
 
+            /* increase the command lengthl */
             count++;
         }
-                
+
+        /* wait for another input */
         input = getch();       
     }
     
-    if (input == 27){
+    /* if "Escape" is pressed */
+    if (input == 27) {
+    	/* clear evething on the command input now */
         move(w.ws_row - 1, 0);
         clrtoeol();
     }
+
+    /* clear the command string */
     command[count] = '\0';
 
-    if (input == 10)
-    {
+    /* if "Enter" is pressed */
+    if (input == 10) {
+    	/* clear all character in the command input */
         clrtoeol();
-        switch (strlen(command)){
-            /* check for user input in command mode */
+        switch (strlen(command)) {
+            /* check for user command */
             case 1:
-                if(strcmp(command, "q") == 0)
-                {
+            	/* quit command */
+                if(strcmp(command, "q") == 0) {
                     end_program = 1;
                     return;
+                /* save current map with current file name */
                 } else if (strcmp(command,"w") == 0) {
                     write_file(file_name);
                 } 
                 break;
             case 2:
-                if (strcmp(command,"wq") == 0)
-                {
+            	/* save current map with current file name and quit */
+                if (strcmp(command,"wq") == 0) {
                     write_file(file_name);
                     end_program = 1;
                 }
                 break;
             default:
-                if (startsWith("wq ", command) != 0)
-                {
+            	/* save with custom name and quit */
+                if (startsWith("wq ", command) != 0) {
+                	/* copy the character in the command array to args and convert to string */
                     memcpy(args, &command[3], strlen(command));
                     args[strlen(command) - 3] = '\0';
 
+                    /* write file with args as file name */
                     write_file(args);
                     end_program = 1;
-                }
-                else if(startsWith("w ", command) != 0)
-                {
+                /* save with custom name */
+                } else if(startsWith("w ", command) != 0) {
+                	/* copy the character in the command array to args and convert to string */
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
 
+                    /* write file with args as file name */
                     write_file(args);
-                }
-
-                else if(startsWith("r ", command) != 0)
-                {
+                /* read the file */
+                } else if(startsWith("r ", command) != 0) {
+                	/* copy the character in the command array to args and convert to string */
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
+
+                    /* read file with args as file name */
                     read_file(args);
                     display_map(map);
-                }
-                else if(startsWith("n ", command) != 0)
-                {
+                /* create new map */
+                } else if(startsWith("n ", command) != 0) {
+                	/* copy the character in the command array to args and convert to string */
                     memcpy(args, &command[2], strlen(command));
                     args[strlen(command) - 2] = '\0';
-                    new(args);
+
+                    /* create new map with args */
+                    new_map(args);
                     display_map(map);
-                }
-                else if(startsWith("a ", command) != 0)
-                {
-                    free(author);
-                    author = malloc(sizeof(char) * (strlen(command) - 1));
-                    memcpy(author, &command[2], strlen(command));
-                    author[strlen(command) - 2] = '\0';
-                }
-                else if (startsWith("t ", command) != 0)
-                {
+                /* edit author */
+                } else if(startsWith("a ", command) != 0) {
+                	char * temp = malloc(sizeof(char) * (strlen(command) - 1));
+                	memcpy(temp, &command[2], strlen(command));
+                	temp[strlen(command) - 2] = '\0';
+
+                	isValidAuthor(temp);
+
+                	/* free the current author */
+                    //free(author);
+                    //author = malloc(sizeof(char) * (strlen(temp) + 1));
+
+                    /* copy the character in the command array to args and convert to string */
+                    //strcpy(author, temp);
+                /* edit tittle */
+                } else if (startsWith("t ", command) != 0) {
+                	/* free the current author */
                     free(title);
                     title = malloc(sizeof(char) * (strlen(command) - 1));
+
+                    /* copy the character in the command array to args and convert to string */
                     memcpy(title, &command[2], strlen(command));
+
+                    /* set new tittle */
                     title[strlen(command) - 2] = '\0';
-                }else if (strcmp(command,"auto") == 0){
+                /* auto fill available space with small pellet */
+                } else if (strcmp(command,"auto") == 0) {
+                	/* initiallize pacman spawn point */
                 	int pacman_spawn_point_x = -1;
 					int pacman_spawn_point_y = -1;
 
+					/* search for pacman spawn point */
                 	search_pacman_spawn_point(&pacman_spawn_point_x, &pacman_spawn_point_y);
+
+                	/* fill space starting at the pacman spawn point */
                 	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y);
                 }
         }
@@ -440,15 +491,17 @@ void command_mode()
     noecho();
 }
 
-void display_map(char* map)
-{
+void display_map(char* map) {
     int count = 0;
 
+    /* calculate the offset to display the map on screen */
     x_offset = (((w.ws_row - 6) / 2) - (height / 2)) > 0 ? ((w.ws_row -6) / 2) - (height / 2): 0;
     y_offset = ((w.ws_col / 2) - (width / 2)) > 0 ? (w.ws_col / 2) - (width / 2): 0;
 
+    /* set normal color */
     attrset(COLOR_PAIR(1));
 
+    /* display map general information */
     move(0, 0);
     clrtoeol();
     attrset(COLOR_PAIR(9));
@@ -473,25 +526,27 @@ void display_map(char* map)
     printw(title);
     attrset(COLOR_PAIR(1));
 
-    for (int i = 0; i < w.ws_col; i++)
-    {
+    /* draw 2 horrizontal line ont the screen */
+    attrset(COLOR_PAIR(9));
+    for (int i = 0; i < w.ws_col; i++) {
     	mvprintw(3, i, "-");
     	mvprintw(w.ws_row - 3, i, "-");
     }
+    attrset(COLOR_PAIR(1));
 
+    /* move */
     move(4 + x_offset, 0 + y_offset);
 
     attrset(COLOR_PAIR(3));
 
-    for (int i = 0; i < height * width; i++)
-    {
-        if (i != 0 && i % width == 0)
-        {
+    /* display character base on character stored in memory */
+    for (int i = 0; i < height * width; i++) {
+
+        if (i != 0 && i % width == 0) {
             move(4 + x_offset + (i / width), y_offset);
         }
 
-        switch (map[i])
-        {
+        switch (map[i]) {
             case 'q':
             case 'Q':
                 addch(ACS_ULCORNER);
@@ -544,12 +599,9 @@ void display_map(char* map)
                 addch(ACS_PI);
                 attrset(COLOR_PAIR(3));
 
-                if (count <= 3)
-                {
+                if (count <= 3) {
                     count++;
-                }
-                else
-                {
+                } else {
                     count = 0;
                 }
 
@@ -577,10 +629,10 @@ void display_map(char* map)
     move(x + 4 + x_offset, y + y_offset);
 }
 
-void edit_mode(int input)
-{
-    switch(input)
-    {
+void edit_mode(int input) {
+
+	/* check for pressed key, if it is "Left", "Right", "Up" and "Down" then move the cursor, if other then stored it on memory */
+    switch(input) {
         case KEY_UP:
             if(x > 0)
                 x--;
@@ -631,40 +683,45 @@ void edit_mode(int input)
     move(x + 4 + x_offset, y + y_offset);
 }
 
-void new(char* args)
-{   
+void new_map(char* args) {
+
+	/* temp size for the map */
     int temp_height;
     int temp_width;
+
     int count = 0;
     int error = 0;
+
     char *token = NULL;
     char *temp_file_name = NULL;
-    char *arguments[] = {"file name","map height","map width"};
+    char *arguments[] = {"file name", "map height", "map width"};
 
+    /* split the input args by token */
     token = strtok(args, " ");
-    while (token != NULL) 
-    {
-        if (count == 0)
-        {   
+    while (token != NULL) {
+    	/* first argument */
+        if (count == 0) {
+        	/* check if contains other than numbers, letters and punctuation */
             reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
             reti = regexec(&regex, token, 0, NULL, 0);
-            if (reti == REG_NOMATCH)
-            {
+
+            if (reti == REG_NOMATCH) {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please specify the file name correctly");
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;    
             }
+
             regfree(&regex);
             temp_file_name = token;
-        } 
-        else if (count == 1)
-        {
+        /* second argument */
+        } else if (count == 1) {
+
+        	/* check if it is a number or not */
             reti = regcomp(&regex,"^[[:digit:]]", 0);
             reti = regexec(&regex, token, 0, NULL, 0);    
-            if (reti == REG_NOMATCH)
-            {
+            if (reti == REG_NOMATCH) {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please specify the number of rows correctly");
                 error = 1;
@@ -675,22 +732,22 @@ void new(char* args)
             regfree(&regex);
             sscanf(token, "%d", &temp_height);
 
-            if (temp_height > w.ws_row - 8 || temp_height < 1)
-            {
+            /* check if it is in acceptable range */
+            if (temp_height > w.ws_row - 8 || temp_height < 1) {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please enter a valid height (1 to %d)", w.ws_row - 8);
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;            
             }
-        } 
-        else if (count == 2)
-        {
+        /* third argument */
+        } else if (count == 2) {
+
+        	/* check if it is a number or not */
             reti = regcomp(&regex,"^[[:digit:]]", 0);
             reti = regexec(&regex, token, 0, NULL, 0);
                 
-            if (reti == REG_NOMATCH)
-            {
+            if (reti == REG_NOMATCH) {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please specify the number of column correctly");
                 error = 1;
@@ -701,8 +758,8 @@ void new(char* args)
             regfree(&regex);
             sscanf(token, "%d", &temp_width);
 
-            if (temp_width > w.ws_col - 1 || temp_width < 1)
-            {
+            /* check if it is in acceptable range */
+            if (temp_width > w.ws_col - 1 || temp_width < 1) {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please enter a valid width (1 to %d)", w.ws_col - 1);
                 error = 1;
@@ -717,14 +774,14 @@ void new(char* args)
         count++;
     }
     
-    if (count < 2 && error != 1)
-    {
+    /* if there is not enough argument provided */
+    if (count < 2 && error != 1) {
     	attrset(COLOR_PAIR(2));
         mvprintw(w.ws_row - 2, 0, "Not enough arguments, need: file name, map height and map width");
 
         mvprintw(w.ws_row - 1, 0, "Found: %s", arguments[0]);
-        for (int i = 1; i < count; i++)
-        {
+
+        for (int i = 1; i < count; i++) {
         	printw(", %s", arguments[i]);
         }
 
@@ -732,11 +789,10 @@ void new(char* args)
         attrset(COLOR_PAIR(1));
     }
 
-    if (error == 0)
-    {
+    if (error == 0) {
+    	/* update file name */
     	free(file_name);
-        if (endsWithPac(temp_file_name))
-        {
+        if (endsWithPac(temp_file_name)) {
             file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
             strcpy(file_name, temp_file_name);
         } else {
@@ -745,37 +801,33 @@ void new(char* args)
             strcat(file_name, ".pac");
         }
 
-       map = create_map(temp_height, temp_width);
-       clear();
-	   move(x + 4 + x_offset, y + y_offset);
-    }
-    else
-    {
+        /* create map with height and width */
+       	map = create_map(temp_height, temp_width);
+       	clear();
+	   	move(x + 4 + x_offset, y + y_offset);
+    } else {
         error_msg_count = 1;
     }
 }
 
-
-void write_file(char* file)
-{
+void write_file(char* file) {
+	/* check if contains other than numbers, letters and punctuation */
     reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
     reti = regexec(&regex, file, 0, NULL, 0);
-    if (reti == REG_NOMATCH)
-    {
+
+    if (reti == REG_NOMATCH) {
         attrset(COLOR_PAIR(2));
         mvprintw(w.ws_row - 2, 0, "Please specify the file name to be save or use 'w' to save the file with default name");
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
-    } 
-    else 
-    {
+    } else {
     	int length = strlen(file);
     	char * temp = malloc(sizeof(char) * (length + 1));
     	strcpy(temp, file);
-    	free(file_name);
 
-        if (endsWithPac(temp))
-        {
+    	/* update file name */
+    	free(file_name);
+        if (endsWithPac(temp)) {
             file_name = malloc(sizeof(char) * (length + 1));
             strcpy(file_name, temp);
         } else {
@@ -786,18 +838,20 @@ void write_file(char* file)
 
         free(temp);
 
+        /* contruct file path */
         char path[strlen(directory) + strlen(file_name) + 1];
         strcpy(path, directory);
         strcat(path, file_name);
 
         int i;
 
+        /* open and write file */
         FILE *f = fopen(path, "w");
 
        	fprintf(f, "%s\n", author);
        	fprintf(f, "%s\n%i\n%i\n", title, height, width);
 
-       	for (i = 0; i < height * width; i++){
+       	for (i = 0; i < height * width; i++) {
            	if (i % width == 0 && i != 0)
                	fprintf(f,"\n");
            	fprintf(f,"%c", map[i]);
@@ -812,8 +866,8 @@ void write_file(char* file)
     regfree(&regex);
 }
 
-void read_file(char* file)
-{
+void read_file(char * file) {
+	/* check if contains other than numbers, letters and punctuation */
     reti = regcomp(&regex,"^[[:alnum:][:punct:]]", 0);
     reti = regexec(&regex, file, 0, NULL, 0);
     if (reti == REG_NOMATCH) {
@@ -821,9 +875,7 @@ void read_file(char* file)
         mvprintw(w.ws_row - 2, 0, "Please specify the file name to be open");
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
-    }
-    else 
-    {
+    } else  {
         int temp_height;
         int temp_width;
 
@@ -832,18 +884,20 @@ void read_file(char* file)
         char *temp_author = NULL;
         char *temp_title = NULL;
 
+        /* update file name*/
         free(file_name);
         file_name = malloc(sizeof(char) * (strlen(file) + 1));
         strcpy(file_name, file);
 
+        /* contruct file path */
         char path[strlen(directory) + strlen(file) + 1];
         strcpy(path, directory);
         strcat(path, file);
 
+        /* open the file and read from it */
         FILE *f = fopen(path, "r");
 
-        if (f == NULL)
-        {
+        if (f == NULL) {
             attrset(COLOR_PAIR(2));
             mvprintw(w.ws_row - 2, 0,"No such file found");
             attrset(COLOR_PAIR(1));
@@ -854,11 +908,13 @@ void read_file(char* file)
         getline(&temp_author, &len, f);
         getline(&temp_title, &len, f);
 
+        /* update author */
         free(author);
         author = malloc(sizeof(char) * (strlen(temp_author)));
         memcpy(author, &temp_author[0], strlen(temp_author) - 1);
         author[strlen(temp_author) - 1] = '\0';
 
+        /* update tittle */
         free(title);
         title = malloc(sizeof(char) * (strlen(temp_title)));
         memcpy(title, &temp_title[0], strlen(temp_title) - 1);
@@ -872,16 +928,15 @@ void read_file(char* file)
 
         map = create_map(temp_height, temp_width);
 
-        for (int row = 0; row < temp_height; row++)
-        {
+        for (int row = 0; row < temp_height; row++) {
             getline(&temp, &len, f);
 
-            for (int col = 0; col < temp_width; col++)
-            {
+            for (int col = 0; col < temp_width; col++) {
                 map[row * width + col] = temp[col];
             }
         }
 
+        /* free memory and clode the file */
         free(temp);
         free(temp_author);
         free(temp_title);
@@ -891,40 +946,41 @@ void read_file(char* file)
     }
 }
 
-char *create_map(int new_height, int new_width)
-{
+char *create_map(int new_height, int new_width) {
     height = new_height;
     width = new_width;
 
+    /* calculate the offset to display the map on screen */
     x_offset = (((w.ws_row - 6) / 2) - (height / 2)) > 0 ? ((w.ws_row -6) / 2) - (height / 2): 0;
     y_offset = ((w.ws_col / 2) - (width / 2)) > 0 ? (w.ws_col / 2) - (width / 2): 0;
 
     x = 0;
     y = 0;
 
-    if (map)
-    {
+    /* free the current map */
+    if (map) {
         free(map);
     }
     map = malloc(sizeof(char) * (height * width));
 
-    for (int i = 0; i < (height * width); i++)
-    {
+    /* file all current character with space */
+    for (int i = 0; i < (height * width); i++) {
         map[i] = ' ';
     }
 
-    for (int row = 1; row < height - 1; row++)
-    {
+    /* draw vertical border */
+    for (int row = 1; row < height - 1; row++) {
         map[row * width] = 'a';
         map[row * width + width - 1] = 'd';
     }
 
-    for (int col = 1; col < width - 1; col++)
-    {
+    /* draw horrizontal border */
+    for (int col = 1; col < width - 1; col++) {
         map[col] = 'w';
         map[width * (height - 1) + col] = 'x';
     }
 
+    /* draw corner border */
     map[0] = 'q';
     map[width - 1] = 'e';
     map[(height - 1) * width] = 'z';
@@ -933,15 +989,13 @@ char *create_map(int new_height, int new_width)
     return map;
 }
 
-int startsWith(const char *pre, const char *str)
-{
+int startsWith(const char *pre, const char *str) {
   size_t lenpre = strlen(pre),
   lenstr = strlen(str);
   return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
 }
 
-int endsWithPac(const char *str)
-{
+int endsWithPac(const char *str) {
   if (!str)
     return 0;
   
@@ -954,47 +1008,64 @@ int endsWithPac(const char *str)
   return strncmp(str + lenstr - lensuffix, ".pac", lensuffix) == 0;
 }
 
-void auto_fill_pellet(int current_x, int current_y)
-{
-	if (map[(current_x + 1) * width + current_y] == ' ')
-	{
+void auto_fill_pellet(int current_x, int current_y) {
+	/* recursively call itself in other cell after fill it with 's' if it contains ' ' */
+	if (map[(current_x + 1) * width + current_y] == ' ') {
 		map[(current_x + 1) * width + current_y] = 's';
 		auto_fill_pellet(current_x + 1, current_y);
 	}
-	if (map[(current_x - 1) * width + current_y] == ' ')
-	{
+	if (map[(current_x - 1) * width + current_y] == ' ') {
 		map[(current_x - 1) * width + current_y] = 's';
 		auto_fill_pellet(current_x - 1, current_y);
 	}
-	if (map[current_x * width + current_y + 1] == ' ')
-	{
+	if (map[current_x * width + current_y + 1] == ' ') {
 		map[current_x * width + current_y + 1] = 's';
 		auto_fill_pellet(current_x, current_y + 1);
 	}
-	if (map[current_x * width + current_y - 1] == ' ')
-	{
+	if (map[current_x * width + current_y - 1] == ' ') {
 		map[current_x * width + current_y - 1] = 's';
 		auto_fill_pellet(current_x, current_y - 1);
 	}
 }
 
-void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y)
-{
-	for (int i = 0; i < (height * width) - 1; i++)
-	{
-		if (map[i] == 'p' || map[i] == 'P')
-		{
+void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y) {
+	/* search for pacman spawn point */
+	for (int i = 0; i < (height * width) - 1; i++) {
+		if (map[i] == 'p' || map[i] == 'P') {
 			*pacman_spawn_point_x = i / width;
 			*pacman_spawn_point_y = i % width;
 			break;
 		}
 	}
 
-	if (*pacman_spawn_point_x == -1 || *pacman_spawn_point_y == -1)
-	{
+	/* display error message if no spawn point found */
+	if (*pacman_spawn_point_x == -1 || *pacman_spawn_point_y == -1) {
 		attrset(COLOR_PAIR(2));
         mvprintw(w.ws_row - 2, 0, "No pacman spawn point found.\nPlease specify at least 1 spawn point for pacman.");
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
 	}
+}
+
+int isValidAuthor(char * author_arg) {
+	char *token = NULL;
+
+	token = strtok(author_arg, ",");
+	while (token != NULL) {
+		reti = regcomp(&regex,"^[[:alpha:]]", 0);
+        reti = regexec(&regex, token, 0, NULL, 0);
+
+        if (reti == REG_NOMATCH) {
+            attrset(COLOR_PAIR(2));
+            mvprintw(w.ws_row - 2, 0, "Invalid author");
+            error_msg_count = 1;
+            attrset(COLOR_PAIR(1));
+            return 0;
+        }
+        getch();
+
+		token = strtok(NULL, ",");
+	}
+
+	return 1;
 }
