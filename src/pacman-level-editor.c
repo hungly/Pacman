@@ -129,7 +129,9 @@ int endsWithPac(const char *str);
 /**
   * Function for automatically filling small pellet on all of the space on the maze alley of the map (not all of the space will be filled)
   */
-void autoFill(int x, int y, const int filled);
+void auto_fill_pellet(int x, int y);
+
+void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y);
 
 /** Pointer to array of char which indicates the current map */
 char *map;
@@ -188,16 +190,13 @@ int main(int argc, char* argv[])
 
     /* default values for author, title, file name, height and width */
     author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
-    memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
-    author[strlen(DEFAULT_AUTHOR)] = '\0';
+    strcpy(author, DEFAULT_AUTHOR);
 
     title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
-    memcpy(title, &DEAFULT_TITTLE[0], strlen(DEAFULT_TITTLE));
-    title[strlen(DEAFULT_TITTLE)] = '\0';
+    strcpy(title, DEAFULT_TITTLE);
 
     file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
-    memcpy(file_name, &DEAFULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
-    file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
+    strcpy(file_name, DEAFULT_FILE_NAME);
 
     height = DEFAULT_HEIGHT;
     width = DEFAULT_WIDTH;
@@ -235,8 +234,10 @@ int main(int argc, char* argv[])
         init_pair(3, COLOR_WALL,    COLOR_MAP_BACKGROUND);
         init_pair(4, COLOR_PACMAN,  COLOR_MAP_BACKGROUND);
         init_pair(5, COLOR_FRUIT,   COLOR_MAP_BACKGROUND);
-        init_pair(6, COLOR_LETTER,   COLOR_MAP_BACKGROUND);
-        init_pair(7, COLOR_GHOST, COLOR_MAP_BACKGROUND);
+        init_pair(6, COLOR_LETTER,  COLOR_MAP_BACKGROUND);
+        init_pair(7, COLOR_GHOST,	COLOR_MAP_BACKGROUND);
+        init_pair(8, COLOR_PACMAN,	COLOR_BACKGROUND);
+        init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
     }
 
     if (argc == 2)
@@ -254,7 +255,7 @@ int main(int argc, char* argv[])
             map = create_map(height, width);
 
             free(file_name);
-            file_name = malloc(sizeof(char) * strlen(argv[1]));
+            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
             strcpy(file_name, argv[1]);
         }
     } 
@@ -270,8 +271,7 @@ int main(int argc, char* argv[])
 
         if (error_msg_count <= 0)
         {            
-            move(w.ws_row - 2, 0);
-            clrtobot();
+            clear();
         }
 
         /* display current map from the memory */
@@ -427,7 +427,11 @@ void command_mode()
                     memcpy(title, &command[2], strlen(command));
                     title[strlen(command) - 2] = '\0';
                 }else if (strcmp(command,"auto") == 0){
-                	autoFill(1, 1, 1);
+                	int pacman_spawn_point_x = -1;
+					int pacman_spawn_point_y = -1;
+
+                	search_pacman_spawn_point(&pacman_spawn_point_x, &pacman_spawn_point_y);
+                	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y);
                 }
         }
     }
@@ -440,19 +444,40 @@ void display_map(char* map)
 {
     int count = 0;
 
+    x_offset = (((w.ws_row - 6) / 2) - (height / 2)) > 0 ? ((w.ws_row -6) / 2) - (height / 2): 0;
+    y_offset = ((w.ws_col / 2) - (width / 2)) > 0 ? (w.ws_col / 2) - (width / 2): 0;
+
     attrset(COLOR_PAIR(1));
 
     move(0, 0);
     clrtoeol();
-    mvprintw(0, 0, "Map file name: %s", file_name);
+    attrset(COLOR_PAIR(9));
+    printw("Map file name: ");
+    attrset(COLOR_PAIR(8));
+    printw(file_name);
+    attrset(COLOR_PAIR(1));
 
     move(1, 0);
     clrtoeol();
-    mvprintw(1, 0, "Author:        %s", author);
+    attrset(COLOR_PAIR(9));
+    printw("Author:        ");
+    attrset(COLOR_PAIR(8));
+    printw(author);
+    attrset(COLOR_PAIR(1));
 
     move(2, 0);
     clrtoeol();
-    mvprintw(2, 0, "Map title:     %s", title);
+    attrset(COLOR_PAIR(9));
+    printw("Map title:     ");
+    attrset(COLOR_PAIR(8));
+    printw(title);
+    attrset(COLOR_PAIR(1));
+
+    for (int i = 0; i < w.ws_col; i++)
+    {
+    	mvprintw(3, i, "-");
+    	mvprintw(w.ws_row - 3, i, "-");
+    }
 
     move(4 + x_offset, 0 + y_offset);
 
@@ -650,10 +675,10 @@ void new(char* args)
             regfree(&regex);
             sscanf(token, "%d", &temp_height);
 
-            if (temp_height > w.ws_row - 6 || temp_height < 1)
+            if (temp_height > w.ws_row - 8 || temp_height < 1)
             {
                 attrset(COLOR_PAIR(2));
-                mvprintw(w.ws_row - 2, 0, "Please enter a valid height (1 to %d)", w.ws_row - 6);
+                mvprintw(w.ws_row - 2, 0, "Please enter a valid height (1 to %d)", w.ws_row - 8);
                 error = 1;
                 attrset(COLOR_PAIR(1));
                 break;            
@@ -676,7 +701,7 @@ void new(char* args)
             regfree(&regex);
             sscanf(token, "%d", &temp_width);
 
-            if (temp_width > w.ws_col -1 || temp_width < 1)
+            if (temp_width > w.ws_col - 1 || temp_width < 1)
             {
                 attrset(COLOR_PAIR(2));
                 mvprintw(w.ws_row - 2, 0, "Please enter a valid width (1 to %d)", w.ws_col - 1);
@@ -692,7 +717,7 @@ void new(char* args)
         count++;
     }
     
-    if (count < 3)
+    if (count < 2 && error != 1)
     {
     	attrset(COLOR_PAIR(2));
         mvprintw(w.ws_row - 2, 0, "Not enough arguments, need: file name, map height and map width");
@@ -745,7 +770,7 @@ void write_file(char* file)
     else 
     {
     	int length = strlen(file);
-    	char * temp = malloc(sizeof(char) * length);
+    	char * temp = malloc(sizeof(char) * (length + 1));
     	strcpy(temp, file);
     	free(file_name);
 
@@ -806,7 +831,6 @@ void read_file(char* file)
         char *temp = NULL;
         char *temp_author = NULL;
         char *temp_title = NULL;
-        char c;
 
         free(file_name);
         file_name = malloc(sizeof(char) * (strlen(file) + 1));
@@ -854,7 +878,6 @@ void read_file(char* file)
 
             for (int col = 0; col < temp_width; col++)
             {
-                c = temp[col];
                 map[row * width + col] = temp[col];
             }
         }
@@ -931,98 +954,47 @@ int endsWithPac(const char *str)
   return strncmp(str + lenstr - lensuffix, ".pac", lensuffix) == 0;
 }
 
-void autoFill(int x, int y, const int filled)
+void auto_fill_pellet(int current_x, int current_y)
 {
-	if((x >= 0 && x < height) && (y >= 0 && y < width) && filled)
+	if (map[(current_x + 1) * width + current_y] == ' ')
 	{
-		map[x * width + y] = 's';
+		map[(current_x + 1) * width + current_y] = 's';
+		auto_fill_pellet(current_x + 1, current_y);
+	}
+	if (map[(current_x - 1) * width + current_y] == ' ')
+	{
+		map[(current_x - 1) * width + current_y] = 's';
+		auto_fill_pellet(current_x - 1, current_y);
+	}
+	if (map[current_x * width + current_y + 1] == ' ')
+	{
+		map[current_x * width + current_y + 1] = 's';
+		auto_fill_pellet(current_x, current_y + 1);
+	}
+	if (map[current_x * width + current_y - 1] == ' ')
+	{
+		map[current_x * width + current_y - 1] = 's';
+		auto_fill_pellet(current_x, current_y - 1);
+	}
+}
 
-		if (map[(x + 1) * width + y] == ' ')
+void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y)
+{
+	for (int i = 0; i < (height * width) - 1; i++)
+	{
+		if (map[i] == 'p' || map[i] == 'P')
 		{
-			autoFill(x + 1, y, 1);
-		}
-		else
-		{
-			switch (map[(x + 1) * width + y])
-			{
-				case 's':
-				case 'S':
-				case 'f':
-				case 'F':
-				case 'g':
-				case 'G':
-				case 'p':
-				case 'P':
-					autoFill(x + 1, y, 0);
-					break;
-			}
-		}
-
-		if (map[(x - 1) * width + y] == ' ')
-		{
-			autoFill(x - 1, y, 1);
-		}
-		else
-		{
-			switch (map[(x - 1) * width + y])
-			{
-				case 's':
-				case 'S':
-				case 'f':
-				case 'F':
-				case 'g':
-				case 'G':
-				case 'p':
-				case 'P':
-					autoFill(x - 1, y, 0);
-					break;
-			}
-		}
-
-		if (map[x * width + y + 1] == ' ')
-		{
-			autoFill(x, y + 1, 1);
-		}
-		else
-		{
-			switch (map[x * width + y + 1])
-			{
-				case 's':
-				case 'S':
-				case 'f':
-				case 'F':
-				case 'g':
-				case 'G':
-				case 'p':
-				case 'P':
-					autoFill(x, y + 1, 0);
-					break; 
-			}
-		}
-
-		if (map[x * width + y - 1] == ' ')
-		{
-			autoFill(x, y - 1, 1);
-		}
-		else
-		{
-			switch (map[x * width + y - 1])
-			{
-				case 's':
-				case 'S':
-				case 'f':
-				case 'F':
-				case 'g':
-				case 'G':
-				case 'p':
-				case 'P':
-					autoFill(x, y - 1, 0);
-					break;
-			}
+			*pacman_spawn_point_x = i / width;
+			*pacman_spawn_point_y = i % width;
+			break;
 		}
 	}
-	else
+
+	if (*pacman_spawn_point_x == -1 || *pacman_spawn_point_y == -1)
 	{
-		return;
+		attrset(COLOR_PAIR(2));
+        mvprintw(w.ws_row - 2, 0, "No pacman spawn point found.\nPlease specify at least 1 spawn point for pacman.");
+        attrset(COLOR_PAIR(1));
+        error_msg_count = 1;
 	}
 }
