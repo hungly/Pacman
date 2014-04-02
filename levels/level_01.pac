@@ -3,22 +3,22 @@ Level 01
 20
 50
 qwwwwwwwwwwwwwwwwwWwwwwwwwwwwwwWwwwwwwwwwwwwwwwwwe
-a                 a            d                 d
-a qwwwwwe qwwwwwe zxxxxxxxxxxxxc qwwwwwe qwwwwwe d
-afa     d a     d                a     d a     dfd
-a a     d a     d qwwwwwwwwwwwwe a     d a     d d
-a zxxxxxc a     d a            d a     d zxxxxxc d
-a         a     d a            d a     d         d
-Awwwe xwwwXxxxxxc zxxxxxxxxxxxxc zxxxxxXwwwx qwwwD
-a   d                                        a   d
-a   d qwwwwwwwwwwe qe qw  we qe qwwwwwwwwwwe a   d
-a   d zwwwwwwwwwwc ad aggggd ad zxxxxxxxxxxc a   d
-a   d              ad zxxxxc ad              a   d
-Axxxc xxxxWwwwwwe qcd        aze qwwwwwWwwww zxxxD
-a         a     d aqc qwwwwe zed a     d         d
-a qwwwwwe a     d aa  a    d  dd a     d qwwwwwe d
-a a     d zxxxxxc aa qc    ze dd zxxxxxc a     d d
-afa     d         zc zxxxxxxc zc         a     dfd
-a zxxxxxc qwwwwwe                qwwwwwe zxxxxxc d
-ap        a     d qwwwwwwwwwwwwe a     d         d
+asssssssssssssssssa            dsssssssssssssssssd
+asqwwwwwesqwwwwweszxxxxxxxxxxxxcsqwwwwwesqwwwwwesd
+afa     dsa     dssssssssssssssssa     dsa     dfd
+asa     dsa     dsqwwwwwwwwwwwwesa     dsa     dsd
+aszxxxxxcsa     dsa            dsa     dszxxxxxcsd
+asssssssssa     dsa            dsa     dsssssssssd
+AwwwesxwwwXxxxxxcszxxxxxxxxxxxxcszxxxxxXwwwxsqwwwD
+a   dssssssssssssssssssssssssssssssssssssssssa   d
+a   dsqwwwwwwwwwwesqesqwsswesqesqwwwwwwwwwwesa   d
+a   dszwwwwwwwwwwcsadsaggggdsadszxxxxxxxxxxcsa   d
+a   dssssssssssssssadszxxxxcsadssssssssssssssa   d
+AxxxcsxxxxWwwwwwesqcdssssssssazesqwwwwwWwwwwszxxxD
+asssssssssa     dsaqcsqwwwweszedsa     dsssssssssd
+asqwwwwwesa     dsaassa    dssddsa     dsqwwwwwesd
+asa     dszxxxxxcsaasqc    zesddszxxxxxcsa     dsd
+afa     dssssssssszcszxxxxxxcszcsssssssssa     dfd
+aszxxxxxcsqwwwwwessssssssssssssssqwwwwweszxxxxxcsd
+apssssssssa     dsqwwwwwwwwwwwwesa     dsssssssssd
 zxxxxxxxxxXxxxxxXxXxxxxxxxxxxxxXxXxxxxxXxxxxxxxxxc

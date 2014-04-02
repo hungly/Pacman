@@ -474,7 +474,7 @@ void command_mode() {
                     title[strlen(command) - 2] = '\0';
                 /* auto fill available space with small pellet */
                 } else if (strcmp(command,"auto") == 0) {
-                	/* initiallize pacman spawn point */
+                	/* initialize pacman spawn point */
                 	int pacman_spawn_point_x = -1;
 					int pacman_spawn_point_y = -1;
 
@@ -1052,7 +1052,7 @@ int isValidAuthor(char * author_arg) {
 
 	token = strtok(author_arg, ",");
 	while (token != NULL) {
-		reti = regcomp(&regex,"^[[:alpha:]]", 0);
+		reti = regcomp(&regex,"^[[:alpha:]]*[[:space:]]<[[:alpha:][:digit:]]*@[[:alpha:]]*[[:punct:]][[:alpha:]]*>", 0);
         reti = regexec(&regex, token, 0, NULL, 0);
 
         if (reti == REG_NOMATCH) {
@@ -1062,10 +1062,9 @@ int isValidAuthor(char * author_arg) {
             attrset(COLOR_PAIR(1));
             return 0;
         }
-        getch();
 
 		token = strtok(NULL, ",");
 	}
-
+	getch();
 	return 1;
 }
