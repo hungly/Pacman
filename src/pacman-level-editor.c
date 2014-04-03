@@ -207,13 +207,13 @@ int main(int argc, char *argv[]) {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
     /* default values for author, title, file name, height and width */
-    author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
+    author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR)));
     strcpy(author, DEFAULT_AUTHOR);
 
-    title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE) + 1));
+    title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE)));
     strcpy(title, DEAFULT_TITTLE);
 
-    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
+    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME)));
     strcpy(file_name, DEAFULT_FILE_NAME);
 
     /* set default height and width */
@@ -279,7 +279,7 @@ int main(int argc, char *argv[]) {
             map = create_map(height, width);
 
             free(file_name);
-            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
+            file_name = malloc(sizeof(char) * (strlen(argv[1])));
             strcpy(file_name, argv[1]);
         }
     /* if there is no argunment provided */
@@ -809,10 +809,10 @@ void new_map(char* args) {
     	/* update file name */
     	free(file_name);
         if (endsWithPac(temp_file_name)) {
-            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name)));
             strcpy(file_name, temp_file_name);
         } else {
-            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 5));
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 4));
             strcpy(file_name, temp_file_name);
             strcat(file_name, ".pac");
         }
@@ -838,16 +838,16 @@ void write_file(char* file) {
         error_msg_count = 1;
     } else {
     	int length = strlen(file);
-    	char * temp = malloc(sizeof(char) * (length + 1));
+    	char * temp = malloc(sizeof(char) * (length));
     	strcpy(temp, file);
 
     	/* update file name */
     	free(file_name);
         if (endsWithPac(temp)) {
-            file_name = malloc(sizeof(char) * (length + 1));
+            file_name = malloc(sizeof(char) * (length));
             strcpy(file_name, temp);
         } else {
-            file_name = malloc(sizeof(char) * (length + 5));
+            file_name = malloc(sizeof(char) * (length + 4));
             strcpy(file_name, temp);
             strcat(file_name, ".pac");
         }
@@ -855,7 +855,7 @@ void write_file(char* file) {
         free(temp);
 
         /* contruct file path */
-        char path[strlen(directory) + strlen(file_name) + 1];
+        char path[strlen(directory) + strlen(file_name)];
         strcpy(path, directory);
         strcat(path, file_name);
 
@@ -873,6 +873,7 @@ void write_file(char* file) {
            	fprintf(f,"%c", map[i]);
        	}
 
+       	fprintf(f, "\n");
        	fprintf(f, "\n");
 
        	fclose(f);
@@ -902,11 +903,11 @@ void read_file(char * file) {
 
         /* update file name*/
         free(file_name);
-        file_name = malloc(sizeof(char) * (strlen(file) + 1));
+        file_name = malloc(sizeof(char) * (strlen(file)));
         strcpy(file_name, file);
 
         /* contruct file path */
-        char path[strlen(directory) + strlen(file) + 1];
+        char path[strlen(directory) + strlen(file)];
         strcpy(path, directory);
         strcat(path, file);
 

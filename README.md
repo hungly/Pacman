@@ -135,6 +135,12 @@ Assignment description:
     minimize continuously, you should choose only one window size (maximize or
     normal) and stck with it.
 
+    There is a case of where our program can read other people map and save it
+    normally but other people while they CAN read map product by our program
+    but their program will crash while attempting to save the map although
+    there is no change made. Their program can read and write other people map
+    normally though. Not everyone got that problem though.
+
 Third party resources:
 
   NCURSES
