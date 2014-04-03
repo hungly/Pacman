@@ -50,7 +50,7 @@ void \hyperlink{pacman-level-editor_8c_a77a5d2c2bbebb2204a994de0fc9e066d}{displa
 \item 
 void \hyperlink{pacman-level-editor_8c_aac01ba2c86cce30701b994bbfbd7e34a}{edit\-\_\-mode} (int input)
 \item 
-void \hyperlink{pacman-level-editor_8c_a85a88061d1f653b7e99634d24995a1f1}{new} (char $\ast$args)
+void \hyperlink{pacman-level-editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}{new\-\_\-map} (char $\ast$args)
 \item 
 void \hyperlink{pacman-level-editor_8c_aaa90b13ddc12479556f96bdaf7cc04a5}{write\-\_\-file} (char $\ast$file)
 \item 
@@ -59,6 +59,18 @@ void \hyperlink{pacman-level-editor_8c_ae8f3b08f62235bb7c36c368900757640}{read\-
 char $\ast$ \hyperlink{pacman-level-editor_8c_a8a62b1ef65d0697d60b3b762c9cf0799}{create\-\_\-map} (int \hyperlink{pacman-level-editor_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, int \hyperlink{pacman-level-editor_8c_a2474a5474cbff19523a51eb1de01cda4}{width})
 \item 
 int \hyperlink{pacman-level-editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}{starts\-With} (const char $\ast$pre, const char $\ast$str)
+\item 
+int \hyperlink{pacman-level-editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}{ends\-With\-Pac} (const char $\ast$str)
+\item 
+void \hyperlink{pacman-level-editor_8c_a0e89020536a88fc330cd9e4aa35799b0}{auto\-\_\-fill\-\_\-pellet} (const int current\-\_\-x, const int current\-\_\-y, const char direction)
+\item 
+void \hyperlink{pacman-level-editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{search\-\_\-pacman\-\_\-spawn\-\_\-point} (int $\ast$pacman\-\_\-spawn\-\_\-point\-\_\-x, int $\ast$pacman\-\_\-spawn\-\_\-point\-\_\-y)
+\item 
+int \hyperlink{pacman-level-editor_8c_a78839797ab5993e64cbcd43e56e83819}{is\-Valid\-Author} (char $\ast$author\-\_\-arg)
+\item 
+int \hyperlink{pacman-level-editor_8c_a8b8c0e479a095829ab925c906e493de5}{is\-Valid\-Fill\-Cell} (const int current\-\_\-x, const int current\-\_\-y)
+\item 
+void \hyperlink{pacman-level-editor_8c_a7f12ac9d3ab2b706a5411ecf8d0d1ea2}{replace\-\_\-marked\-\_\-point} ()
 \item 
 int \hyperlink{pacman-level-editor_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \end{DoxyCompactItemize}
@@ -148,7 +160,16 @@ Define the directory when opening using sh file in root folder of project \hyper
 Define the directory when opening using the executable file in source folder 
 
 \subsection{Function Documentation}
-\hypertarget{pacman-level-editor_8c_af892ff919e1c7850c0bd85827b9b648e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!command\-\_\-mode@{command\-\_\-mode}}
+\hypertarget{pacman-level-editor_8c_a0e89020536a88fc330cd9e4aa35799b0}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}}
+\index{auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{auto\-\_\-fill\-\_\-pellet}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-fill\-\_\-pellet (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_a0e89020536a88fc330cd9e4aa35799b0}
+Function for automatically filling all the appropriate place with a simple character \hypertarget{pacman-level-editor_8c_af892ff919e1c7850c0bd85827b9b648e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!command\-\_\-mode@{command\-\_\-mode}}
 \index{command\-\_\-mode@{command\-\_\-mode}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{command\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void command\-\_\-mode (
 \begin{DoxyParamCaption}
@@ -215,7 +236,29 @@ Handling input that change the current edited map.
 {\em input} & the A\-S\-C\-I\-I code of the input command. \\
 \hline
 \end{DoxyParams}
-\hypertarget{pacman-level-editor_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!main@{main}}
+\hypertarget{pacman-level-editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!ends\-With\-Pac@{ends\-With\-Pac}}
+\index{ends\-With\-Pac@{ends\-With\-Pac}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{ends\-With\-Pac}]{\setlength{\rightskip}{0pt plus 5cm}int ends\-With\-Pac (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}
+Reference\-: \href{http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c}{\tt http\-://stackoverflow.\-com/questions/744766/how-\/to-\/compare-\/ends-\/of-\/strings-\/in-\/c} \hypertarget{pacman-level-editor_8c_a78839797ab5993e64cbcd43e56e83819}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!is\-Valid\-Author@{is\-Valid\-Author}}
+\index{is\-Valid\-Author@{is\-Valid\-Author}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{is\-Valid\-Author}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Author (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{author\-\_\-arg}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_a78839797ab5993e64cbcd43e56e83819}
+Function to validate if author name is entered correctly \hypertarget{pacman-level-editor_8c_a8b8c0e479a095829ab925c906e493de5}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}}
+\index{is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{is\-Valid\-Fill\-Cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Fill\-Cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_a8b8c0e479a095829ab925c906e493de5}
+Function to determined the input cell is valid to fill with small pellet or not \hypertarget{pacman-level-editor_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!main@{main}}
 \index{main@{main}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
 \begin{DoxyParamCaption}
@@ -223,13 +266,13 @@ Handling input that change the current edited map.
 \item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
 \end{DoxyParamCaption}
 )}}\label{pacman-level-editor_8c_a0ddf1224851353fc92bfbff6f499fa97}
-\hypertarget{pacman-level-editor_8c_a85a88061d1f653b7e99634d24995a1f1}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!new@{new}}
-\index{new@{new}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
-\subsubsection[{new}]{\setlength{\rightskip}{0pt plus 5cm}void new (
+\hypertarget{pacman-level-editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!new\-\_\-map@{new\-\_\-map}}
+\index{new\-\_\-map@{new\-\_\-map}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{new\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void new\-\_\-map (
 \begin{DoxyParamCaption}
 \item[{char $\ast$}]{args}
 \end{DoxyParamCaption}
-)}}\label{pacman-level-editor_8c_a85a88061d1f653b7e99634d24995a1f1}
+)}}\label{pacman-level-editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}
 Handling new map creation using with n command in command mode and when the program is loaded.
 
 
@@ -251,7 +294,22 @@ Reading the current map and related information into a file.
 {\em file} & the pointer to the array of characters which indicates the file name to read from the disk. \\
 \hline
 \end{DoxyParams}
-\hypertarget{pacman-level-editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!starts\-With@{starts\-With}}
+\hypertarget{pacman-level-editor_8c_a7f12ac9d3ab2b706a5411ecf8d0d1ea2}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}}
+\index{replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{replace\-\_\-marked\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void replace\-\_\-marked\-\_\-point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_a7f12ac9d3ab2b706a5411ecf8d0d1ea2}
+Replace all the character that mark the possilble small pellet place with the actual small pellet character \hypertarget{pacman-level-editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}}
+\index{search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
+\subsubsection[{search\-\_\-pacman\-\_\-spawn\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void search\-\_\-pacman\-\_\-spawn\-\_\-point (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-x, }
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{pacman-level-editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}
+Function for searching for the first orcurence of pacman spawn point in the map. if there is no spawn point the function will return an errorl \hypertarget{pacman-level-editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}{\index{pacman-\/level-\/editor.\-c@{pacman-\/level-\/editor.\-c}!starts\-With@{starts\-With}}
 \index{starts\-With@{starts\-With}!pacman-level-editor.c@{pacman-\/level-\/editor.\-c}}
 \subsubsection[{starts\-With}]{\setlength{\rightskip}{0pt plus 5cm}int starts\-With (
 \begin{DoxyParamCaption}

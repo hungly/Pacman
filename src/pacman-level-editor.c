@@ -468,12 +468,12 @@ void command_mode() {
 
                 	if (isValidAuthor(temp)) {
 
-                	/* free the current author */
-                    free(author);
-                    author = malloc(sizeof(char) * (strlen(temp) + 1));
+                		/* free the current author */
+                    	free(author);
+                    	author = malloc(sizeof(char) * (strlen(temp) + 1));
 
-                    /* copy the character in the command array to args and convert to string */
-                    strcpy(author, temp);
+                    	/* copy the character in the command array to args and convert to string */
+                    	strcpy(author, temp);
                 	}
                 /* edit tittle */
                 } else if (startsWith("t ", command) != 0) {
@@ -1109,9 +1109,11 @@ void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_poin
 }
 
 int isValidAuthor(char * author_arg) {
+	char *temp = malloc(sizeof(char)*strlen(author_arg));
+	strcpy(temp,author_arg);
 	char *token = NULL;
 
-	token = strtok(author_arg, ",");
+	token = strtok(temp, ",");
 	while (token != NULL) {
 		reti = regcomp(&regex,"^[[:alpha:][:space:]]*[[:space:]]<[[:graph:]]*@[[:punct:][:alpha:]]*>", 0);
         reti = regexec(&regex, token, 0, NULL, 0);

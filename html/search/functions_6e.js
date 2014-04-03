@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['new',['new',['../pacman-level-editor_8c.html#a85a88061d1f653b7e99634d24995a1f1',1,'pacman-level-editor.c']]]
+  ['new_5fmap',['new_map',['../pacman-level-editor_8c.html#a87ec0b28c1d954f4b3192a1fba87130e',1,'pacman-level-editor.c']]]
 ];

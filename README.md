@@ -15,6 +15,8 @@ Assignment description:
 
   The classic Pacman game, with level editor and individual AI for each of the 4 ghosts. This program is the assignment for "Programming Techniques" course (COSC2451) at RMIT International University Vietnam.
 
+  This is the 1st assignment, which involves create a level editor only. The program use a command line inteface
+
 Third party resources:
 
   NCURSES
