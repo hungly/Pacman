@@ -129,7 +129,7 @@ int endsWithPac(const char *str);
 /**
   * Function for automatically filling small pellet on all of the space on the maze alley of the map (not all of the space will be filled)
   */
-void auto_fill_pellet(int x, int y);
+void auto_fill_pellet(const int current_x, const int current_y, const char direction);
 
 /**
   * Function for searching for the first orcurence of pacman spawn point in the map. if there is no spawn point the function will return an errorl
@@ -137,6 +137,10 @@ void auto_fill_pellet(int x, int y);
 void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y);
 
 int isValidAuthor(char * author_arg);
+
+int isValidFillCell(const int current_x, const int current_y);
+
+void  replace_marked_point();
 
 /** Pointer to array of char which indicates the current map */
 char *map;
@@ -453,14 +457,15 @@ void command_mode() {
                 	memcpy(temp, &command[2], strlen(command));
                 	temp[strlen(command) - 2] = '\0';
 
-                	isValidAuthor(temp);
+                	if (isValidAuthor(temp)) {
 
                 	/* free the current author */
-                    //free(author);
-                    //author = malloc(sizeof(char) * (strlen(temp) + 1));
+                    free(author);
+                    author = malloc(sizeof(char) * (strlen(temp) + 1));
 
                     /* copy the character in the command array to args and convert to string */
-                    //strcpy(author, temp);
+                    strcpy(author, temp);
+                	}
                 /* edit tittle */
                 } else if (startsWith("t ", command) != 0) {
                 	/* free the current author */
@@ -482,7 +487,9 @@ void command_mode() {
                 	search_pacman_spawn_point(&pacman_spawn_point_x, &pacman_spawn_point_y);
 
                 	/* fill space starting at the pacman spawn point */
-                	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y);
+                	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y, ' ');
+
+                	 replace_marked_point();
                 }
         }
     }
@@ -1008,29 +1015,74 @@ int endsWithPac(const char *str) {
   return strncmp(str + lenstr - lensuffix, ".pac", lensuffix) == 0;
 }
 
-void auto_fill_pellet(int current_x, int current_y) {
+void auto_fill_pellet(const int current_x, const int current_y, const char direction) {
+
+	switch (map[(current_x) * width + current_y]) {
+		case ' ':
+			map[(current_x) * width + current_y] = 'o';
+			break;
+		case 's':
+		case 'S':
+		case 'f':
+		case 'F':
+		case 'g':
+		case 'G':
+		case 'p':
+		case 'P':
+			break;
+		default:
+			return;
+	}
+
 	/* recursively call itself in other cell after fill it with 's' if it contains ' ' */
-	if (map[(current_x + 1) * width + current_y] == ' ') {
-		map[(current_x + 1) * width + current_y] = 's';
-		auto_fill_pellet(current_x + 1, current_y);
+
+	if (isValidFillCell(current_x + 1, current_y) && direction != 'u') {
+//		map[(current_x + 1) * width + current_y] = 's';
+		auto_fill_pellet(current_x + 1, current_y, 'd');
 	}
-	if (map[(current_x - 1) * width + current_y] == ' ') {
-		map[(current_x - 1) * width + current_y] = 's';
-		auto_fill_pellet(current_x - 1, current_y);
+	if (isValidFillCell(current_x, current_y + 1) && direction != 'l') {
+//		map[current_x * width + current_y + 1] = 's';
+		auto_fill_pellet(current_x, current_y + 1, 'r');
 	}
-	if (map[current_x * width + current_y + 1] == ' ') {
-		map[current_x * width + current_y + 1] = 's';
-		auto_fill_pellet(current_x, current_y + 1);
+	if (isValidFillCell(current_x - 1, current_y) && direction != 'd') {
+//		map[(current_x - 1) * width + current_y] = 's';
+		auto_fill_pellet(current_x - 1, current_y, 'u');
 	}
-	if (map[current_x * width + current_y - 1] == ' ') {
-		map[current_x * width + current_y - 1] = 's';
-		auto_fill_pellet(current_x, current_y - 1);
+	if (isValidFillCell(current_x, current_y - 1) && direction != 'r') {
+//		map[current_x * width + current_y - 1] = 's';
+		auto_fill_pellet(current_x, current_y - 1, 'l');
+	}
+}
+
+void  replace_marked_point() {
+	for (int i = 0; i < height * width; i++)
+	{
+		if (map[i] == 'o') {
+			map[i] = 's';
+		}
+	}
+}
+
+int isValidFillCell(const int current_x, const int current_y) {
+	switch (map[(current_x) * width + current_y]) {
+		case ' ':
+		case 's':
+		case 'S':
+		case 'f':
+		case 'F':
+		case 'g':
+		case 'G':
+		case 'p':
+		case 'P':
+			return 1;
+		default:
+			return 0;
 	}
 }
 
 void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y) {
 	/* search for pacman spawn point */
-	for (int i = 0; i < (height * width) - 1; i++) {
+	for (int i = 0; i < (height * width); i++) {
 		if (map[i] == 'p' || map[i] == 'P') {
 			*pacman_spawn_point_x = i / width;
 			*pacman_spawn_point_y = i % width;
