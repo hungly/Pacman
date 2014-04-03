@@ -127,7 +127,7 @@ int startsWith(const char *pre, const char *str);
 int endsWithPac(const char *str);
 
 /**
-  * Function for automatically filling small pellet on all of the space on the maze alley of the map (not all of the space will be filled)
+  * Function for automatically filling all the appropriate place with a simple character
   */
 void auto_fill_pellet(const int current_x, const int current_y, const char direction);
 
@@ -136,10 +136,19 @@ void auto_fill_pellet(const int current_x, const int current_y, const char direc
   */
 void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_point_y);
 
+/**
+  * Function to validate if author name is entered correctly
+  */
 int isValidAuthor(char * author_arg);
 
+/**
+  * Function to determined the input cell is valid to fill with small pellet or not
+  */
 int isValidFillCell(const int current_x, const int current_y);
 
+/**
+  * Replace all the character that mark the possilble small pellet place with the actual small pellet character
+  */
 void  replace_marked_point();
 
 /** Pointer to array of char which indicates the current map */
