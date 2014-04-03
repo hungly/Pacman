@@ -1104,7 +1104,7 @@ int isValidAuthor(char * author_arg) {
 
 	token = strtok(author_arg, ",");
 	while (token != NULL) {
-		reti = regcomp(&regex,"^[[:alpha:][:space:]]*[[:space:]]<[[:alpha:][:digit:]]*@[[:punct:][:alpha:]]*>", 0);
+		reti = regcomp(&regex,"^[[:alpha:][:space:]]*[[:space:]]<[[:graph:]]*@[[:punct:][:alpha:]]*>", 0);
         reti = regexec(&regex, token, 0, NULL, 0);
 
         if (reti == REG_NOMATCH) {
@@ -1117,6 +1117,5 @@ int isValidAuthor(char * author_arg) {
 
 		token = strtok(NULL, ",");
 	}
-	getch();
 	return 1;
 }
