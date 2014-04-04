@@ -155,14 +155,15 @@ Assignment description:
       If we open a map file that produced by others programs and that file is
       working correctly (no crash while saving), if we save that file without
       doing any modification to the file then the problem appear on the others
-      programs. Their is no different in the file as we can tell while open by
+      programs. There is no difference in the file as we can tell while open by
       a text editor and while checking the file using a program that compare
       the original and newly saved file in binary mode (compare the bits).
       
       We suspect that our program had written some strange characters in the
       file but our write function only write character in the array, integer
-      for map height and width and "\n" character so we have yet to find out the cause of the problem.
-
+      for map height and width and "\n" character so we have yet to find out 
+      the cause of the problem.
+      
 Third party resources:
 
   NCURSES
