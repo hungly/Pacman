@@ -161,8 +161,7 @@ Assignment description:
       
       We suspect that our program had written some strange characters in the
       file but our write function only write character in the array, integer
-      for map height and width and "\n" character so we absolutely had no
-      idea what is wrong.
+      for map height and width and "\n" character so we have yet to find out the cause of the problem.
 
 Third party resources:
 
