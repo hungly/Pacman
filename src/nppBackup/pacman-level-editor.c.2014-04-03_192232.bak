@@ -22,10 +22,10 @@
 #define DEFAULT_AUTHOR          "Anonymous"
 
 /** Define the default title */
-#define DEFAULT_TITTLE          "Unknown"
+#define DEAFULT_TITTLE          "Unknown"
 
 /** Define the default file name */
-#define DEFAULT_FILE_NAME       "level.pac"
+#define DEAFULT_FILE_NAME       "level.pac"
 
 /** Define ColorPallette1 for terminal background */
 #define COLOR_BACKGROUND        0
@@ -149,7 +149,7 @@ int isValidFillCell(const int current_x, const int current_y);
 /**
   * Replace all the character that mark the possilble small pellet place with the actual small pellet character
   */
-void  replace_marked_point(const char original, const char replacement);
+void  replace_marked_point();
 
 /** Pointer to array of char which indicates the current map */
 char *map;
@@ -214,13 +214,13 @@ int main(int argc, char *argv[]) {
 
     title = malloc(sizeof(char) * (strlen(DEFAULT_TITTLE) + 1));
     memcpy(title, &DEFAULT_TITTLE[0], strlen(DEFAULT_TITTLE));
-    //strcpy(title, DEFAULT_TITTLE);
-    title[strlen(DEFAULT_TITTLE)] = '\0';
+    //strcpy(title, DEAFULT_TITTLE);
+    title[strlen(DEAFULT_TITTLE)] = '\0';
 
-    file_name = malloc(sizeof(char) * (strlen(DEFAULT_FILE_NAME) + 1));
-    memcpy(title, &DEFAULT_FILE_NAME[0], strlen(DEFAULT_FILE_NAME));
-    //strcpy(file_name, DEFAULT_FILE_NAME);
-    file_name[strlen(DEFAULT_FILE_NAME)] = '\0';
+    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME) + 1));
+    memcpy(title, &DEFAULT_FILE_NAME[0], strlen(DEAFULT_FILE_NAME));
+    //strcpy(file_name, DEAFULT_FILE_NAME);
+    file_name[strlen(DEAFULT_FILE_NAME)] = '\0';
 
     /* set default height and width */
     height = DEFAULT_HEIGHT;
@@ -481,7 +481,7 @@ void command_mode() {
                     	author = malloc(sizeof(char) * (strlen(temp) + 1));
 
                     	/* copy the character in the command array to args and convert to string */
-                      memcpy(author, &temp[0], strlen(temp));
+                      memcpy(authoe, &temp[0], strlen(strlen(temp));
                     	//strcpy(author, temp);
                       author[strlen(temp)] = '\0';
                 	}
@@ -495,9 +495,7 @@ void command_mode() {
                     memcpy(title, &command[2], strlen(command));
                     title[strlen(command) - 2] = '\0';
                 /* auto fill available space with small pellet */
-                } else if (strcmp(command, "autoremove") == 0) {
-                	replace_marked_point('s', ' ');
-                } else if (strcmp(command, "auto") == 0) {
+                } else if (strcmp(command,"auto") == 0) {
                 	/* initialize pacman spawn point */
                 	int pacman_spawn_point_x = -1;
 					int pacman_spawn_point_y = -1;
@@ -508,7 +506,7 @@ void command_mode() {
                 	/* fill space starting at the pacman spawn point */
                 	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y, ' ');
 
-                	replace_marked_point('o', 's');
+                	 replace_marked_point();
                 }
         }
     }
@@ -852,7 +850,7 @@ void write_file(char* file) {
     	int length = strlen(file) + 1;
     	char * temp = malloc(sizeof(char) * (length));
     	strcpy(temp, file);
-      	temp[length] = '\0';
+      temp[length] = '\0';
 
     	/* update file name */
     	free(file_name);
@@ -877,7 +875,7 @@ void write_file(char* file) {
         int i;
 
         /* open and write file */
-        FILE *f = fopen(path, "w+");
+        FILE *f = fopen(path, "w");
 
        	fprintf(f, "%s\n", author);
        	fprintf(f, "%s\n%i\n%i\n", title, height, width);
@@ -1077,11 +1075,11 @@ void auto_fill_pellet(const int current_x, const int current_y, const char direc
 	}
 }
 
-void  replace_marked_point(const char original, const char replacement) {
+void  replace_marked_point() {
 	for (int i = 0; i < height * width; i++)
 	{
-		if (map[i] == original) {
-			map[i] = replacement;
+		if (map[i] == 'o') {
+			map[i] = 's';
 		}
 	}
 }

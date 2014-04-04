@@ -159,10 +159,8 @@ Assignment description:
       a text editor and while checking the file using a program that compare
       the original and newly saved file in binary mode (compare the bits).
       
-      We suspect that our program had written some strange characters in the
-      file but our write function only write character in the array, integer
-      for map height and width and "\n" character so we absolutely had no
-      idea what is wrong.
+      We suspect that our program had written some strange character in the
+      file but our write function only write character in the array and "\n"
 
 Third party resources:
 

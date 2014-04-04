@@ -22,10 +22,10 @@
 #define DEFAULT_AUTHOR          "Anonymous"
 
 /** Define the default title */
-#define DEFAULT_TITTLE          "Unknown"
+#define DEAFULT_TITTLE          "Unknown"
 
 /** Define the default file name */
-#define DEFAULT_FILE_NAME       "level.pac"
+#define DEAFULT_FILE_NAME       "level.pac"
 
 /** Define ColorPallette1 for terminal background */
 #define COLOR_BACKGROUND        0
@@ -149,7 +149,7 @@ int isValidFillCell(const int current_x, const int current_y);
 /**
   * Replace all the character that mark the possilble small pellet place with the actual small pellet character
   */
-void  replace_marked_point(const char original, const char replacement);
+void  replace_marked_point();
 
 /** Pointer to array of char which indicates the current map */
 char *map;
@@ -207,20 +207,14 @@ int main(int argc, char *argv[]) {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
     /* default values for author, title, file name, height and width */
-    author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
-    memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
-    //strcpy(author, DEFAULT_AUTHOR);
-    author[strlen(DEFAULT_AUTHOR)] = '\0';
+    author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR)));
+    strcpy(author, DEFAULT_AUTHOR);
 
-    title = malloc(sizeof(char) * (strlen(DEFAULT_TITTLE) + 1));
-    memcpy(title, &DEFAULT_TITTLE[0], strlen(DEFAULT_TITTLE));
-    //strcpy(title, DEFAULT_TITTLE);
-    title[strlen(DEFAULT_TITTLE)] = '\0';
+    title = malloc(sizeof(char) * (strlen(DEAFULT_TITTLE)));
+    strcpy(title, DEAFULT_TITTLE);
 
-    file_name = malloc(sizeof(char) * (strlen(DEFAULT_FILE_NAME) + 1));
-    memcpy(title, &DEFAULT_FILE_NAME[0], strlen(DEFAULT_FILE_NAME));
-    //strcpy(file_name, DEFAULT_FILE_NAME);
-    file_name[strlen(DEFAULT_FILE_NAME)] = '\0';
+    file_name = malloc(sizeof(char) * (strlen(DEAFULT_FILE_NAME)));
+    strcpy(file_name, DEAFULT_FILE_NAME);
 
     /* set default height and width */
     height = DEFAULT_HEIGHT;
@@ -285,10 +279,8 @@ int main(int argc, char *argv[]) {
             map = create_map(height, width);
 
             free(file_name);
-            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
-            memcpy(file_name, &argv[1][0], strlen(argv[1]));
-            //strcpy(file_name, argv[1]);
-            file_name[strlen(argv[1])] = '\0';
+            file_name = malloc(sizeof(char) * (strlen(argv[1])));
+            strcpy(file_name, argv[1]);
         }
     /* if there is no argunment provided */
     } else {        
@@ -481,9 +473,7 @@ void command_mode() {
                     	author = malloc(sizeof(char) * (strlen(temp) + 1));
 
                     	/* copy the character in the command array to args and convert to string */
-                      memcpy(author, &temp[0], strlen(temp));
-                    	//strcpy(author, temp);
-                      author[strlen(temp)] = '\0';
+                    	strcpy(author, temp);
                 	}
                 /* edit tittle */
                 } else if (startsWith("t ", command) != 0) {
@@ -493,11 +483,11 @@ void command_mode() {
 
                     /* copy the character in the command array to args and convert to string */
                     memcpy(title, &command[2], strlen(command));
+
+                    /* set new tittle */
                     title[strlen(command) - 2] = '\0';
                 /* auto fill available space with small pellet */
-                } else if (strcmp(command, "autoremove") == 0) {
-                	replace_marked_point('s', ' ');
-                } else if (strcmp(command, "auto") == 0) {
+                } else if (strcmp(command,"auto") == 0) {
                 	/* initialize pacman spawn point */
                 	int pacman_spawn_point_x = -1;
 					int pacman_spawn_point_y = -1;
@@ -508,7 +498,7 @@ void command_mode() {
                 	/* fill space starting at the pacman spawn point */
                 	auto_fill_pellet(pacman_spawn_point_x, pacman_spawn_point_y, ' ');
 
-                	replace_marked_point('o', 's');
+                	 replace_marked_point();
                 }
         }
     }
@@ -819,14 +809,12 @@ void new_map(char* args) {
     	/* update file name */
     	free(file_name);
         if (endsWithPac(temp_file_name)) {
-            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 1));
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name)));
             strcpy(file_name, temp_file_name);
-            file_name[strlen(temp_file_name)] = '\0';
         } else {
-            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 5));
+            file_name = malloc(sizeof(char) * (strlen(temp_file_name) + 4));
             strcpy(file_name, temp_file_name);
             strcat(file_name, ".pac");
-            file_name[strlen(temp_file_name) + 4] = '\0';
         }
 
         /* create map with height and width */
@@ -849,22 +837,19 @@ void write_file(char* file) {
         attrset(COLOR_PAIR(1));
         error_msg_count = 1;
     } else {
-    	int length = strlen(file) + 1;
+    	int length = strlen(file);
     	char * temp = malloc(sizeof(char) * (length));
     	strcpy(temp, file);
-      	temp[length] = '\0';
 
     	/* update file name */
     	free(file_name);
         if (endsWithPac(temp)) {
             file_name = malloc(sizeof(char) * (length));
             strcpy(file_name, temp);
-            file_name[length] = '\0';
         } else {
             file_name = malloc(sizeof(char) * (length + 4));
             strcpy(file_name, temp);
             strcat(file_name, ".pac");
-            file_name[length + 4] = '\0';
         }
 
         free(temp);
@@ -877,20 +862,22 @@ void write_file(char* file) {
         int i;
 
         /* open and write file */
-        FILE *f = fopen(path, "w+");
+        FILE *f = fopen(path, "w");
 
        	fprintf(f, "%s\n", author);
        	fprintf(f, "%s\n%i\n%i\n", title, height, width);
 
        	for (i = 0; i < height * width; i++) {
            	if (i % width == 0 && i != 0)
-               	fprintf(f, "\n");
-           	fprintf(f, "%c", map[i]);
+               	fprintf(f,"\n");
+           	fprintf(f,"%c", map[i]);
        	}
 
        	fprintf(f, "\n\n");
 
        	fclose(f);
+        
+        error_msg_count = 0;
     }
     regfree(&regex);
 }
@@ -915,9 +902,8 @@ void read_file(char * file) {
 
         /* update file name*/
         free(file_name);
-        file_name = malloc(sizeof(char) * (strlen(file) + 1));
+        file_name = malloc(sizeof(char) * (strlen(file)));
         strcpy(file_name, file);
-        file_name[strlen(file)] = '\0';
 
         /* construct file path */
         char path[strlen(directory) + strlen(file)];
@@ -1077,11 +1063,11 @@ void auto_fill_pellet(const int current_x, const int current_y, const char direc
 	}
 }
 
-void  replace_marked_point(const char original, const char replacement) {
+void  replace_marked_point() {
 	for (int i = 0; i < height * width; i++)
 	{
-		if (map[i] == original) {
-			map[i] = replacement;
+		if (map[i] == 'o') {
+			map[i] = 's';
 		}
 	}
 }
