@@ -24,7 +24,7 @@
 /** Define the default title */
 #define DEFAULT_TITTLE          "Unknown"
 
-/** Define the default file name */
+/** Define the defalut file name */
 #define DEFAULT_FILE_NAME       "level.pac"
 
 /** Define ColorPallette1 for terminal background */
@@ -209,17 +209,14 @@ int main(int argc, char *argv[]) {
     /* default values for author, title, file name, height and width */
     author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
     memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
-    //strcpy(author, DEFAULT_AUTHOR);
     author[strlen(DEFAULT_AUTHOR)] = '\0';
 
     title = malloc(sizeof(char) * (strlen(DEFAULT_TITTLE) + 1));
     memcpy(title, &DEFAULT_TITTLE[0], strlen(DEFAULT_TITTLE));
-    //strcpy(title, DEFAULT_TITTLE);
     title[strlen(DEFAULT_TITTLE)] = '\0';
 
     file_name = malloc(sizeof(char) * (strlen(DEFAULT_FILE_NAME) + 1));
-    memcpy(title, &DEFAULT_FILE_NAME[0], strlen(DEFAULT_FILE_NAME));
-    //strcpy(file_name, DEFAULT_FILE_NAME);
+    memcpy(file_name, &DEFAULT_FILE_NAME[0], strlen(DEFAULT_FILE_NAME));
     file_name[strlen(DEFAULT_FILE_NAME)] = '\0';
 
     /* set default height and width */
@@ -287,7 +284,6 @@ int main(int argc, char *argv[]) {
             free(file_name);
             file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
             memcpy(file_name, &argv[1][0], strlen(argv[1]));
-            //strcpy(file_name, argv[1]);
             file_name[strlen(argv[1])] = '\0';
         }
     /* if there is no argunment provided */
@@ -482,7 +478,6 @@ void command_mode() {
 
                     	/* copy the character in the command array to args and convert to string */
                       memcpy(author, &temp[0], strlen(temp));
-                    	//strcpy(author, temp);
                       author[strlen(temp)] = '\0';
                 	}
                 /* edit tittle */
@@ -1060,19 +1055,15 @@ void auto_fill_pellet(const int current_x, const int current_y, const char direc
 	/* recursively call itself in other cell after fill it with 's' if it contains ' ' */
 
 	if (isValidFillCell(current_x + 1, current_y) && direction != 'u') {
-//		map[(current_x + 1) * width + current_y] = 's';
 		auto_fill_pellet(current_x + 1, current_y, 'd');
 	}
 	if (isValidFillCell(current_x, current_y + 1) && direction != 'l') {
-//		map[current_x * width + current_y + 1] = 's';
 		auto_fill_pellet(current_x, current_y + 1, 'r');
 	}
 	if (isValidFillCell(current_x - 1, current_y) && direction != 'd') {
-//		map[(current_x - 1) * width + current_y] = 's';
 		auto_fill_pellet(current_x - 1, current_y, 'u');
 	}
 	if (isValidFillCell(current_x, current_y - 1) && direction != 'r') {
-//		map[current_x * width + current_y - 1] = 's';
 		auto_fill_pellet(current_x, current_y - 1, 'l');
 	}
 }
@@ -1134,7 +1125,7 @@ int isValidAuthor(char * author_arg) {
 
         if (reti == REG_NOMATCH) {
             attrset(COLOR_PAIR(2));
-            mvprintw(w.ws_row - 2, 0, "Invalid author");
+            mvprintw(w.ws_row - 2, 0, "Invalid author(s). Please enter each author with 'name <email>'");
             error_msg_count = 1;
             attrset(COLOR_PAIR(1));
             return 0;
