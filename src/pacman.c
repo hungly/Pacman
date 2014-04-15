@@ -1,155 +1,164 @@
+#include "level_editor.h"
+#include "score.h"
+#include "core.h"
+#include "pacghost.h"
 #include <stdlib.h>
+#include <string.h>
 #include <curses.h>
-#include <signal.h>
+#include <regex.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <time.h>
-#include <assert.h>
 
-// define your own colors: the numbers correspond to the colors defined
-// in the terminal configuration
-#define COLOR_BACKGROUND 0
-#define COLOR_WALL       1
-#define COLOR_PACMAN     2
+/** Define the directory when opening using sh file in root folder of project*/
+#define DIRECTORY_SH            "levels/"
 
-/**
-  * Based on an example taken on this site:
-  * http://invisible-island.net/ncurses/ncurses-intro.html
-  *
-  * @author http://invisible-island.net/ncurses/ncurses-intro.html
-  * @author Denis Rinfret
-  */
-static void finish(int sig);
+/** Define the directory when opening using the executable file in source folder*/
+#define DIRECTORY_SRC           "../levels/"
 
-int main(int argc, char *argv[])
-{
-    int num = 0;
-    char out[75];
-    struct timespec delay = {0, 500000000L}, 
+/** Define ColorPallette1 for terminal background */
+#define COLOR_BACKGROUND        0
+
+/** Define ColorPallette2 for map background */
+#define COLOR_MAP_BACKGROUND    1
+
+/** Define ColorPallette3 for error message */
+#define COLOR_ERROR_BACKGROUND  2
+
+/** Define ColorPallette4 for letters */
+#define COLOR_LETTER            3
+
+/** Define ColorPallette5 for wall in map */
+#define COLOR_WALL              4
+
+/** Define ColorPallette6 for pacman */
+#define COLOR_PACMAN            5
+
+/** Define ColorPallette7 for fruit */
+#define COLOR_FRUIT             6
+
+/** Define ColorPallette8 for ghost */
+#define COLOR_GHOST             7
+
+/** Pointer to array of char which indicates the current map */
+char *map;
+
+/** Pointer to array to char which indicates the author of current map */
+char *author;
+
+/** Pointer to array to char which indicates the title of current map */
+char *title;
+
+/** Pointer to array to char which indicates the file name of current map */
+char *file_name;
+
+/** Pointer to array to char which indicates the present working directory */
+char *directory;
+
+/** The size of ncruses terminal in characters of height and width */
+struct winsize w;
+
+/** An integer value which indicate the program is ended or not */
+int end_program = 0;
+
+/** An integer value which indicate the number of error message */
+int error_msg_count = 1;
+
+/** An integer value which indicates the height of map */
+int height;
+
+/** An integer value which indicates the width of map */
+int width;
+
+/** An integer value which indicates the row where the cursor is located in the map */
+int x = 0;
+
+/** An integer value which indicates the column where the cursor is located in the map */
+int y = 0;
+
+/** An integer value which indicates the distance (in rows) between the top of terminal and the first row of the map */
+int x_offset;
+
+/** An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map */
+int y_offset;
+
+/** regex is used to  check for input pattern */
+regex_t regex;
+
+/** reti is an integer which store the result of regex comparision */
+int reti;
+
+int score = 0;
+
+int live = 0;
+
+int level = 1;
+
+struct pacghost pacman;
+struct pacghost ghosts[4];
+struct pacghost * ghost = &(ghosts[0]);
+
+int main(int argc, char *argv[]) {
+	int input;
+	int count = 0;
+
+	struct timespec delay = {0, 500000000L}, 
                      rem;
-    
-    //delay.tv_sec = 0;
-    //delay.tv_nsec = 500000000L;
-    
-    /* initialize your non-curses data structures here */
-    
-    (void) signal(SIGINT, finish);      /* arrange interrupts to terminate */
 
-    (void) initscr();      /* initialize the curses library */
-    keypad(stdscr, TRUE);  /* enable keyboard mapping */
-    (void) nonl();         /* tell curses not to do NL->CR/NL on output */
-    (void) cbreak();       /* take input chars one at a time, no wait for \n */
-    (void) noecho();         /* echo input - in color */
-
-    if (has_colors()) {
+	/* determine the current working directory and the levels folder for save map */
+    if (startsWith("./src/", argv[0])) {
+        directory = DIRECTORY_SH;
+    } else {
+        directory = DIRECTORY_SRC;
+    }
     
+    /* initialise ncurses screen */
+    initscr();
+    timeout(20);
+    noecho();
+
+    /* set color pairs */
+    if(has_colors()) {
         start_color();
-        // in theory, you can change the value of the 8 predefined colors
-        // but it works only some times
-        //assert(init_color(COLOR_YELLOW, 200, 200, 1000) == OK);
-        // instead, you have to redefine the colors in the terminal
-
-        // initialise you colors pairs (foreground, background)
-        init_pair(1, COLOR_WALL,    COLOR_BACKGROUND);
-        init_pair(2, COLOR_PACMAN,  COLOR_BACKGROUND);
-
+        init_pair(1, COLOR_LETTER,  COLOR_BACKGROUND);
+        init_pair(2, COLOR_LETTER,  COLOR_ERROR_BACKGROUND);
+        init_pair(3, COLOR_WALL,    COLOR_MAP_BACKGROUND);
+        init_pair(4, COLOR_PACMAN,  COLOR_MAP_BACKGROUND);
+        init_pair(5, COLOR_FRUIT,   COLOR_MAP_BACKGROUND);
+        init_pair(6, COLOR_LETTER,  COLOR_MAP_BACKGROUND);
+        init_pair(7, COLOR_GHOST,	COLOR_MAP_BACKGROUND);
+        init_pair(8, COLOR_PACMAN,	COLOR_BACKGROUND);
+        init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
     }
-    
-    // add a bunch of characters
-    // you should probably use the function mvaddch and other similar function
-    // the move the cursor to some position
-    attrset(COLOR_PAIR(1));
-    addch(ACS_ULCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_TTEE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_TTEE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_URCORNER);
-    addch('\n');
-    addch(ACS_VLINE);
-    addch(' ');
-    addch(ACS_CKBOARD);
-    addch(' ');
-    addch(ACS_VLINE);
-    addch(' ');
-    addch(' ');
-    addch(' ');
-    addch(ACS_VLINE);
-    addch(' ');
-    addch(' ');
-    attrset(COLOR_PAIR(2));
-    addch(ACS_DIAMOND);
-    attrset(COLOR_PAIR(1));
-    addch(' ');
-    addch(ACS_VLINE);
-    addch('\n');
-    addch(ACS_LTEE);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(' ');
-    addch(ACS_VLINE);
-    addch(' ');
-    addch(ACS_ULCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_RTEE);
-    addch(' ');
-    addch(ACS_ULCORNER);
-    addch(ACS_URCORNER);
-    addch(' ');
-    addch(ACS_VLINE);
-    addch('\n');
-    addch(ACS_ULCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_URCORNER);
-    addch('\n');
-    addch(ACS_LLCORNER);
-    addch(ACS_HLINE);
-    addch(ACS_HLINE);
-    addch(ACS_LRCORNER);
-    addch('\n');
-    
-    // print the hexadecimal values of some of these extended characters
-    sprintf(out, "%x %x %x %x %x", (int)ACS_ULCORNER, (int)ACS_LLCORNER, (int)ACS_URCORNER, (int)ACS_LRCORNER,(int)A_ALTCHARSET);
-    addstr(out);
-    sprintf(out, "   %c %c %c %c %c", (char)(ACS_ULCORNER^A_ALTCHARSET), (char)(ACS_LLCORNER^A_ALTCHARSET), (char)(ACS_URCORNER^A_ALTCHARSET), (int)(ACS_LRCORNER^A_ALTCHARSET), (char)(A_ALTCHARSET^A_ALTCHARSET));
-    addstr(out);
-    
-    for (;;) {
-        int c = getch();     /* refresh, accept single keystroke of input */
-        /* process the command keystroke */
-        if (c == 'q') {
-            break;
-        }
-        sprintf(out, "%i", c);
-        addstr(out);
-        if (c == KEY_DOWN) {
-            addstr("down");
-        }
-        
-	    attrset(COLOR_PAIR(num % 8));
-	    num++;
-	    
-	    // sleep 
+
+    read_file("level3.pac");
+
+    /* get terminal size */
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
+    do {
+    	mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
+
+    	display_map(map);
+
+    	display_score();
+
+    	search_pacman(map, &pacman);
+	    search_ghost(map, ghost);
+
+    	display_characters(&pacman, ghost);
+
+    	input = getch();
+
+    	count++;
+
         nanosleep(&delay, &rem);
-        
-        
-    }
 
-    finish(0);               /* we're done */
-}
+    } while (input != 'q' || input != 'Q');
 
-static void finish(int sig)
-{
+    free(map);
+
     endwin();
-
-    /* do your non-curses wrapup here */
-
     exit(0);
 }
