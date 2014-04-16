@@ -140,21 +140,32 @@ int main(int argc, char *argv[]) {
 
     display_map(map);
 
+    search_pacman(map, &pacman);
+    search_ghost(map, ghost);
+
+    pacman.direction = 1;
+
     do {
     	mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
 
     	display_score();
 
-    	search_pacman(map, &pacman);
-	    search_ghost(map, ghost);
+    	input = getch();
+        if (input == 'q' || input == 'Q')
+        {
+            break;
+        } else if(input == 'h'){
+            pacman.direction = 0;
+        }
+
+        mvprintw(0,0,"%d,%d,%d", pacman.xLocation, pacman.yLocation, pacman.direction);
 
         delete_characters(&pacman, ghost);
-
         move_character(&pacman);
 
-    	display_characters(&pacman, ghost);
+        mvprintw(1,0,"%d,%d,%d", pacman.xLocation, pacman.yLocation, pacman.direction);
 
-    	input = getch();
+        display_characters(&pacman, ghost);
 
     	count++;
 

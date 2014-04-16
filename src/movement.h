@@ -11,6 +11,6 @@ extern int width;
 
 int isCollision(struct pacghost * pacman, struct pacghost * ghost);
 
-int move_character(struct pacghost * character);
+void move_character(struct pacghost * character);
 
 int isValidMoveCell(const int current_x, const int current_y);

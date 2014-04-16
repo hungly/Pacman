@@ -1,4 +1,5 @@
 #include "score.h"
+#include "pacghost.h"
 #include <curses.h>
 #include <sys/ioctl.h>
 
