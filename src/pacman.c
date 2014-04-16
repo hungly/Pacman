@@ -1,8 +1,8 @@
 #include "level_editor.h"
-#include "score.h"
 #include "core.h"
 #include "pacghost.h"
 #include "movement.h"
+#include "score.h"
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
@@ -92,9 +92,15 @@ int reti;
 
 int score = 0;
 
-int live = 0;
+int live = 3;
 
 int level = 1;
+
+int totalPellet;
+
+int atePellet = 0;
+
+int end_game = 0;
 
 struct pacghost pacman;
 struct pacghost ghosts[4];
@@ -142,7 +148,7 @@ int main(int argc, char *argv[]) {
         init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
     }
 
-    read_file("level3.pac");
+    read_file("level2.pac");
 
     /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -152,26 +158,45 @@ int main(int argc, char *argv[]) {
     search_pacman(map, &pacman);
     search_ghost(map, ghost);
 
+    count_pellet(map, &totalPellet);
+
     pacman.direction = 1;
 
-    do {
-    	mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
+    while (!end_game) {
+        if (isWin(atePellet, totalPellet)) {
+            mvprintw (0, 0, "%d,%d,", atePellet, totalPellet);
+            end_game = 1;
+            break;
+        }
 
-    	display_score();
+        update_score(map, height, width, &pacman, &score, &atePellet);
+
+        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
+        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
 
         delete_characters(&pacman, ghost);
         move_character(&pacman);
 
+        for (int i = 0; i < 4; i++) {
+            if (isCollision(&pacman, &ghosts[i])) {
+                if (live <= 1) {
+                    end_game = 1;
+                    break;
+                } else {
+                    live--;
+                    search_pacman(map, &pacman);
+                }
+            }
+        }
+
+        display_score();
         display_characters(&pacman, ghost);
 
-    	count++;
-
-        nanosleep(&delay, &rem);
-
         input = getch();
+
         if (input == 'q' || input == 'Q')
         {
-            break;
+            end_game = 1;
         } else {
             switch (input) {
                 case KEY_UP:
@@ -207,7 +232,8 @@ int main(int argc, char *argv[]) {
             }
         }
 
-    } while (input != 'q' || input != 'Q');
+        nanosleep(&delay, &rem);
+    }
 
     free(map);
 

@@ -23,3 +23,5 @@ void search_ghost(char * map, struct pacghost * ghost);
 void display_characters(struct pacghost * pacman, struct pacghost * ghost);
 
 void delete_characters(struct pacghost * pacman, struct pacghost * ghost);
+
+void count_pellet(char * map, int * pellet);

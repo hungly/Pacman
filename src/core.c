@@ -35,16 +35,21 @@ void search_ghost(char * map, struct pacghost * ghost) {
 }
 
 void display_characters(struct pacghost * pacman, struct pacghost * ghost) {
+    attrset(COLOR_PAIR(4));
     mvprintw(pacman->xLocation + x_offset + 4, pacman->yLocation + y_offset, "O");
+
+    attrset(COLOR_PAIR(9));
     for (int i = 0; i < 4; i++)
     {
         mvprintw(ghost[i].xLocation + x_offset + 4, ghost[i].yLocation + y_offset, "W");
     }
+    attrset(COLOR_PAIR(3));
 
     move(w.ws_row - 1, w.ws_col - 1);
 }
 
 void delete_characters(struct pacghost * pacman, struct pacghost * ghost) {
+    attrset(COLOR_PAIR(3));
     mvprintw(pacman->xLocation + x_offset + 4, pacman->yLocation + y_offset, " ");
     for (int i = 0; i < 4; i++)
     {
@@ -52,4 +57,16 @@ void delete_characters(struct pacghost * pacman, struct pacghost * ghost) {
     }
 
     move(w.ws_row - 1, w.ws_col - 1);
+}
+
+void count_pellet(char * map, int * pellet) {
+    int i = 0;
+
+    *pellet = 0;
+
+    for (i = 0; i < height * width; i++) {
+        if(map[i] == 's') {
+            (*pellet)++;
+        }
+    }
 }

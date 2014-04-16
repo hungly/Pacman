@@ -13,6 +13,10 @@ extern int height;
 
 extern int width;
 
+extern struct pacghost pacman;
+
 void display_score();
 
-void updateScore(char * map, int height, int width, struct pacghost * pacman, int currentScore );
+void update_score(char * map, int height, int width, struct pacghost * pacman, int * currentScore, int * atePelet );
+
+int isWin(int atePelet, int totalPelet);
