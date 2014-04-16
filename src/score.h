@@ -7,4 +7,13 @@ extern int live;
 
 extern int level;
 
+extern char * map;
+
+extern int height;
+
+extern int width;
+
 void display_score();
+
+void updateScore(char * map, int height, int width, struct pacghost * pacman, int currentScore );
+
