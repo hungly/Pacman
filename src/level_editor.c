@@ -130,13 +130,16 @@ int editor(int argc, char *argv[]) {
             display_map(map);
         /* if the is no file with the path */
         } else {
+          if(map){
+            free(map);
+          }
         	/* create a new map with default height and width and assign the file name with the argument */
-            map = create_map(height, width);
+          map = create_map(height, width);
 
-            free(file_name);
-            file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
-            memcpy(file_name, &argv[1][0], strlen(argv[1]));
-            file_name[strlen(argv[1])] = '\0';
+          free(file_name);
+          file_name = malloc(sizeof(char) * (strlen(argv[1]) + 1));
+          memcpy(file_name, &argv[1][0], strlen(argv[1]));
+          file_name[strlen(argv[1])] = '\0';
         }
     /* if there is no argunment provided */
     } else {        

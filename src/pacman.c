@@ -116,8 +116,17 @@ int main(int argc, char *argv[]) {
     
     /* initialise ncurses screen */
     initscr();
-    timeout(20);
+
+    /* enable the use of function keys, allow navigating the cursor using arrow keys */
+    keypad(stdscr, TRUE);
+
+    /* disable echo when getch */
     noecho();
+ 
+    /* take input chars, does not wait until new line or carriage return */
+    cbreak();
+
+    timeout(20);
 
     /* set color pairs */
     if(has_colors()) {
@@ -150,14 +159,6 @@ int main(int argc, char *argv[]) {
 
     	display_score();
 
-    	input = getch();
-        if (input == 'q' || input == 'Q')
-        {
-            break;
-        } else if(input == 'h'){
-            pacman.direction = 0;
-        }
-
         mvprintw(0,0,"%d,%d,%d", pacman.xLocation, pacman.yLocation, pacman.direction);
 
         delete_characters(&pacman, ghost);
@@ -170,6 +171,45 @@ int main(int argc, char *argv[]) {
     	count++;
 
         nanosleep(&delay, &rem);
+
+        input = getch();
+        if (input == 'q' || input == 'Q')
+        {
+            break;
+        } else {
+            switch (input) {
+                case KEY_UP:
+                    if (isValidMoveCell(pacman.xLocation - 1, pacman.yLocation)) {
+                        pacman.direction = 0;
+                    } else {
+                        ungetch(input);
+                    }
+                    break;
+                case KEY_RIGHT:
+                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation + 1)) {
+                        pacman.direction = 1;
+                    } else {
+                        ungetch(input);
+                    }
+                    break;
+                case KEY_DOWN:
+                    if (isValidMoveCell(pacman.xLocation + 1, pacman.yLocation)) {
+                        pacman.direction = 2;
+                    } else {
+                        ungetch(input);
+                    }
+                    break;
+                case KEY_LEFT:
+                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation - 1)) {
+                        pacman.direction = 3;
+                    } else {
+                        ungetch(input);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
 
     } while (input != 'q' || input != 'Q');
 
