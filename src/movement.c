@@ -1,4 +1,3 @@
-#include "pacghost.h"
 #include "movement.h"
 #include <stdio.h>
 int isCollision(struct pacghost * pacman, struct pacghost * ghost){
@@ -16,7 +15,7 @@ int isCollision(struct pacghost * pacman, struct pacghost * ghost){
 	}
 	return 0;
 }
-
+/*
 void main(){
 	struct pacghost pacman;
 	pacman.xLocation = 1;
@@ -39,3 +38,4 @@ void main(){
 	}
 	
 }
+*/
