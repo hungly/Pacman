@@ -16,4 +16,3 @@ extern int width;
 void display_score();
 
 void updateScore(char * map, int height, int width, struct pacghost * pacman, int currentScore );
-

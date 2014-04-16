@@ -47,15 +47,19 @@ void main(){
 void move_character(struct pacghost * character) {
 	if (character->direction == 0 && isValidMoveCell(character->xLocation - 1, character->yLocation)) {
 		character->xLocation -= 1;
+		return;
 	}
 	if (character->direction == 1 && isValidMoveCell(character->xLocation, character->yLocation + 1)) {
 		character->yLocation += 1;
+		return;
 	}
 	if (character->direction == 2 && isValidMoveCell(character->xLocation + 1, character->yLocation)) {
 		character->xLocation += 1;
+		return;
 	}
 	if (character->direction == 3 && isValidMoveCell(character->xLocation, character->yLocation - 1)) {
 		character->yLocation -= 1;
+		return;
 	}
 }
 
@@ -74,4 +78,30 @@ int isValidMoveCell(const int current_x, const int current_y) {
 		default:
 			return 0;
 	}
+}
+
+int canMove(const struct pacghost * character) {
+	switch (character->direction) {
+		case 0:
+			if (isValidMoveCell(character->xLocation - 1, character->yLocation)) {
+				return 1;
+			}
+			break;
+		case 1:
+			if (isValidMoveCell(character->xLocation, character->yLocation + 1)) {
+				return 1;
+			}
+			break;
+		case 2:
+			if (isValidMoveCell(character->xLocation + 1, character->yLocation)) {
+				return 1;
+			}
+			break;
+		case 3:
+			if (isValidMoveCell(character->xLocation, character->yLocation - 1)) {
+				return 1;
+			}
+			break;
+	}
+	return 0;
 }

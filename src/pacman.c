@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     /* take input chars, does not wait until new line or carriage return */
     cbreak();
 
-    timeout(20);
+    timeout(0);
 
     /* set color pairs */
     if(has_colors()) {
@@ -159,12 +159,8 @@ int main(int argc, char *argv[]) {
 
     	display_score();
 
-        mvprintw(0,0,"%d,%d,%d", pacman.xLocation, pacman.yLocation, pacman.direction);
-
         delete_characters(&pacman, ghost);
         move_character(&pacman);
-
-        mvprintw(1,0,"%d,%d,%d", pacman.xLocation, pacman.yLocation, pacman.direction);
 
         display_characters(&pacman, ghost);
 
@@ -181,28 +177,28 @@ int main(int argc, char *argv[]) {
                 case KEY_UP:
                     if (isValidMoveCell(pacman.xLocation - 1, pacman.yLocation)) {
                         pacman.direction = 0;
-                    } else {
+                    } else if (canMove(&pacman)) {
                         ungetch(input);
                     }
                     break;
                 case KEY_RIGHT:
                     if (isValidMoveCell(pacman.xLocation, pacman.yLocation + 1)) {
                         pacman.direction = 1;
-                    } else {
+                    } else if (canMove(&pacman)) {
                         ungetch(input);
                     }
                     break;
                 case KEY_DOWN:
                     if (isValidMoveCell(pacman.xLocation + 1, pacman.yLocation)) {
                         pacman.direction = 2;
-                    } else {
+                    } else if (canMove(&pacman)) {
                         ungetch(input);
                     }
                     break;
                 case KEY_LEFT:
                     if (isValidMoveCell(pacman.xLocation, pacman.yLocation - 1)) {
                         pacman.direction = 3;
-                    } else {
+                    } else if (canMove(&pacman)) {
                         ungetch(input);
                     }
                     break;

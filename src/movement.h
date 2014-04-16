@@ -14,3 +14,5 @@ int isCollision(struct pacghost * pacman, struct pacghost * ghost);
 void move_character(struct pacghost * character);
 
 int isValidMoveCell(const int current_x, const int current_y);
+
+int canMove(const struct pacghost * character);
