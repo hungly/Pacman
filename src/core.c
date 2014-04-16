@@ -43,3 +43,13 @@ void display_characters(struct pacghost * pacman, struct pacghost * ghost) {
 
     move(w.ws_row - 1, w.ws_col - 1);
 }
+
+void delete_characters(struct pacghost * pacman, struct pacghost * ghost) {
+    mvprintw(pacman->xLocation + x_offset + 4, pacman->yLocation + y_offset, " ");
+    for (int i = 0; i < 4; i++)
+    {
+        mvprintw(ghost[i].xLocation + x_offset + 4, ghost[i].yLocation + y_offset, " ");
+    }
+
+    move(w.ws_row - 1, w.ws_col - 1);
+}

@@ -2,6 +2,7 @@
 #include "score.h"
 #include "core.h"
 #include "pacghost.h"
+#include "movement.h"
 #include <stdlib.h>
 #include <string.h>
 #include <curses.h>
@@ -137,15 +138,19 @@ int main(int argc, char *argv[]) {
     /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
+    display_map(map);
+
     do {
     	mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
-
-    	display_map(map);
 
     	display_score();
 
     	search_pacman(map, &pacman);
 	    search_ghost(map, ghost);
+
+        delete_characters(&pacman, ghost);
+
+        move_character(&pacman);
 
     	display_characters(&pacman, ghost);
 

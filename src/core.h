@@ -21,3 +21,5 @@ void search_pacman(char * map, struct pacghost * pacman);
 void search_ghost(char * map, struct pacghost * ghost);
 
 void display_characters(struct pacghost * pacman, struct pacghost * ghost);
+
+void delete_characters(struct pacghost * pacman, struct pacghost * ghost);

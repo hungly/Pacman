@@ -1,5 +1,7 @@
 #include "movement.h"
 #include <stdio.h>
+#include "pacghost.h"
+
 int isCollision(struct pacghost * pacman, struct pacghost * ghost){
 	if(pacman->xLocation == ghost[0].xLocation && pacman->yLocation == ghost[0].yLocation ){
 		return 1;
@@ -15,6 +17,7 @@ int isCollision(struct pacghost * pacman, struct pacghost * ghost){
 	}
 	return 0;
 }
+
 /*
 void main(){
 	struct pacghost pacman;
@@ -39,3 +42,35 @@ void main(){
 	
 }
 */
+
+int move_character(struct pacghost * character) {
+	if (character->direction == 0 && isValidMoveCell(character->yLocation - 1, character->xLocation)) {
+		character->yLocation -= 1;
+	}
+	if (character->direction == 1 && isValidMoveCell(character->yLocation, character->xLocation + 1)) {
+		character->xLocation += 1;
+	}
+	if (character->direction == 2 && isValidMoveCell(character->yLocation + 1, character->xLocation)) {
+		character->yLocation += 1;
+	}
+	if (character->direction == 0 && isValidMoveCell(character->yLocation, character->xLocation - 1)) {
+		character->xLocation -= 1;
+	}
+}
+
+int isValidMoveCell(const int current_x, const int current_y) {
+	switch (map[(current_x) * width + current_y]) {
+		case ' ':
+		case 's':
+		case 'S':
+		case 'f':
+		case 'F':
+		case 'g':
+		case 'G':
+		case 'p':
+		case 'P':
+			return 1;
+		default:
+			return 0;
+	}
+}
