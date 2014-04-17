@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
 	int input;
 	int count = 0;
 
-	struct timespec delay = {0, 500000000L}, 
+	struct timespec delay = {0, 250000000L}, 
                      rem;
 
 	/* determine the current working directory and the levels folder for save map */
@@ -166,6 +166,12 @@ int main(int argc, char *argv[]) {
 
     	display_map(map);
 
+    	attrset(COLOR_PAIR(9));
+    	mvprintw(w.ws_row - 2, 0, "Score: ");
+		mvprintw(w.ws_row - 1, 0, "Live:  ");
+		mvprintw(w.ws_row - 2, w.ws_col / 4 * 3 + 7, "Level: ");
+		attrset(COLOR_PAIR(1));
+
     	search_pacman(map, &pacman);
     	search_ghost(map, ghost);
 
@@ -176,38 +182,7 @@ int main(int argc, char *argv[]) {
     	pacman.direction = 1;
 
 	    while (!end_game) {
-	        if (isWin(atePellet, totalPellet)) {
-	            mvprintw (0, 0, "%d,%d,%d", atePellet, totalPellet, level);
-	            level++;
-	            //timeout(-1);
-	            //getch();
-	            break;
-	        }
-
-	        update_score(map, height, width, &pacman, &score, &atePellet);
-
-	        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
-	        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
-
-	        delete_characters(&pacman, ghost);
-	        move_character(&pacman);
-
-	        for (int i = 0; i < 4; i++) {
-	            if (isCollision(&pacman, &ghosts[i])) {
-	                if (live <= 1) {
-	                    end_game = 1;
-	                    break;
-	                } else {
-	                    live--;
-	                    search_pacman(map, &pacman);
-	                }
-	            }
-	        }
-
-	        display_score();
-	        display_characters(&pacman, ghost);
-
-	        input = getch();
+	    	input = getch();
 
 	        if (input == 'q' || input == 'Q')
 	        {
@@ -246,6 +221,37 @@ int main(int argc, char *argv[]) {
 	                    break;
 	            }
 	        }
+
+	        if (isWin(atePellet, totalPellet)) {
+	            mvprintw (0, 0, "%d,%d,%d", atePellet, totalPellet, level);
+	            level++;
+	            //timeout(-1);
+	            //getch();
+	            break;
+	        }
+
+	        update_score(map, height, width, &pacman, &score, &atePellet);
+
+	        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
+	        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
+
+	        delete_characters(&pacman, ghost);
+	        move_character(&pacman);
+
+	        for (int i = 0; i < 4; i++) {
+	            if (isCollision(&pacman, &ghosts[i])) {
+	                if (live <= 1) {
+	                    end_game = 1;
+	                    break;
+	                } else {
+	                    live--;
+	                    search_pacman(map, &pacman);
+	                }
+	            }
+	        }
+
+	        display_score();
+	        display_characters(&pacman, ghost);  
 
 	        nanosleep(&delay, &rem);
 	    }

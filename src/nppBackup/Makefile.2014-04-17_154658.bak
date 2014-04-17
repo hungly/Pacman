@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -pg
 
 SOURCES = core.c level_editor.c score.c pacman.c movement.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))

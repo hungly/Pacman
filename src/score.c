@@ -4,10 +4,10 @@
 #include <sys/ioctl.h>
 
 void display_score() {
-	attrset(COLOR_PAIR(1));
-	mvprintw(w.ws_row - 2, 0, "%s %d", "Score: ", score);
-	mvprintw(w.ws_row - 1, 0, "%s %d", "Live:  ", live);
-	mvprintw(w.ws_row - 2, w.ws_col / 4 * 3, "%s %d", "Level: ", level);
+	attrset(COLOR_PAIR(8));
+	mvprintw(w.ws_row - 2, 7, "%d", score);
+	mvprintw(w.ws_row - 1, 7, "%d", live);
+	mvprintw(w.ws_row - 2, w.ws_col / 4 * 3 + 15, "%d", level);
 	attrset(COLOR_PAIR(3));
 }
 
