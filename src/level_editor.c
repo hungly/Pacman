@@ -824,6 +824,7 @@ void read_file(char * file) {
         fclose(f);
         clear();
     }
+    regfree(&regex);
 }
 
 char *create_map(int new_height, int new_width) {

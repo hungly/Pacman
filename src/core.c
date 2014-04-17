@@ -38,9 +38,10 @@ void display_characters(struct pacghost * pacman, struct pacghost * ghost) {
     attrset(COLOR_PAIR(4));
     mvprintw(pacman->xLocation + x_offset + 4, pacman->yLocation + y_offset, "O");
 
-    attrset(COLOR_PAIR(9));
+    attrset(COLOR_PAIR(7));
     for (int i = 0; i < 4; i++)
-    {
+    {   
+        attrset(COLOR_PAIR(4 + i));
         mvprintw(ghost[i].xLocation + x_offset + 4, ghost[i].yLocation + y_offset, "W");
     }
     attrset(COLOR_PAIR(3));

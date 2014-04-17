@@ -3,13 +3,13 @@ Test level 2
 10
 30
 qwwwwwwwwWwwwwwwwwwwWwwwwwwwwe
-assssSsssa          dsssSssssd
-aswwwwwwszwwwwwwwwwwcswwwwwwsd
-afssssssssssssssssssssssssssfd
-asqwwwwesqesqw  wesqesqwwwwesd
-aszxxxxcsadsaggggdsadszxxxxcsd
-assssSsssadszxxxxcsadsssSssssd
-asxxxxxxsadfssssssfadsxxxxxxsd
-apsssssssadsqwwwwesadssssssssd
+a        a          d        d
+a wwwwww zwwwwwwwwwwc wwwwww d
+af                          fd
+a qwwwwe qe qw  we qe qwwwwe d
+a zxxxxc ad aggggd ad zxxxxc d
+a        ad zxxxxc ad        d
+a xxxxxx adf      fad xxxxxx d
+ap  sssssad qwwwwe ad        d
 zxxxxxxxxXXxXxxxxXxXXxxxxxxxxc
 

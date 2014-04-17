@@ -1,16 +1,16 @@
-#include "level_editor.h"
 #include "core.h"
-#include "pacghost.h"
+#include "level_editor.h"
 #include "movement.h"
+#include "pacghost.h"
 #include "score.h"
-#include <stdlib.h>
-#include <string.h>
 #include <curses.h>
 #include <regex.h>
-#include <sys/ioctl.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
 #include <time.h>
+#include <unistd.h>
 
 /** Define the directory when opening using sh file in root folder of project*/
 #define DIRECTORY_SH            "levels/"
@@ -42,29 +42,40 @@
 /** Define ColorPallette8 for ghost */
 #define COLOR_GHOST             7
 
-/** Pointer to array of char which indicates the current map */
-char *map;
-
 /** Pointer to array to char which indicates the author of current map */
 char *author;
-
-/** Pointer to array to char which indicates the title of current map */
-char *title;
-
-/** Pointer to array to char which indicates the file name of current map */
-char *file_name;
 
 /** Pointer to array to char which indicates the present working directory */
 char *directory;
 
-/** The size of ncruses terminal in characters of height and width */
-struct winsize w;
+/** Pointer to array of char which indicates the list of availble levels */
+char * levels[] = {"level2.pac", "level3.pac", "level1.pac"};
+
+/** Pointer to array to char which indicates the file name of current map */
+char *file_name;
+
+/** Pointer to array of char which indicates the current map */
+char *map;
+
+/** Pointer to array to char which indicates the title of current map */
+char *title;
+
+int atePellet = 0;
+
+int end_game = 0;
 
 /** An integer value which indicate the program is ended or not */
 int end_program = 0;
 
 /** An integer value which indicate the number of error message */
 int error_msg_count = 1;
+
+/** An integer value which indicate the number of maps availble */
+int num_levels = 3;
+
+int live = 3;
+
+int level = 1;
 
 /** An integer value which indicates the height of map */
 int height;
@@ -84,27 +95,24 @@ int x_offset;
 /** An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map */
 int y_offset;
 
-/** regex is used to  check for input pattern */
-regex_t regex;
-
 /** reti is an integer which store the result of regex comparision */
 int reti;
 
 int score = 0;
 
-int live = 3;
-
-int level = 1;
-
 int totalPellet;
 
-int atePellet = 0;
-
-int end_game = 0;
+/** regex is used to  check for input pattern */
+regex_t regex;
 
 struct pacghost pacman;
+
 struct pacghost ghosts[4];
+
 struct pacghost * ghost = &(ghosts[0]);
+
+/** The size of ncruses terminal in characters of height and width */
+struct winsize w;
 
 int main(int argc, char *argv[]) {
 	int input;
@@ -148,95 +156,119 @@ int main(int argc, char *argv[]) {
         init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
     }
 
-    read_file("level2.pac");
-
     /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-    display_map(map);
+    while(!end_game) {
 
-    search_pacman(map, &pacman);
-    search_ghost(map, ghost);
+    	mvprintw(w.ws_row - 1, w.ws_col - 1, "%d", levels[(level - 1) % num_levels]);
+    	read_file(levels[(level - 1) % num_levels]);
 
-    count_pellet(map, &totalPellet);
+    	display_map(map);
 
-    pacman.direction = 1;
+    	search_pacman(map, &pacman);
+    	search_ghost(map, ghost);
 
-    while (!end_game) {
-        if (isWin(atePellet, totalPellet)) {
-            mvprintw (0, 0, "%d,%d,", atePellet, totalPellet);
-            end_game = 1;
-            break;
-        }
+    	atePellet = 0;
 
-        update_score(map, height, width, &pacman, &score, &atePellet);
+    	count_pellet(map, &totalPellet);
 
-        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
-        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
+    	pacman.direction = 1;
 
-        delete_characters(&pacman, ghost);
-        move_character(&pacman);
+	    while (!end_game) {
+	        if (isWin(atePellet, totalPellet)) {
+	            mvprintw (0, 0, "%d,%d,%d", atePellet, totalPellet, level);
+	            level++;
+	            //timeout(-1);
+	            //getch();
+	            break;
+	        }
 
-        for (int i = 0; i < 4; i++) {
-            if (isCollision(&pacman, &ghosts[i])) {
-                if (live <= 1) {
-                    end_game = 1;
-                    break;
-                } else {
-                    live--;
-                    search_pacman(map, &pacman);
-                }
-            }
-        }
+	        update_score(map, height, width, &pacman, &score, &atePellet);
 
-        display_score();
-        display_characters(&pacman, ghost);
+	        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
+	        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
 
-        input = getch();
+	        delete_characters(&pacman, ghost);
+	        move_character(&pacman);
 
-        if (input == 'q' || input == 'Q')
-        {
-            end_game = 1;
-        } else {
-            switch (input) {
-                case KEY_UP:
-                    if (isValidMoveCell(pacman.xLocation - 1, pacman.yLocation)) {
-                        pacman.direction = 0;
-                    } else if (canMove(&pacman)) {
-                        ungetch(input);
-                    }
-                    break;
-                case KEY_RIGHT:
-                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation + 1)) {
-                        pacman.direction = 1;
-                    } else if (canMove(&pacman)) {
-                        ungetch(input);
-                    }
-                    break;
-                case KEY_DOWN:
-                    if (isValidMoveCell(pacman.xLocation + 1, pacman.yLocation)) {
-                        pacman.direction = 2;
-                    } else if (canMove(&pacman)) {
-                        ungetch(input);
-                    }
-                    break;
-                case KEY_LEFT:
-                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation - 1)) {
-                        pacman.direction = 3;
-                    } else if (canMove(&pacman)) {
-                        ungetch(input);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+	        for (int i = 0; i < 4; i++) {
+	            if (isCollision(&pacman, &ghosts[i])) {
+	                if (live <= 1) {
+	                    end_game = 1;
+	                    break;
+	                } else {
+	                    live--;
+	                    search_pacman(map, &pacman);
+	                }
+	            }
+	        }
 
-        nanosleep(&delay, &rem);
+	        display_score();
+	        display_characters(&pacman, ghost);
+
+	        input = getch();
+
+	        if (input == 'q' || input == 'Q')
+	        {
+	            end_game = 1;
+	        } else {
+	            switch (input) {
+	                case KEY_UP:
+	                    if (isValidMoveCell(pacman.xLocation - 1, pacman.yLocation)) {
+	                        pacman.direction = 0;
+	                    } else if (canMove(&pacman)) {
+	                        ungetch(input);
+	                    }
+	                    break;
+	                case KEY_RIGHT:
+	                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation + 1)) {
+	                        pacman.direction = 1;
+	                    } else if (canMove(&pacman)) {
+	                        ungetch(input);
+	                    }
+	                    break;
+	                case KEY_DOWN:
+	                    if (isValidMoveCell(pacman.xLocation + 1, pacman.yLocation)) {
+	                        pacman.direction = 2;
+	                    } else if (canMove(&pacman)) {
+	                        ungetch(input);
+	                    }
+	                    break;
+	                case KEY_LEFT:
+	                    if (isValidMoveCell(pacman.xLocation, pacman.yLocation - 1)) {
+	                        pacman.direction = 3;
+	                    } else if (canMove(&pacman)) {
+	                        ungetch(input);
+	                    }
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
+
+	        nanosleep(&delay, &rem);
+	    }
+	}
+
+	if (map) {
+		free(map);
+	}
+
+	if (author) {
+		free(author);
+	}
+    
+    if (title) {
+    	free(title);
     }
-
-    free(map);
+    
+    if (file_name) {
+    	free(file_name);
+    }
 
     endwin();
     exit(0);
+
+	// editor(argc, argv);
 }
