@@ -213,6 +213,9 @@ void startNewGame(int argc, char *argv[]){
 	        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
 	        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
 	        delete_characters(&pacman, ghost);
+	        //
+	        // call AI main functions here, it should be 4 function calls after this, each for 1 ghost
+	        //
 	        move_character(&pacman);
 	        // call move function for the ghosts
 	        for (int i = 0; i < 4; i++) {
