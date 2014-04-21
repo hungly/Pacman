@@ -61,6 +61,9 @@ void move_character(struct pacghost * character) {
 		character->yLocation -= 1;
 		return;
 	}
+	if (character->direction == 4) {
+		return;
+	}
 }
 
 int isValidMoveCell(const int current_x, const int current_y) {

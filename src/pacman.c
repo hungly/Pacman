@@ -157,7 +157,11 @@ void startNewGame(int argc, char *argv[]){
     	search_ghost(map, ghost);
     	atePellet = 0;
     	count_pellet(map, &totalPellet);
-    	pacman.direction = 1;
+    	pacman.direction = 4;
+    	for (int i = 0; i < 4; i++) {
+    		ghost[i].direction = 4;
+    	}
+    	// if neccessary call initalise functions for ghost here
 	    while (!end_game) {
 	    	input = getch();
 	        if (input == 'q' || input == 'Q')
@@ -205,10 +209,15 @@ void startNewGame(int argc, char *argv[]){
 	            break;
 	        }
 	        update_score(map, height, width, &pacman, &score, &atePellet);
+	        // the two following lines is for debuging
 	        mvprintw(w.ws_row - 1, w.ws_col - 10, "%d", count);
 	        mvprintw(w.ws_row - 1, w.ws_col - 30, "%5d,%5d", atePellet, totalPellet);
 	        delete_characters(&pacman, ghost);
 	        move_character(&pacman);
+	        // call move function for the ghosts
+	        for (int i = 0; i < 4; i++) {
+	        	move_character(&ghosts[i]);
+	        }
 	        for (int i = 0; i < 4; i++) {
 	            if (isCollision(&pacman, &ghosts[i])) {
 	                if (live <= 1) {
@@ -224,6 +233,7 @@ void startNewGame(int argc, char *argv[]){
 	        display_characters(&pacman, ghost);  
 	        nanosleep(&delay, &rem);
 	    }
+	    // if neccessary call clean up functions for ghost here
 	}
 	if (map) {
 		free(map);
