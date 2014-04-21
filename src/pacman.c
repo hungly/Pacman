@@ -45,14 +45,16 @@ char *map;
 char *title;
 int atePellet = 0;
 int end_game = 0;
+int difficulty = 0;
 /** An integer value which indicate the program is ended or not */
 int end_program = 0;
 /** An integer value which indicate the number of error message */
 int error_msg_count = 1;
 /** An integer value which indicate the number of maps availble */
-int num_levels = 3;
 int live = 3;
 int level = 1;
+int num_levels = 3;
+int is_pacman_powered_up = 0;
 /** An integer value which indicates the height of map */
 int height;
 /** An integer value which indicates the width of map */
@@ -215,6 +217,18 @@ void startNewGame(int argc, char *argv[]){
 	        delete_characters(&pacman, ghost);
 	        //
 	        // call AI main functions here, it should be 4 function calls after this, each for 1 ghost
+	        // AI funtion should have this signature:
+	        // function(map, &pacman, &ghosts[i], difficulty, is_pacman_powered_up)
+	        // - map: the current map, it is a 1D array
+	        // - &pacman: the pacghost struct which store coordinations and direction, the direction value are:
+	        //   + 0: up
+	        //   + 1: right
+	        //   + 2: down
+	        //   + 3: left
+	        //   + 4: stay/do not move
+	        // - &ghost[i] is the same as &pacman except it is an array of 4 ghost
+	        // - difficulty: game difficult level (0 is easy to 3 is insane, 4 in total)
+	        // - is_pacman_powered_up: pacman current status which indicate it can kill a ghost (1 is can hunt ghots and 0 is cannot)
 	        //
 	        move_character(&pacman);
 	        // call move function for the ghosts
