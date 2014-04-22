@@ -3,6 +3,7 @@
 #include "movement.h"
 #include "pacghost.h"
 #include "score.h"
+#include "hung.h"
 #include <curses.h>
 #include <regex.h>
 #include <stdio.h>
@@ -150,11 +151,6 @@ void startNewGame(int argc, char *argv[]){
 
     	display_map(map);
 
-    	attrset(COLOR_PAIR(9));
-    	mvprintw(w.ws_row - 2, 0, "Score: ");
-		mvprintw(w.ws_row - 1, 0, "Live:  ");
-		mvprintw(w.ws_row - 2, w.ws_col / 4 * 3 + 7, "Level: ");
-		attrset(COLOR_PAIR(1));
     	search_pacman(map, &pacman);
     	search_ghost(map, ghost);
     	atePellet = 0;
@@ -163,7 +159,13 @@ void startNewGame(int argc, char *argv[]){
     	for (int i = 0; i < 4; i++) {
     		ghost[i].direction = 4;
     	}
-    	// if neccessary call initalise functions for ghost here
+    	initialise_hung_ai(map, height, width);
+
+    	attrset(COLOR_PAIR(9));
+    	mvprintw(w.ws_row - 2, 0, "Score: ");
+		mvprintw(w.ws_row - 1, 0, "Live:  ");
+		mvprintw(w.ws_row - 2, w.ws_col / 4 * 3 + 7, "Level: ");
+		attrset(COLOR_PAIR(1));
 	    while (!end_game) {
 	    	input = getch();
 	        if (input == 'q' || input == 'Q')
@@ -250,7 +252,7 @@ void startNewGame(int argc, char *argv[]){
 	        display_characters(&pacman, ghost);  
 	        nanosleep(&delay, &rem);
 	    }
-	    // if neccessary call clean up functions for ghost here
+	    finish_hung_ai();
 	}
 	if (map) {
 		free(map);
