@@ -440,12 +440,12 @@ void display_map(char* map) {
                 addch(ACS_VLINE);
                 break;
             case 's':
-                attrset(COLOR_PAIR(4));
+                attrset(COLOR_PAIR(6));
                 addch(ACS_BULLET);
                 attrset(COLOR_PAIR(3));
                 break;
             case 'S':
-                attrset(COLOR_PAIR(6));
+                attrset(COLOR_PAIR(7));
                 addch(ACS_DEGREE);
                 attrset(COLOR_PAIR(3));
                 break;
