@@ -1,12 +1,12 @@
 CC = clang
 CFLAGS = -Wall -g
 
-SOURCES = core.c level_editor.c score.c pacman.c movement.c hung.c
+SOURCES = core.c level_editor.c score.c pacman.c movement.c hung.c dijkstra.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))
-HEADERS = core.h pacghost.h level_editor.h score.h movement.h hung.h
+HEADERS = core.h pacghost.h level_editor.h score.h movement.h hung.h dijkstra.h
 
 pacman: $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) -o pacman $(OBJS) -lncurses
+	$(CC) $(CFLAGS) -o pacman $(OBJS) -lncurses -lrt -lm
 	
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c -o $@ $<
