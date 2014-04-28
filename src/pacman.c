@@ -4,6 +4,7 @@
 #include "pacghost.h"
 #include "score.h"
 #include "hung.h"
+#include "nguyenvinhlinh.h"
 #include <curses.h>
 #include <regex.h>
 #include <stdio.h>
@@ -160,7 +161,7 @@ void startNewGame(int argc, char *argv[]){
     		ghost[i].direction = 4;
     	}
     	initialise_hung_ai(map, height, width);
-
+		
     	attrset(COLOR_PAIR(9));
     	mvprintw(w.ws_row - 2, 0, "Score: ");
 		mvprintw(w.ws_row - 1, 0, "Live:  ");
@@ -232,7 +233,8 @@ void startNewGame(int argc, char *argv[]){
 	        // - difficulty: game difficult level (0 is easy to 3 is insane, 4 in total)
 	        // - is_pacman_powered_up: pacman current status which indicate it can kill a ghost (1 is can hunt ghots and 0 is cannot)
 	        //
-	        move_character(&pacman);
+			nguyenvinhlinh_ai(&ghosts[1]);
+			move_character(&pacman);
 	        // call move function for the ghosts
 	        for (int i = 0; i < 4; i++) {
 	        	move_character(&ghosts[i]);
