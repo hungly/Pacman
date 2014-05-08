@@ -4,17 +4,21 @@
 #include <curses.h>
 
 int isCollision(struct pacghost * pacman, struct pacghost * ghost){
-	if(pacman->xLocation == ghost[0].xLocation && pacman->yLocation == ghost[0].yLocation ){
+	if (pacman->xLocation == ghost->xLocation && pacman->yLocation == ghost->yLocation) {
 		return 1;
-	}
-	if(pacman->xLocation == ghost[1].xLocation && pacman->yLocation == ghost[1].yLocation ){
-		return 1;
-	}
-	if(pacman->xLocation == ghost[2].xLocation && pacman->yLocation == ghost[2].yLocation ){
-		return 1;
-	}
-	if(pacman->xLocation == ghost[3].xLocation && pacman->yLocation == ghost[3].yLocation ){
-		return 1;
+	} else if (ghost->direction != 4){
+		{
+			if(pacman->xLocation == ghost->xLocation && 
+				(pacman->yLocation - ghost->yLocation == 0 || pacman->yLocation - ghost->yLocation == 1 || pacman->yLocation - ghost->yLocation == -1) && 
+				(pacman->direction - ghost->direction == 2 || pacman->direction - ghost->direction == -2)) {
+				return 1;
+			}
+			if(pacman->yLocation == ghost->yLocation && 
+				(pacman->xLocation - ghost->xLocation == 0 || pacman->xLocation - ghost->xLocation == 1 || pacman->xLocation - ghost->xLocation == -1) && 
+				(pacman->direction - ghost->direction == 2 || pacman->direction - ghost->direction == -2)) {
+				return 1;
+			}
+		}
 	}
 	return 0;
 }

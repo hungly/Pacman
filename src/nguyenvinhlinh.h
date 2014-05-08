@@ -22,4 +22,4 @@ int face2face (struct pacghost * ghost);
 void directToPacman(struct pacghost * ghost);
 int findRelativePosition(struct pacghost * ghost);
 int isSurround(struct pacghost * ghost);
-void nguyenvinhlinh_ai(struct pacghost * ghost);
+void nguyenvinhlinh_ai(char * map, struct pacghost * pacman, struct pacghost * ghost, const int difficulty, const int is_pacman_powered_up);

@@ -55,6 +55,9 @@
 int editor(int argc, char *argv[]) {
     int input;
 
+    // show the cursor
+    curs_set(1);
+
     /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
@@ -99,18 +102,18 @@ int editor(int argc, char *argv[]) {
     cbreak();
     
     /* set color pairs */
-    if(has_colors()) {
-        start_color();
-        init_pair(1, COLOR_LETTER,  COLOR_BACKGROUND);
-        init_pair(2, COLOR_LETTER,  COLOR_ERROR_BACKGROUND);
-        init_pair(3, COLOR_WALL,    COLOR_MAP_BACKGROUND);
-        init_pair(4, COLOR_PACMAN,  COLOR_MAP_BACKGROUND);
-        init_pair(5, COLOR_FRUIT,   COLOR_MAP_BACKGROUND);
-        init_pair(6, COLOR_LETTER,  COLOR_MAP_BACKGROUND);
-        init_pair(7, COLOR_GHOST,	COLOR_MAP_BACKGROUND);
-        init_pair(8, COLOR_PACMAN,	COLOR_BACKGROUND);
-        init_pair(9, COLOR_GHOST,	COLOR_BACKGROUND);
-    }
+    // if(has_colors()) {
+    //     start_color();
+    //     init_pair(1, COLOR_LETTER, COLOR_BACKGROUND);
+    //     init_pair(2, COLOR_LETTER, COLOR_ERROR_BACKGROUND);
+    //     init_pair(3, COLOR_WALL,   COLOR_MAP_BACKGROUND);
+    //     init_pair(4, COLOR_PACMAN, COLOR_MAP_BACKGROUND);
+    //     init_pair(5, COLOR_FRUIT,  COLOR_MAP_BACKGROUND);
+    //     init_pair(6, COLOR_LETTER, COLOR_MAP_BACKGROUND);
+    //     init_pair(7, COLOR_GHOST,  COLOR_MAP_BACKGROUND);
+    //     init_pair(8, COLOR_PACMAN, COLOR_BACKGROUND);
+    //     init_pair(9, COLOR_GHOST,  COLOR_BACKGROUND);
+    // }
 
     /* if there is an argument for the program */
     if (argc == 2) {
@@ -181,16 +184,21 @@ int editor(int argc, char *argv[]) {
     }
 
     /* close the terminal */
-    endwin();
+    // endwin();
 
-    /* free the memory */
-    free(map);
-    free(author);
-    free(title);
-    free(file_name);
+    // /* free the memory */
+    // free(map);
+    // free(author);
+    // free(title);
+    // free(file_name);
 
-    /* exit the program */
-    exit(0);
+    // /* exit the program */
+    // exit(0);
+
+    // hide the cursor
+    curs_set(0);
+
+    return 0;
 }
 
 void command_mode() {
@@ -971,7 +979,7 @@ void search_pacman_spawn_point(int *pacman_spawn_point_x, int *pacman_spawn_poin
 
 int isValidAuthor(char * author_arg) {
 	char *temp = malloc(sizeof(char)*strlen(author_arg));
-	strcpy(temp,author_arg);
+	strcpy(temp, author_arg);
 	char *token = NULL;
 
 	token = strtok(temp, ",");
