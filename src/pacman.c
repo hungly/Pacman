@@ -119,9 +119,6 @@ int reti;
 /** An integer value which indicates the current score */
 int score = 0;
 
-/** An integer value which indicates whether the pacman or ghost should move or not */
-int speed_counter = 0;
-
 /** An integer value which indicates the total number of pellet in the map */
 int totalPellet;
 
@@ -151,12 +148,14 @@ void showMenu(int argc, char *argv[]);
   * Start the game.
   */
 void startNewGame(int argc, char *argv[]);
+void change_difficulty();
 
 int main(int argc, char *argv[]) {
 	/* initiallse function name */
 	ai_functions[0] = hung_ai;
 	ai_functions[1] = nguyenvinhlinh_ai;
 	ai_functions[2] = choose_direction_for_ghost;
+	ai_functions[3] = nguyenvinhlinh_ai;
 
 	// ai_functions[3] = dang's AI here;
 	initscr();
@@ -220,6 +219,7 @@ void showMenu(int argc, char *argv[]) {
 		if (choice == '1'){
 			// start a new game
 			clear();
+			change_difficulty();
 			startNewGame(argc, argv);
 		} else if (choice == '2'){
 			// start level editor
@@ -275,7 +275,7 @@ void startNewGame(int argc, char *argv[]){
     cbreak();
     while(!end_game) {
     	// update turn time based on level and diffivultly
-    	turns_time = 100000000L * pow(speed_change_rate[difficulty], level / num_levels);
+    	turns_time = 200000000L * pow(speed_change_rate[difficulty], level / num_levels);
     	// reset counter
     	counter = 0;
     	for (int i = 0; i < 4; i++) {
@@ -437,7 +437,7 @@ void startNewGame(int argc, char *argv[]){
 		               		// move the ghost back to it starting point
 		                	search_ghost(map, &ghosts[i], i);
 		                	// set cool down time for ghost
-		                	ghost_counter[i] = 100;
+		                	ghost_counter[i] = 50;
 		                	// give score to the player
 		                	score+=200;
 		                }
@@ -453,6 +453,10 @@ void startNewGame(int argc, char *argv[]){
 			            	// redue live and move pacman back to it spawn point
 			                live--;
 			                search_pacman(map, &pacman);
+			                // search for ghost spawn point
+    						for (int i = 0; i < 4; i++) {
+    							search_ghost(map, &ghosts[i], i);
+	    					}
 			                break;
 			            }
 			        }
@@ -463,9 +467,8 @@ void startNewGame(int argc, char *argv[]){
 		    	break;
 
 		    // move the ghost if speed counter is 0, 2 or 4
-		    if (speed_counter == 0 || speed_counter == 2 || speed_counter == 4)
-		    	// move function for pacman
-		    	move_character(&pacman);
+	    	// move function for pacman
+	    	move_character(&pacman);
 	        //
 	        // call AI main functions here, it should be 4 function calls after this, each for 1 ghost
 	        // AI funtion should have this signature:
@@ -482,18 +485,15 @@ void startNewGame(int argc, char *argv[]){
 	        // - is_pacman_powered_up: pacman current status which indicate it can kill a ghost (1 is can hunt ghots and 0 is cannot)
 	        //
 	        // move ghost if speed counter is 0 or 3
-		    if (speed_counter == 0 || speed_counter == 3) {
-			    for (int i = 0; i < 3; i++)
-			       	if (ghost_counter[i] == 0)
-			       	// call AII's function 
-						(*ai_functions[i])(map, &pacman, &ghosts[i], difficulty, is_pacman_powered_up);
-			    
+		    for (int i = 0; i < 4; i++)
+		       	if (ghost_counter[i] == 0)
+			       	// call AI's function 
+					(*ai_functions[i])(map, &pacman, &ghosts[i], difficulty, is_pacman_powered_up);
 							
-			    // call move function for the ghosts
-			    for (int i = 0; i < 4; i++) 
-			       	if (ghost_counter[i] == 0)
-			        	move_character(&ghosts[i]);
-			}
+		    // call move function for the ghosts
+		    for (int i = 0; i < 4; i++) 
+		       	if (ghost_counter[i] == 0)
+		        	move_character(&ghosts[i]);
 		    
 		    // display new score
 		    display_score();
@@ -514,11 +514,6 @@ void startNewGame(int argc, char *argv[]){
 		       	}
 		    }
 
-		    // increase speed counter and reset it if needed
-		    speed_counter++;
-		    if (speed_counter == 6)
-		    	speed_counter = 0;
-
 		    clock_gettime(CLOCK_REALTIME, &end);
 		    delay.tv_nsec -= (end.tv_nsec - start.tv_nsec);
 		    nanosleep(&delay, &rem);
@@ -528,4 +523,19 @@ void startNewGame(int argc, char *argv[]){
 		finish_hung_ai();
 		free_ghost_map();
 	}
+}
+
+void change_difficulty(){
+	int diff;
+	do{	clear();
+	printw("Enter game difficulty:\n");
+	printw("1 - Easy\n");
+	printw("2 - Normal\n");
+	printw("3 - Hard\n");
+	printw("4 - Insance\n");
+	diff = getch();
+	} while (diff != '1' && diff != '2' && diff != '3' && diff != '4');
+
+difficulty = diff - '1';
+
 }

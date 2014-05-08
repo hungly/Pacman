@@ -122,72 +122,74 @@ void chase_after_pacman(struct pacghost * pacman, struct pacghost * ghost){
 }
 
 int direction_from_node_to_node(int xStart, int yStart, int xDestination, int yDestination){
-    struct list * open_list = list_create();
-    struct list * close_list = list_create();
-    struct node * new_node = node_create();
-    new_node->x = xStart;
-    new_node->y = yStart;
-    new_node->g = 0;
-    new_node->h = distance_between_two_points(xStart,yStart,xDestination,yDestination);
-    new_node->f = new_node->h;
-    open_list->root = new_node;
-    while (open_list->root != NULL){
-        struct node * q = node_with_least_f(open_list);
-        pop_a_node_off_list(open_list,q);
-        int availableWay = ghost_map[q->x * width + q->y] - '0';
-        int up_added = 0;
-        int right_added = 0;
-        int down_added = 0;
-        struct node * sucessor[availableWay];
-        for (int i = 0; i < availableWay; i++){
-            sucessor[i] = node_create();
-            sucessor[i]->parent = q;
-            if (isValidMoveCell(q->x-1,q->y) && (up_added == 0)) {
-                sucessor[i]->x = q->x-1;
-                sucessor[i]->y = q->y;
-                up_added = 1;
-            } else if (isValidMoveCell(q->x, q->y+1) && (right_added == 0)){
-                sucessor[i]->x = q->x;
-                sucessor[i]->y = q->y+1;
-                right_added = 1;
-            } else if (isValidMoveCell(q->x+1, q->y) && (down_added == 0)){
-                sucessor[i]->x = q->x+1;        
-                sucessor[i]->y = q->y;
-                down_added = 1;
-            } else if (isValidMoveCell(q->x, q->y-1)){
-                sucessor[i]->x = q->x;
-                sucessor[i]->y = q->y-1;      
-            }
-            if (sucessor[i]->x == xDestination && sucessor[i]->y == yDestination) {
-                struct node * start_node = starting_node(sucessor[i]);
-                if (start_node->x < xStart){
-                    free_node_and_list(sucessor[i],q,open_list,close_list);
-                    return 0;
-                } else if (start_node->x > xStart){
-                    free_node_and_list(sucessor[i],q,open_list,close_list);
-                    return 2;
-                } else if (start_node->y > yStart){
-                    free_node_and_list(sucessor[i],q,open_list,close_list);
-                    return 1;
-                } else {
-                    free_node_and_list(sucessor[i],q,open_list,close_list);
-                    return 3;
+    if (isValidMoveCell(xStart, yStart) && isValidMoveCell(xDestination,yDestination)){
+        struct list * open_list = list_create();
+        struct list * close_list = list_create();
+        struct node * new_node = node_create();
+        new_node->x = xStart;
+        new_node->y = yStart;
+        new_node->g = 0;
+        new_node->h = distance_between_two_points(xStart,yStart,xDestination,yDestination);
+        new_node->f = new_node->h;
+        open_list->root = new_node;
+        while (open_list->root != NULL){
+            struct node * q = node_with_least_f(open_list);
+            pop_a_node_off_list(open_list,q);
+            int availableWay = ghost_map[q->x * width + q->y] - '0';
+            int up_added = 0;
+            int right_added = 0;
+            int down_added = 0;
+            struct node * sucessor[availableWay];
+            for (int i = 0; i < availableWay; i++){
+                sucessor[i] = node_create();
+                sucessor[i]->parent = q;
+                if (isValidMoveCell(q->x-1,q->y) && (up_added == 0)) {
+                    sucessor[i]->x = q->x-1;
+                    sucessor[i]->y = q->y;
+                    up_added = 1;
+                } else if (isValidMoveCell(q->x, q->y+1) && (right_added == 0)){
+                    sucessor[i]->x = q->x;
+                    sucessor[i]->y = q->y+1;
+                    right_added = 1;
+                } else if (isValidMoveCell(q->x+1, q->y) && (down_added == 0)){
+                    sucessor[i]->x = q->x+1;        
+                    sucessor[i]->y = q->y;
+                    down_added = 1;
+                } else if (isValidMoveCell(q->x, q->y-1)){
+                    sucessor[i]->x = q->x;
+                    sucessor[i]->y = q->y-1;      
                 }
-            } else {
-                sucessor[i]->g = q->g + distance_between_two_points(q->x, q->y, sucessor[i]->x, sucessor[i]->y);
-                sucessor[i]->h = distance_between_two_points(sucessor[i]->x,sucessor[i]->y, xDestination, yDestination);
-                sucessor[i]->f = sucessor[i]->g + sucessor[i]->h;
-                if ((ghost_map[sucessor[i]->x * width + sucessor[i]->y] - '0') == 1)
-                    add_a_node_to_list(close_list,sucessor[i]);
-                else if (better_node_exist(open_list,sucessor[i]))
-                    free(sucessor[i]);
-                else if (better_node_exist(close_list,sucessor[i])) 
-                    free(sucessor[i]);
-                else 
-                    add_a_node_to_list(open_list,sucessor[i]);
+                if (sucessor[i]->x == xDestination && sucessor[i]->y == yDestination) {
+                    struct node * start_node = starting_node(sucessor[i]);
+                    if (start_node->x < xStart){
+                        free_node_and_list(sucessor[i],q,open_list,close_list);
+                        return 0;
+                    } else if (start_node->x > xStart){
+                        free_node_and_list(sucessor[i],q,open_list,close_list);
+                        return 2;
+                    } else if (start_node->y > yStart){
+                        free_node_and_list(sucessor[i],q,open_list,close_list);
+                        return 1;
+                    } else {
+                        free_node_and_list(sucessor[i],q,open_list,close_list);
+                        return 3;
+                    }
+                } else {
+                    sucessor[i]->g = q->g + distance_between_two_points(q->x, q->y, sucessor[i]->x, sucessor[i]->y);
+                    sucessor[i]->h = distance_between_two_points(sucessor[i]->x,sucessor[i]->y, xDestination, yDestination);
+                    sucessor[i]->f = sucessor[i]->g + sucessor[i]->h;
+                    if ((ghost_map[sucessor[i]->x * width + sucessor[i]->y] - '0') == 1)
+                        add_a_node_to_list(close_list,sucessor[i]);
+                    else if (better_node_exist(open_list,sucessor[i]))
+                        free(sucessor[i]);
+                    else if (better_node_exist(close_list,sucessor[i])) 
+                        free(sucessor[i]);
+                    else 
+                        add_a_node_to_list(open_list,sucessor[i]);
+                }
             }
+            add_a_node_to_list(close_list, q);
         }
-        add_a_node_to_list(close_list, q);
     }
     return 4;
 }

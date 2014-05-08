@@ -32,7 +32,7 @@ void update_score(char * map, int height, int width, struct pacghost * pacman, i
 		map[width * pacman[0].xLocation + pacman[0].yLocation] = ' ';
 		if (*counter != -1) {
 			(*is_pacman_powered_up) = 1;
-			(*counter) = 100;
+			(*counter) = 50;
 		}
 	}
 	if(map[width * pacman[0].xLocation + pacman[0].yLocation] == 'f' || map[width * pacman[0].xLocation + pacman[0].yLocation] == 'F' || map[width * pacman[0].xLocation + pacman[0].yLocation] == 'S' ) {
