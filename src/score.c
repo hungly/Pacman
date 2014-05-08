@@ -50,10 +50,7 @@ int isWin(int atePelet, int totalPelet) {
 
 void display_high_score(int argc, char * argv[]) {
 	int y_offset = w.ws_col / 2;
-	/* 
-	* Count number of line
-	* http://stackoverflow.com/questions/1910724/c-retrieving-total-line-numbers-in-a-file
-	*/
+	/* Count number of line http://stackoverflow.com/questions/1910724/c-retrieving-total-line-numbers-in-a-file */
 	size_t len = 0;
 	char *temp = NULL;
 	int ch;
@@ -73,6 +70,7 @@ void display_high_score(int argc, char * argv[]) {
     strcat(path, file);
 	FILE *f = fopen(path,"r");
 	
+	/* if no record file */
 	if (f == NULL){
 		mvprintw(30, 0,"No record file found. Press any key to back to menu");
 		getch();

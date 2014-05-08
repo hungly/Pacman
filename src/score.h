@@ -38,15 +38,9 @@ int isWin(int atePelet, int totalPelet);
 
 /**
   * Get the high score from file and display it. The file must be named as "result.rec"
-  * and save with the following format: one line for player, then another for score, 
-  * then player
+  * and save with the following format: one line for player, then another for score. 
   *
-  * e.g for 2 record
-  *
-  * player1
-  * score1
-  * player2
-  * score2(End o file, No \n)
-  *
+  * @param argc number of argument  
+  * @param argv pointer to the array of char which indicate the argument itself
   */
 void display_high_score(int argc, char *argv[]);

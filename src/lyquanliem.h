@@ -26,7 +26,7 @@ void initialise_ghost_map();
   * Move the ghost randomly. Except when it is moving
   * and it cannot turn left or right
   * 
-  * @param ghost: pointer to the ghost we want to move randomly
+  * @param ghost pointer to the ghost we want to move randomly
   */
 void move_randomly(struct pacghost * ghost);
 
@@ -34,11 +34,11 @@ void move_randomly(struct pacghost * ghost);
   * Choose the direction of the ghost 
   * based on the difficulty and power pallette eaten 
   * 
-  * @param map: pointer to the array of char which indicate current map
-  * @param pacman: pointer to the pacman
-  * @param pacghost: pointer to a ghost we want to choose direction for it
-  * @param diffculty: an integer indicate the difficulty. 0 for easy and 3 for insane
-  * @param is_pacman_powered_up: an integer indicate whether pacman is powered up or not. 0 for no and 1 for yes
+  * @param map pointer to the array of char which indicate current map
+  * @param pacman pointer to the pacman
+  * @param pacghost pointer to a ghost we want to choose direction for it
+  * @param diffculty an integer indicate the difficulty. 0 for easy and 3 for insane
+  * @param is_pacman_powered_up an integer indicate whether pacman is powered up or not. 0 for no and 1 for yes
   */
 void choose_direction_for_ghost(char * map, struct pacghost * pacman, struct pacghost * ghost, int difficulty, int is_pacman_powered_up);
 
@@ -51,10 +51,10 @@ void choose_direction_for_ghost(char * map, struct pacghost * pacman, struct pac
   * Reference: 
   * http://web.mit.edu/eranki/www/tutorials/search/
   *
-  * @param xStart: the row of start point 
-  * @param yStart: the column of start point
-  * @param xDestination: the row of destination point
-  * @param yDestination: the column of destination point
+  * @param xStart the row of start point 
+  * @param yStart the column of start point
+  * @param xDestination the row of destination point
+  * @param yDestination the column of destination point
   * 
   * @return the direction that the ghost should turn to 
   */
@@ -80,10 +80,10 @@ float sqr(float a);
 /**
   * Calculate the distance between two points start and destination
   *
-  * @param xStart: the row of start
-  * @param yStart: the column of start  
-  * @param xDestination: the row of destination
-  * @param yDestination: the column of destination
+  * @param xStart the row of start
+  * @param yStart the column of start  
+  * @param xDestination the row of destination
+  * @param yDestination the column of destination
   * 
   * @return the distance between start and destination
   */
@@ -96,7 +96,7 @@ void free_ghost_map();
 
 /** A function to return a number in range [min,max)
   *
-  * @param min: the minimum number of range
-  * @param max: the maximum number (the maximum number can be randomed is max - 1 )
+  * @param min the minimum number of range
+  * @param max the maximum number (the maximum number can be randomed is max - 1 )
   */
 int random_in_range (unsigned int min, unsigned int max);
