@@ -231,6 +231,8 @@ void nguyenvinhlinh_ai(char * map, struct pacghost * pacman, struct pacghost * g
 			} else 	if(face2face(ghost) == 3){
 				ghost->direction = 1;
 			}
+			
+			
 		} else {
 			if(ghost->direction == 0 || ghost->direction == 2){
 				if(findRelativePosition(ghost) == 1 || findRelativePosition(ghost) == 4){
@@ -255,6 +257,40 @@ void nguyenvinhlinh_ai(char * map, struct pacghost * pacman, struct pacghost * g
 			}
 		    
 		}
+
+		if(checkTopExit(ghost) == 0 && ghost->direction == 0){
+				if(checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				} else if (checkBottomExit(ghost) == 1){
+					ghost->direction = 2;
+				} else if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				}
+			} else if (checkRightExit(ghost) == 0 && ghost->direction == 1){
+			    if (checkBottomExit(ghost) == 1){
+					ghost->direction = 2;
+				} else if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				} else if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				}
+			} else if (checkBottomExit(ghost) == 0 && ghost->direction == 2){
+			    if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				} else if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				} else if (checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				}
+			} else if (checkLeftExit(ghost) == 0 && ghost->direction == 3){
+				if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				} else if (checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				} else if (checkBottomExit(ghost)== 1){
+					ghost->direction = 2;
+				}
+			}
 		return;
 	}
 	
@@ -310,15 +346,50 @@ void nguyenvinhlinh_ai(char * map, struct pacghost * pacman, struct pacghost * g
 		}
 		else {
 			directToPacman(ghost);
+			
+		if(checkTopExit(ghost) == 0 && ghost->direction == 0){
+				if(checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				} else if (checkBottomExit(ghost) == 1){
+					ghost->direction = 2;
+				} else if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				}
+			} else if (checkRightExit(ghost) == 0 && ghost->direction == 1){
+			    if (checkBottomExit(ghost) == 1){
+					ghost->direction = 2;
+				} else if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				} else if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				}
+			} else if (checkBottomExit(ghost) == 0 && ghost->direction == 2){
+			    if (checkLeftExit(ghost) == 1){
+					ghost->direction = 3;
+				} else if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				} else if (checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				}
+			} else if (checkLeftExit(ghost) == 0 && ghost->direction == 3){
+				if (checkTopExit(ghost) == 1){
+					ghost->direction = 0;
+				} else if (checkRightExit(ghost) == 1){
+					ghost->direction = 1;
+				} else if (checkBottomExit(ghost)== 1){
+					ghost->direction = 2;
+				}
+			}
 		}		
 	}
+    /*
 	char map2d[height][width];
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			map2d[i][j] = map[width*i+j];
 		}
 	}
-	/*
+	
 	move(0, 0);
 	printw("relative position: %d %d %d", findRelativePosition(ghost), height, width);
 	move(1, 0);
