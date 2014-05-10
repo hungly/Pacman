@@ -189,6 +189,7 @@ void init_dang_ghost(int pacman_x, int pacman_y)
 void bfs(int x, int y)
 {
 	int map_i = x + y * width;
+	if (queue != NULL) queue_destroy(queue);
 	for (int i = 0; i < count; i++)
 	{
 		if (cell_array[i].value == map_i) queue = queue_create(&cell_array[i]);
@@ -222,7 +223,7 @@ void bfs(int x, int y)
 	}
 }
 
-void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int powered_up)
+void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int is_pacman_powered_up)
 {
 	bfs(pacman->yLocation, pacman->xLocation);
 	int map_i = ghost->yLocation + ghost->xLocation * width;
@@ -232,25 +233,25 @@ void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,
 		{
 			if (cell_array[i].pred == map_i - 1)
 			{
-				if (powered_up == 0) ghost->direction = 3;
+				if (is_pacman_powered_up == 0) ghost->direction = 3;
 				else ghost->direction = 1;
 				break;
 			}
 			else if (cell_array[i].pred == map_i + 1)
 			{
-				if (powered_up == 0) ghost->direction = 1;
+				if (is_pacman_powered_up == 0) ghost->direction = 1;
 				else ghost->direction = 1;
 				break;
 			}
 			else if (cell_array[i].pred == map_i - width)
 			{
-				if (powered_up == 0) ghost->direction = 0;
+				if (is_pacman_powered_up == 0) ghost->direction = 0;
 				else ghost->direction = 1;
 				break;
 			}
 			else if (cell_array[i].pred == map_i + width)
 			{
-				if (powered_up == 0) ghost->direction = 2;
+				if (is_pacman_powered_up == 0) ghost->direction = 2;
 				else ghost->direction = 1;
 				break;
 			}

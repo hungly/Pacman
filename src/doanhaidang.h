@@ -44,11 +44,12 @@ void bfs(int x, int y);
  * Instruct ghost to move based on pacman's location
  *
  * @param map The map's information
- * @param ghost The ghost's information
  * @param pacman The pacman's information
- * @param powered_up Whether pacman eats power pellet
+ * @param ghost The ghost's information
+ * @param difficulty The game's difficulty
+ * @param is_pacman_powered_up Whether pacman eats power pellet
  */
-void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int powered_up);
+void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int is_pacman_powered_up);
 
 /**
  * Release memory on heap
