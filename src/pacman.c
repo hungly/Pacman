@@ -5,6 +5,7 @@
 #include "score.h"
 #include "lyquochung.h"
 #include "nguyenvinhlinh.h"
+#include "doanhaidang.h"
 #include "lyquanliem.h"
 #include <curses.h>
 #include <math.h>
@@ -155,7 +156,7 @@ int main(int argc, char *argv[]) {
 	ai_functions[0] = hung_ai;
 	ai_functions[1] = nguyenvinhlinh_ai;
 	ai_functions[2] = choose_direction_for_ghost;
-	ai_functions[3] = nguyenvinhlinh_ai;
+	ai_functions[3] = move_dang_ghost;
 
 	// ai_functions[3] = dang's AI here;
 	initscr();
@@ -345,6 +346,7 @@ void startNewGame(int argc, char *argv[]){
 		// initialise ai (if needed)
 		initialise_hung_ai();
 		initialise_ghost_map();
+		init_dang_ghost(pacman.yLocation, pacman.xLocation);
 
 		// display game status label
 		attrset(COLOR_PAIR(9));
@@ -522,6 +524,7 @@ void startNewGame(int argc, char *argv[]){
 		// clean up AI's data
 		finish_hung_ai();
 		free_ghost_map();
+		//	finish_dang_ghost();
 	}
 }
 
@@ -535,7 +538,6 @@ void change_difficulty(){
 	printw("4 - Insance\n");
 	diff = getch();
 	} while (diff != '1' && diff != '2' && diff != '3' && diff != '4');
-
-difficulty = diff - '1';
+	difficulty = diff - '1';
 
 }
