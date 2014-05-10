@@ -256,6 +256,7 @@ void startNewGame(int argc, char *argv[]){
 	int input;
 	timeout(0);
 	// rset game status
+	counter = 0;
 	level_offset = 0;
 	level = 1;
 	live = 3;
@@ -524,7 +525,7 @@ void startNewGame(int argc, char *argv[]){
 		// clean up AI's data
 		finish_hung_ai();
 		free_ghost_map();
-		//	finish_dang_ghost();
+		finish_dang_ghost();
 	}
 }
 

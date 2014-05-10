@@ -1,0 +1,22 @@
+==5518== Memcheck, a memory error detector
+==5518== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==5518== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==5518== Command: ./src/pacman
+==5518== Parent PID: 5421
+==5518== 
+==5518== 
+==5518== HEAP SUMMARY:
+==5518==     in use at exit: 353,280 bytes in 425 blocks
+==5518==   total heap usage: 3,335 allocs, 2,910 frees, 1,051,471 bytes allocated
+==5518== 
+==5518== LEAK SUMMARY:
+==5518==    definitely lost: 0 bytes in 0 blocks
+==5518==    indirectly lost: 0 bytes in 0 blocks
+==5518==      possibly lost: 0 bytes in 0 blocks
+==5518==    still reachable: 353,280 bytes in 425 blocks
+==5518==         suppressed: 0 bytes in 0 blocks
+==5518== Reachable blocks (those to which a pointer was found) are not shown.
+==5518== To see them, rerun with: --leak-check=full --show-reachable=yes
+==5518== 
+==5518== For counts of detected and suppressed errors, rerun with: -v
+==5518== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

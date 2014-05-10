@@ -9,6 +9,7 @@
 #include "score.h"
 #include "lyquochung.h"
 #include "lyquanliem.h"
+#include "doanhaidang.h"
 
 /** Define the directory when opening using sh file in root folder of project*/
 #define DIRECTORY_SH            "save/"
@@ -235,6 +236,7 @@ int load_game(char * file) {
     // free the existing data first
     free_ghost_map();
     finish_hung_ai();
+    finish_dang_ghost();
 
     clear();
     
@@ -350,9 +352,13 @@ int load_game(char * file) {
     fclose(f);
     free(temp);
 
+    // reset pacman's powered up counter
+    counter = 0;
+
     // initiliase ai
     initialise_hung_ai();
     initialise_ghost_map();
+    init_dang_ghost(pacman.yLocation, pacman.xLocation);
     return 1;
 }
 

@@ -17,7 +17,7 @@ int count = 0;
 
 struct queue *queue;
 
-char *ai_map;
+char *dang_ai_map;
 
 int is_valid_cell(int x, int y)
 {
@@ -41,7 +41,7 @@ int is_valid_cell(int x, int y)
 
 void add_cell(int x, int y, char direction)
 {
-	switch (ai_map[y * width + x])
+	switch (dang_ai_map[y * width + x])
 	{
 		case ' ':
 		case 's':
@@ -55,7 +55,7 @@ void add_cell(int x, int y, char direction)
 			bstree_insert(x + y * width, cell_value_tree);
 			cell_value_array[count] = x + y * width;
 			count += 1;
-			ai_map[y * width + x] = 'o';
+			dang_ai_map[y * width + x] = 'o';
 			break;
 		default:
 			return;
@@ -75,8 +75,8 @@ void collect_valid_cell(int pacman_x, int pacman_y)
 
 void init_dang_ghost(int pacman_x, int pacman_y)
 {
-	ai_map = malloc(sizeof(char) * (width * height));
-	for (int i = 0; i < width * height; i++) ai_map[i] = map[i];
+	dang_ai_map = malloc(sizeof(char) * (width * height));
+	for (int i = 0; i < width * height; i++) dang_ai_map[i] = map[i];
 	collect_valid_cell(pacman_x, pacman_y);
 	cell_array = malloc(sizeof(struct cell) * count);
 	for (int j = 0; j < count; j++)
@@ -264,5 +264,5 @@ void finish_dang_ghost()
 	if (cell_value_array != NULL) free(cell_value_array);
 	if (cell_array != NULL) free(cell_array);
 	if (queue != NULL) queue_destroy(queue);
-	if (ai_map != NULL) free(ai_map);
+	if (dang_ai_map != NULL) free(dang_ai_map);
 }
