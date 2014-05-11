@@ -25,12 +25,18 @@ void add_cell(int x, int y, char direction);
 void collect_valid_cell(int pacman_x, int pacman_y);
 
 /**
+ * Update data in new map
+ *
+ * @param pacman The pacman
+ */
+void update_map(struct pacghost pacman);
+
+/**
  * Initialize everything needed for later functions
  *
- * @param pacman_x The starting horizontal location of pacman
- * @param pacman_y The starting vertical location of pacman
+ * @param pacman The pacman
  */
-void init_dang_ghost(int pacman_x, int pacman_y);
+void init_dang_ghost(struct pacghost pacman);
 
 /**
  * Breadth First Search all paths
@@ -49,7 +55,7 @@ void bfs(int x, int y);
  * @param difficulty The game's difficulty
  * @param is_pacman_powered_up Whether pacman eats power pellet
  */
-void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int is_pacman_powered_up);
+void move_dang_ghost(char *map, struct pacghost *pacman, struct pacghost *ghost, const int difficulty, int is_pacman_powered_up);
 
 /**
  * Release memory on heap

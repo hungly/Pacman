@@ -13,7 +13,7 @@ int *cell_value_array;
 
 struct cell *cell_array;
 
-int count = 0;
+int count;
 
 struct queue *queue;
 
@@ -73,11 +73,14 @@ void collect_valid_cell(int pacman_x, int pacman_y)
 	add_cell(pacman_x, pacman_y, ' ');
 }
 
-void init_dang_ghost(int pacman_x, int pacman_y)
+void update_map(struct pacghost pacman)
 {
+	count = 0;
+	//if (dang_ai_map != NULL) free(dang_ai_map);
 	dang_ai_map = malloc(sizeof(char) * (width * height));
 	for (int i = 0; i < width * height; i++) dang_ai_map[i] = map[i];
-	collect_valid_cell(pacman_x, pacman_y);
+	collect_valid_cell(pacman.yLocation, pacman.xLocation);
+	//if (cell_array != NULL) free(cell_array);
 	cell_array = malloc(sizeof(struct cell) * count);
 	for (int j = 0; j < count; j++)
 	{
@@ -186,10 +189,15 @@ void init_dang_ghost(int pacman_x, int pacman_y)
 	}
 }
 
+void init_dang_ghost(struct pacghost pacman)
+{
+	update_map(pacman);
+}
+
 void bfs(int x, int y)
 {
 	int map_i = x + y * width;
-	if (queue != NULL) queue_destroy(queue);
+	//if (queue != NULL) queue_destroy(queue);
 	for (int i = 0; i < count; i++)
 	{
 		if (cell_array[i].value == map_i) queue = queue_create(&cell_array[i]);
@@ -223,7 +231,7 @@ void bfs(int x, int y)
 	}
 }
 
-void move_dang_ghost(char * map,struct pacghost *pacman, struct pacghost *ghost,const int difficulty, int is_pacman_powered_up)
+void move_dang_ghost(char *map, struct pacghost *pacman, struct pacghost *ghost, const int difficulty, int is_pacman_powered_up)
 {
 	bfs(pacman->yLocation, pacman->xLocation);
 	int map_i = ghost->yLocation + ghost->xLocation * width;

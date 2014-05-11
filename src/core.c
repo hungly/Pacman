@@ -358,7 +358,7 @@ int load_game(char * file) {
     // initiliase ai
     initialise_hung_ai();
     initialise_ghost_map();
-    init_dang_ghost(pacman.yLocation, pacman.xLocation);
+    init_dang_ghost(pacman);
     return 1;
 }
 

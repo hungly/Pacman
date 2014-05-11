@@ -347,7 +347,7 @@ void startNewGame(int argc, char *argv[]){
 		// initialise ai (if needed)
 		initialise_hung_ai();
 		initialise_ghost_map();
-		init_dang_ghost(pacman.yLocation, pacman.xLocation);
+		init_dang_ghost(pacman);
 
 		// display game status label
 		attrset(COLOR_PAIR(9));
