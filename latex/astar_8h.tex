@@ -1,0 +1,181 @@
+\hypertarget{astar_8h}{\section{src/astar.h File Reference}
+\label{astar_8h}\index{src/astar.\-h@{src/astar.\-h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnode}{node}
+\item 
+struct \hyperlink{structlist}{list}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlist}{list} $\ast$ \hyperlink{astar_8h_aa9b519436bb70021ad4de5cd65fa56d0}{list\-\_\-create} ()
+\item 
+struct \hyperlink{structnode}{node} $\ast$ \hyperlink{astar_8h_a45232063eebc7ebd1d5bacc21618d493}{node\-\_\-create} ()
+\item 
+struct \hyperlink{structnode}{node} $\ast$ \hyperlink{astar_8h_ae4687dda0078907de2f578f2ecb2dd4f}{node\-\_\-with\-\_\-least\-\_\-f} (struct \hyperlink{structlist}{list} $\ast$the\-\_\-list)
+\item 
+void \hyperlink{astar_8h_aaa72a02975259191956aa8bbabd7a9b0}{pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list} (struct \hyperlink{structlist}{list} $\ast$the\-\_\-list, struct \hyperlink{structnode}{node} $\ast$node\-\_\-to\-\_\-pop)
+\item 
+void \hyperlink{astar_8h_ab555dab40cfb0ec2eee873c67b557823}{add\-\_\-a\-\_\-node\-\_\-to\-\_\-list} (struct \hyperlink{structlist}{list} $\ast$the\-\_\-list, struct \hyperlink{structnode}{node} $\ast$node\-\_\-to\-\_\-add)
+\item 
+struct \hyperlink{structnode}{node} $\ast$ \hyperlink{astar_8h_a42fe2daca186128e9a1a08a079fb7bd3}{starting\-\_\-node} (struct \hyperlink{structnode}{node} $\ast$the\-\_\-node)
+\item 
+int \hyperlink{astar_8h_ab7d52deb4f56f4656a686efe10da7dd8}{better\-\_\-node\-\_\-exist} (struct \hyperlink{structlist}{list} $\ast$the\-\_\-list, struct \hyperlink{structnode}{node} $\ast$node\-\_\-to\-\_\-search)
+\item 
+void \hyperlink{astar_8h_a717a4d09034885610bd1d5943ebea084}{free\-\_\-list} (struct \hyperlink{structlist}{list} $\ast$the\-\_\-list)
+\item 
+void \hyperlink{astar_8h_ab93c6437cc451c91091f7799bb3643ea}{free\-\_\-node\-\_\-and\-\_\-list} (struct \hyperlink{structnode}{node} $\ast$current\-\_\-node, struct \hyperlink{structnode}{node} $\ast$parent\-\_\-node, struct \hyperlink{structlist}{list} $\ast$open\-\_\-list, struct \hyperlink{structlist}{list} $\ast$close\-\_\-list)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{astar_8h_ab555dab40cfb0ec2eee873c67b557823}{\index{astar.\-h@{astar.\-h}!add\-\_\-a\-\_\-node\-\_\-to\-\_\-list@{add\-\_\-a\-\_\-node\-\_\-to\-\_\-list}}
+\index{add\-\_\-a\-\_\-node\-\_\-to\-\_\-list@{add\-\_\-a\-\_\-node\-\_\-to\-\_\-list}!astar.h@{astar.\-h}}
+\subsubsection[{add\-\_\-a\-\_\-node\-\_\-to\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-a\-\_\-node\-\_\-to\-\_\-list (
+\begin{DoxyParamCaption}
+\item[{struct {\bf list} $\ast$}]{the\-\_\-list, }
+\item[{struct {\bf node} $\ast$}]{node\-\_\-to\-\_\-add}
+\end{DoxyParamCaption}
+)}}\label{astar_8h_ab555dab40cfb0ec2eee873c67b557823}
+Add a node to a list
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-list} & pointer to the list which we want to add a node to \\
+\hline
+{\em node\-\_\-to\-\_\-add} & pointer to a node which we want to add to a list \\
+\hline
+\end{DoxyParams}
+\hypertarget{astar_8h_ab7d52deb4f56f4656a686efe10da7dd8}{\index{astar.\-h@{astar.\-h}!better\-\_\-node\-\_\-exist@{better\-\_\-node\-\_\-exist}}
+\index{better\-\_\-node\-\_\-exist@{better\-\_\-node\-\_\-exist}!astar.h@{astar.\-h}}
+\subsubsection[{better\-\_\-node\-\_\-exist}]{\setlength{\rightskip}{0pt plus 5cm}int better\-\_\-node\-\_\-exist (
+\begin{DoxyParamCaption}
+\item[{struct {\bf list} $\ast$}]{the\-\_\-list, }
+\item[{struct {\bf node} $\ast$}]{node\-\_\-to\-\_\-search}
+\end{DoxyParamCaption}
+)}}\label{astar_8h_ab7d52deb4f56f4656a686efe10da7dd8}
+Check if there is a better node is exist in a list or not (same position but lower f)
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-list} & pointer to the list we want to check \\
+\hline
+{\em node\-\_\-to\-\_\-search,\-:} & pointer to the node we want to check\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if exist and 0 if not exist 
+\end{DoxyReturn}
+\hypertarget{astar_8h_a717a4d09034885610bd1d5943ebea084}{\index{astar.\-h@{astar.\-h}!free\-\_\-list@{free\-\_\-list}}
+\index{free\-\_\-list@{free\-\_\-list}!astar.h@{astar.\-h}}
+\subsubsection[{free\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-list (
+\begin{DoxyParamCaption}
+\item[{struct {\bf list} $\ast$}]{the\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{astar_8h_a717a4d09034885610bd1d5943ebea084}
+Free a list
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-list} & pointer to the list we want to free \\
+\hline
+\end{DoxyParams}
+\hypertarget{astar_8h_ab93c6437cc451c91091f7799bb3643ea}{\index{astar.\-h@{astar.\-h}!free\-\_\-node\-\_\-and\-\_\-list@{free\-\_\-node\-\_\-and\-\_\-list}}
+\index{free\-\_\-node\-\_\-and\-\_\-list@{free\-\_\-node\-\_\-and\-\_\-list}!astar.h@{astar.\-h}}
+\subsubsection[{free\-\_\-node\-\_\-and\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-node\-\_\-and\-\_\-list (
+\begin{DoxyParamCaption}
+\item[{struct {\bf node} $\ast$}]{current\-\_\-node, }
+\item[{struct {\bf node} $\ast$}]{parent\-\_\-node, }
+\item[{struct {\bf list} $\ast$}]{open\-\_\-list, }
+\item[{struct {\bf list} $\ast$}]{close\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{astar_8h_ab93c6437cc451c91091f7799bb3643ea}
+Free current working node and all list
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\-\_\-node} & pointer to the current node \\
+\hline
+{\em parrent\-\_\-node} & pointer to the parent of current node \\
+\hline
+{\em open\-\_\-list} & pointer to a list (specifically open list in this case) \\
+\hline
+{\em close\-\_\-list} & pointer to a list (specifically close list in this case) \\
+\hline
+\end{DoxyParams}
+\hypertarget{astar_8h_aa9b519436bb70021ad4de5cd65fa56d0}{\index{astar.\-h@{astar.\-h}!list\-\_\-create@{list\-\_\-create}}
+\index{list\-\_\-create@{list\-\_\-create}!astar.h@{astar.\-h}}
+\subsubsection[{list\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf list}$\ast$ list\-\_\-create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{astar_8h_aa9b519436bb70021ad4de5cd65fa56d0}
+Create a list
+
+\begin{DoxyReturn}{Returns}
+the pointer to a newly created list 
+\end{DoxyReturn}
+\hypertarget{astar_8h_a45232063eebc7ebd1d5bacc21618d493}{\index{astar.\-h@{astar.\-h}!node\-\_\-create@{node\-\_\-create}}
+\index{node\-\_\-create@{node\-\_\-create}!astar.h@{astar.\-h}}
+\subsubsection[{node\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node}$\ast$ node\-\_\-create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{astar_8h_a45232063eebc7ebd1d5bacc21618d493}
+Create a node
+
+\begin{DoxyReturn}{Returns}
+the pointer to a newly created node 
+\end{DoxyReturn}
+\hypertarget{astar_8h_ae4687dda0078907de2f578f2ecb2dd4f}{\index{astar.\-h@{astar.\-h}!node\-\_\-with\-\_\-least\-\_\-f@{node\-\_\-with\-\_\-least\-\_\-f}}
+\index{node\-\_\-with\-\_\-least\-\_\-f@{node\-\_\-with\-\_\-least\-\_\-f}!astar.h@{astar.\-h}}
+\subsubsection[{node\-\_\-with\-\_\-least\-\_\-f}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node}$\ast$ node\-\_\-with\-\_\-least\-\_\-f (
+\begin{DoxyParamCaption}
+\item[{struct {\bf list} $\ast$}]{the\-\_\-list}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{astar_8h_ae4687dda0078907de2f578f2ecb2dd4f}
+Find a node with least f (distance from start plus distance from destination) in a list
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-list} & pointer to the list in which you want to search for\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the node in the list that have least f 
+\end{DoxyReturn}
+\hypertarget{astar_8h_aaa72a02975259191956aa8bbabd7a9b0}{\index{astar.\-h@{astar.\-h}!pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list@{pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list}}
+\index{pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list@{pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list}!astar.h@{astar.\-h}}
+\subsubsection[{pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}void pop\-\_\-a\-\_\-node\-\_\-off\-\_\-list (
+\begin{DoxyParamCaption}
+\item[{struct {\bf list} $\ast$}]{the\-\_\-list, }
+\item[{struct {\bf node} $\ast$}]{node\-\_\-to\-\_\-pop}
+\end{DoxyParamCaption}
+)}}\label{astar_8h_aaa72a02975259191956aa8bbabd7a9b0}
+Pop (remove) a node out of a list (the node is still exist)
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-list} & pointer to the list we want to remove a node from  node\-\_\-to\-\_\-pop pointer to the node we want to pop \\
+\hline
+\end{DoxyParams}
+\hypertarget{astar_8h_a42fe2daca186128e9a1a08a079fb7bd3}{\index{astar.\-h@{astar.\-h}!starting\-\_\-node@{starting\-\_\-node}}
+\index{starting\-\_\-node@{starting\-\_\-node}!astar.h@{astar.\-h}}
+\subsubsection[{starting\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node}$\ast$ starting\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{struct {\bf node} $\ast$}]{the\-\_\-node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{astar_8h_a42fe2daca186128e9a1a08a079fb7bd3}
+Find the starting node of a node (exclude the 1st)
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\-\_\-node} & pointer to that node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the starting of that node 
+\end{DoxyReturn}

@@ -1,0 +1,159 @@
+\hypertarget{dijkstra_8h}{\section{src/dijkstra.h File Reference}
+\label{dijkstra_8h}\index{src/dijkstra.\-h@{src/dijkstra.\-h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structedge__t}{edge\-\_\-t}
+\item 
+struct \hyperlink{structnode__t}{node\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structnode__t}{node\-\_\-t} \hyperlink{dijkstra_8h_a5117d12b617b7e9e4b80e95876e69a17}{node\-\_\-t}
+\item 
+typedef struct \hyperlink{structnode__t}{node\-\_\-t} $\ast$ \hyperlink{dijkstra_8h_a7649140efb5483af2fe3102f0c6630f3}{heap\-\_\-t}
+\item 
+typedef struct \hyperlink{structedge__t}{edge\-\_\-t} \hyperlink{dijkstra_8h_a10b77cea27603c3dc3d2b74f4f95f564}{edge\-\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{dijkstra_8h_a0b52cff8811cb7a994b7ca3d1f0e3081}{add\-\_\-edge} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start, \hyperlink{structnode__t}{node\-\_\-t} $\ast$end, int distance)
+\item 
+void \hyperlink{dijkstra_8h_afa5622979c56194296cbe2395ff02c4f}{free\-\_\-edges} ()
+\item 
+void \hyperlink{dijkstra_8h_a38dcd61e26257e32083226c1c11d4efb}{set\-\_\-dist} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$destination\-\_\-node, \hyperlink{structnode__t}{node\-\_\-t} $\ast$via, int d)
+\item 
+\hyperlink{structnode__t}{node\-\_\-t} $\ast$ \hyperlink{dijkstra_8h_ace090862fe79a5fe5217e4048560ae4b}{pop\-\_\-queue} ()
+\item 
+void \hyperlink{dijkstra_8h_a72ac745dd88db811bcba09d5915c7c84}{calc\-\_\-all} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start)
+\item 
+int \hyperlink{dijkstra_8h_ae63fc6d7679f2618166e82686bf47372}{show\-\_\-path} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start\-\_\-node, \hyperlink{structnode__t}{node\-\_\-t} $\ast$destination\-\_\-node)
+\item 
+int \hyperlink{dijkstra_8h_ae3ae867e50465f1548ce18d0a44b56f3}{dijkstra} (const int \hyperlink{lyquochung_8c_ae29617de649b665cf0d12c07b31c31d1}{num\-\_\-nodes}, int $\ast$$\ast$\hyperlink{lyquochung_8c_a7540068ea51b76582c72a41bf1c9f491}{nodes\-\_\-cost}, int $\ast$$\ast$\hyperlink{lyquochung_8c_af3556bd960b4e0d89ad86b68c7abad17}{routing\-\_\-table})
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{dijkstra_8h_a10b77cea27603c3dc3d2b74f4f95f564}{\index{dijkstra.\-h@{dijkstra.\-h}!edge\-\_\-t@{edge\-\_\-t}}
+\index{edge\-\_\-t@{edge\-\_\-t}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{edge\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf edge\-\_\-t} {\bf edge\-\_\-t}}}\label{dijkstra_8h_a10b77cea27603c3dc3d2b74f4f95f564}
+\hypertarget{dijkstra_8h_a7649140efb5483af2fe3102f0c6630f3}{\index{dijkstra.\-h@{dijkstra.\-h}!heap\-\_\-t@{heap\-\_\-t}}
+\index{heap\-\_\-t@{heap\-\_\-t}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{heap\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf node\-\_\-t} $\ast$ {\bf heap\-\_\-t}}}\label{dijkstra_8h_a7649140efb5483af2fe3102f0c6630f3}
+\hypertarget{dijkstra_8h_a5117d12b617b7e9e4b80e95876e69a17}{\index{dijkstra.\-h@{dijkstra.\-h}!node\-\_\-t@{node\-\_\-t}}
+\index{node\-\_\-t@{node\-\_\-t}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{node\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf node\-\_\-t} {\bf node\-\_\-t}}}\label{dijkstra_8h_a5117d12b617b7e9e4b80e95876e69a17}
+Dijkstra algorithm used to determined the shortest path from a node to another node. This algorithm is adapted from the Rosetta's code (2014) page with appropriate modification to accept input provide by my program and provide output in appropriate format to be used by my A\-I Reference\-: \href{http://rosettacode.org/wiki/Dijkstra's_algorithm#C}{\tt http\-://rosettacode.\-org/wiki/\-Dijkstra's\-\_\-algorithm\#\-C} 
+
+\subsection{Function Documentation}
+\hypertarget{dijkstra_8h_a0b52cff8811cb7a994b7ca3d1f0e3081}{\index{dijkstra.\-h@{dijkstra.\-h}!add\-\_\-edge@{add\-\_\-edge}}
+\index{add\-\_\-edge@{add\-\_\-edge}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{add\-\_\-edge}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-edge (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start, }
+\item[{{\bf node\-\_\-t} $\ast$}]{end, }
+\item[{int}]{distance}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_a0b52cff8811cb7a994b7ca3d1f0e3081}
+Add an edge to the digram with start, end node and the cost.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & pointer to the start node of this edge \\
+\hline
+{\em end} & pointer to the end node of this edge \\
+\hline
+{\em distance} & the cost to go from start node to end node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8h_a72ac745dd88db811bcba09d5915c7c84}{\index{dijkstra.\-h@{dijkstra.\-h}!calc\-\_\-all@{calc\-\_\-all}}
+\index{calc\-\_\-all@{calc\-\_\-all}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{calc\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void calc\-\_\-all (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_a72ac745dd88db811bcba09d5915c7c84}
+Calculate all the shortest path from one node to all other node in the memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & pointer to the original node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8h_ae3ae867e50465f1548ce18d0a44b56f3}{\index{dijkstra.\-h@{dijkstra.\-h}!dijkstra@{dijkstra}}
+\index{dijkstra@{dijkstra}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{dijkstra}]{\setlength{\rightskip}{0pt plus 5cm}int dijkstra (
+\begin{DoxyParamCaption}
+\item[{const int}]{num\-\_\-nodes, }
+\item[{int $\ast$$\ast$}]{nodes\-\_\-cost, }
+\item[{int $\ast$$\ast$}]{routing\-\_\-table}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_ae3ae867e50465f1548ce18d0a44b56f3}
+Calculate all the shortest path from ebery node to all other nodes that existed in the map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\-\_\-nodes} & indicates the number of nodes in the current loaded map \\
+\hline
+{\em nodes\-\_\-cost} & pointer to the pointer to an integer indicate an 2\-D array which store cost to go from one node to the node connected directly to it \\
+\hline
+{\em routing\-\_\-talbe} & pointer to the pointer to an integer indicates an 2\-D array which will store the result of the dijkstra algorithm for the A\-I to read from \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8h_afa5622979c56194296cbe2395ff02c4f}{\index{dijkstra.\-h@{dijkstra.\-h}!free\-\_\-edges@{free\-\_\-edges}}
+\index{free\-\_\-edges@{free\-\_\-edges}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{free\-\_\-edges}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-edges (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_afa5622979c56194296cbe2395ff02c4f}
+Remove an edge from the memory. \hypertarget{dijkstra_8h_ace090862fe79a5fe5217e4048560ae4b}{\index{dijkstra.\-h@{dijkstra.\-h}!pop\-\_\-queue@{pop\-\_\-queue}}
+\index{pop\-\_\-queue@{pop\-\_\-queue}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{pop\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node\-\_\-t}$\ast$ pop\-\_\-queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_ace090862fe79a5fe5217e4048560ae4b}
+Pop a node from the queue \hypertarget{dijkstra_8h_a38dcd61e26257e32083226c1c11d4efb}{\index{dijkstra.\-h@{dijkstra.\-h}!set\-\_\-dist@{set\-\_\-dist}}
+\index{set\-\_\-dist@{set\-\_\-dist}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{set\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}void set\-\_\-dist (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{destination\-\_\-node, }
+\item[{{\bf node\-\_\-t} $\ast$}]{via, }
+\item[{int}]{d}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_a38dcd61e26257e32083226c1c11d4efb}
+Set the distance from the original node to the curent node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nd} & pointer to the current checked node \\
+\hline
+{\em via} & pointer to the previous node that lead to the current node from the original node. \\
+\hline
+{\em d} & distance from the original node to this node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8h_ae63fc6d7679f2618166e82686bf47372}{\index{dijkstra.\-h@{dijkstra.\-h}!show\-\_\-path@{show\-\_\-path}}
+\index{show\-\_\-path@{show\-\_\-path}!dijkstra.h@{dijkstra.\-h}}
+\subsubsection[{show\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}int show\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start\-\_\-node, }
+\item[{{\bf node\-\_\-t} $\ast$}]{destination\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8h_ae63fc6d7679f2618166e82686bf47372}
+Show the next node to get to if you want to go from 1 node to other node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ns} & pointer to the starting node \\
+\hline
+{\em nd} & pointer to the destination node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node which need to be reached if you want to archive the shortest path from 1 node to another node 
+\end{DoxyReturn}

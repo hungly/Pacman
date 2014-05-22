@@ -1,0 +1,297 @@
+\hypertarget{lyquochung_8h}{\section{src/lyquochung.h File Reference}
+\label{lyquochung_8h}\index{src/lyquochung.\-h@{src/lyquochung.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{lyquochung_8h_ad3d3580dfc6b70aa1cd1b262d25337da}{initialise\-\_\-hung\-\_\-ai} ()
+\item 
+int \hyperlink{lyquochung_8h_a1211940eeadb03b0a5d15f2e2ead9369}{count\-\_\-available\-\_\-move\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{lyquochung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}{finish\-\_\-hung\-\_\-ai} ()
+\item 
+int \hyperlink{lyquochung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}{is\-\_\-corner\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{lyquochung_8h_a7e619896bfbe8ff8df57629021741a1e}{auto\-\_\-find\-\_\-path} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}, const char direction)
+\item 
+int \hyperlink{lyquochung_8h_add393f847b3bac2b4c96c85208110f85}{get\-\_\-end\-\_\-node} (int current\-\_\-node, const int direction)
+\item 
+void \hyperlink{lyquochung_8h_a056798f32f9b65c60f24c8c3fd9727b0}{calculate\-\_\-cost} (const int start\-\_\-node\-\_\-position, const int end\-\_\-nodes\-\_\-postion, const int direction)
+\item 
+void \hyperlink{lyquochung_8h_a3773141a93fc9767f7d3f31cf602c530}{hung\-\_\-ai} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty}, const int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up})
+\item 
+int \hyperlink{lyquochung_8h_a6c6a6b0fc578573a32c759ff9f8b4c07}{find\-\_\-nearest\-\_\-node} (struct \hyperlink{structpacghost}{pacghost} $\ast$character)
+\item 
+void \hyperlink{lyquochung_8h_a8476294ad3f28526243b0fcae02b8e45}{move\-\_\-to\-\_\-node} (const int current\-\_\-position, const int destination\-\_\-node, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\item 
+int \hyperlink{lyquochung_8h_a0d468cb1d3796e75516ed1bb5ce4f060}{get\-\_\-destination\-\_\-node} (int pacman\-\_\-position, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\item 
+void \hyperlink{lyquochung_8h_a879cc1712c0146f3e04db1e27384e475}{hunt} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty})
+\item 
+void \hyperlink{lyquochung_8h_ae50812b97724540cd962a9de9e8d106e}{run\-\_\-away} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{lyquochung_8h_ae40dba9610c5568a43288e0b0f4e3a53}{random\-\_\-node} (const int max, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct winsize \hyperlink{lyquochung_8h_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{lyquochung_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{lyquochung_8h_a7e619896bfbe8ff8df57629021741a1e}{\index{lyquochung.\-h@{lyquochung.\-h}!auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}}
+\index{auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{auto\-\_\-find\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-find\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a7e619896bfbe8ff8df57629021741a1e}
+Automatically filling all the appropriate places (movable cells) with a number. \hypertarget{lyquochung_8h_a056798f32f9b65c60f24c8c3fd9727b0}{\index{lyquochung.\-h@{lyquochung.\-h}!calculate\-\_\-cost@{calculate\-\_\-cost}}
+\index{calculate\-\_\-cost@{calculate\-\_\-cost}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{calculate\-\_\-cost}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-cost (
+\begin{DoxyParamCaption}
+\item[{const int}]{start\-\_\-node\-\_\-position, }
+\item[{const int}]{end\-\_\-nodes\-\_\-postion, }
+\item[{const int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a056798f32f9b65c60f24c8c3fd9727b0}
+Calculate the cost need to go from a node to another node in the given direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\-\_\-node\-\_\-position} & the position of the starting node \\
+\hline
+{\em end\-\_\-node\-\_\-position} & the position of the destination node \\
+\hline
+{\em direction} & the direction to go to get to destination node from the starting node (0 is up, 1 is right, 2 is down, 3 is left) \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquochung_8h_a1211940eeadb03b0a5d15f2e2ead9369}{\index{lyquochung.\-h@{lyquochung.\-h}!count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}}
+\index{count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{count\-\_\-available\-\_\-move\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int count\-\_\-available\-\_\-move\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a1211940eeadb03b0a5d15f2e2ead9369}
+Count the number of movable cell around a given node on the map. The number range from 0 to maximum of 4.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the row number in the map of the given node \\
+\hline
+{\em y} & the column number in the map of the given node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of moveable cell surround the given node 
+\end{DoxyReturn}
+\hypertarget{lyquochung_8h_a6c6a6b0fc578573a32c759ff9f8b4c07}{\index{lyquochung.\-h@{lyquochung.\-h}!find\-\_\-nearest\-\_\-node@{find\-\_\-nearest\-\_\-node}}
+\index{find\-\_\-nearest\-\_\-node@{find\-\_\-nearest\-\_\-node}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{find\-\_\-nearest\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}int find\-\_\-nearest\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{character}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a6c6a6b0fc578573a32c759ff9f8b4c07}
+Find the nearest node from the A\-I's map the closest to the given game character (pacman or ghost)
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & the game character (pacman or ghost) which need to find it closest node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the position of the closest node to the given game character 
+\end{DoxyReturn}
+\hypertarget{lyquochung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}{\index{lyquochung.\-h@{lyquochung.\-h}!finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}}
+\index{finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{finish\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void finish\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}
+Clear all the memory used by the A\-I \hypertarget{lyquochung_8h_a0d468cb1d3796e75516ed1bb5ce4f060}{\index{lyquochung.\-h@{lyquochung.\-h}!get\-\_\-destination\-\_\-node@{get\-\_\-destination\-\_\-node}}
+\index{get\-\_\-destination\-\_\-node@{get\-\_\-destination\-\_\-node}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{get\-\_\-destination\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}int get\-\_\-destination\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{int}]{pacman\-\_\-position, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a0d468cb1d3796e75516ed1bb5ce4f060}
+Predict the node which the pacman is most likely try to move to based on the given information
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman\-\_\-position} & the position of the pacman in the \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node which is the destination of the pacman 
+\end{DoxyReturn}
+\hypertarget{lyquochung_8h_add393f847b3bac2b4c96c85208110f85}{\index{lyquochung.\-h@{lyquochung.\-h}!get\-\_\-end\-\_\-node@{get\-\_\-end\-\_\-node}}
+\index{get\-\_\-end\-\_\-node@{get\-\_\-end\-\_\-node}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{get\-\_\-end\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}int get\-\_\-end\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{int}]{current\-\_\-node, }
+\item[{const int}]{direction}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_add393f847b3bac2b4c96c85208110f85}
+Get the position of the node that directly connected to the given node in the given direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\-\_\-node} & the position of the node that need to get the node which connected to it \\
+\hline
+{\em direction} & the direction that need to be check for (0 is up, 1 is right, 2 is down, 3 is left)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the position of the node which directly connected to the given node in the given direction 
+\end{DoxyReturn}
+\hypertarget{lyquochung_8h_a3773141a93fc9767f7d3f31cf602c530}{\index{lyquochung.\-h@{lyquochung.\-h}!hung\-\_\-ai@{hung\-\_\-ai}}
+\index{hung\-\_\-ai@{hung\-\_\-ai}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void hung\-\_\-ai (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{difficulty, }
+\item[{const int}]{is\-\_\-pacman\-\_\-powered\-\_\-up}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a3773141a93fc9767f7d3f31cf602c530}
+Main function for the A\-I, instruct the ghost the move in the appropriate direction based on the provided in formation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the current map in the memory \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost which this A\-I function control \\
+\hline
+{\em difficulty} & the game difficulty setting \\
+\hline
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & the integer indicate the pacman's status \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquochung_8h_a879cc1712c0146f3e04db1e27384e475}{\index{lyquochung.\-h@{lyquochung.\-h}!hunt@{hunt}}
+\index{hunt@{hunt}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{hunt}]{\setlength{\rightskip}{0pt plus 5cm}void hunt (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{difficulty}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a879cc1712c0146f3e04db1e27384e475}
+Try to hunt for the pacman, predict it movement and intercept it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost which this A\-I function control \\
+\hline
+{\em difficulty} & the game difficulty setting \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquochung_8h_ad3d3580dfc6b70aa1cd1b262d25337da}{\index{lyquochung.\-h@{lyquochung.\-h}!initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}}
+\index{initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{initialise\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void initialise\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_ad3d3580dfc6b70aa1cd1b262d25337da}
+Read the current map in the memory then construct a special map (A\-I's map (ai\-\_\-map)) and a routing table based on that map. The map and routing table will be used to instruct the A\-I to chase and run away from the pacman. \hypertarget{lyquochung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}{\index{lyquochung.\-h@{lyquochung.\-h}!is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}}
+\index{is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{is\-\_\-corner\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-\_\-corner\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}
+Check if the given cell in the map is a corner or not. Corner is the cell which has two movable cells around it and their position is not opposed each other. i.\-e.\-: the two movable cells should not be one above and one below/one on the right and one the left of the given cell.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the row number in the map of the given node \\
+\hline
+{\em y} & the column number in the map of the given node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it is not a corner cell, 1 otherwise 
+\end{DoxyReturn}
+\hypertarget{lyquochung_8h_a8476294ad3f28526243b0fcae02b8e45}{\index{lyquochung.\-h@{lyquochung.\-h}!move\-\_\-to\-\_\-node@{move\-\_\-to\-\_\-node}}
+\index{move\-\_\-to\-\_\-node@{move\-\_\-to\-\_\-node}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{move\-\_\-to\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}void move\-\_\-to\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-position, }
+\item[{const int}]{destination\-\_\-node, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_a8476294ad3f28526243b0fcae02b8e45}
+Instruct the ghost to move from on node to other node based on the given information.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\-\_\-postion} & the current position of the ghost on the map \\
+\hline
+{\em destination\-\_\-node} & the node which the ghost need to move to \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost which this A\-I function control \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquochung_8h_ae40dba9610c5568a43288e0b0f4e3a53}{\index{lyquochung.\-h@{lyquochung.\-h}!random\-\_\-node@{random\-\_\-node}}
+\index{random\-\_\-node@{random\-\_\-node}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{random\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}int random\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{const int}]{max, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_ae40dba9610c5568a43288e0b0f4e3a53}
+Randomly pick a node in the list which satisfy a set of conditions to set as a destination for a ghost to run away from pacman.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquochung_8h_ae50812b97724540cd962a9de9e8d106e}{\index{lyquochung.\-h@{lyquochung.\-h}!run\-\_\-away@{run\-\_\-away}}
+\index{run\-\_\-away@{run\-\_\-away}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{run\-\_\-away}]{\setlength{\rightskip}{0pt plus 5cm}void run\-\_\-away (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{lyquochung_8h_ae50812b97724540cd962a9de9e8d106e}
+Run away from th pacman if it can kill the ghost.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost which this A\-I function control \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\hypertarget{lyquochung_8h_a47083d9a35bd0770a437ce77a09bc657}{\index{lyquochung.\-h@{lyquochung.\-h}!pacman@{pacman}}
+\index{pacman@{pacman}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{pacman}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} pacman}}\label{lyquochung_8h_a47083d9a35bd0770a437ce77a09bc657}
+The pacman's position in the map and its current direction
+
+variable that store the pacman position on the map and its moving direction \hypertarget{lyquochung_8h_a114d2a5a196322c42d4cd57cccb1f43b}{\index{lyquochung.\-h@{lyquochung.\-h}!w@{w}}
+\index{w@{w}!lyquochung.h@{lyquochung.\-h}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{lyquochung_8h_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width 

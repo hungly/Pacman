@@ -10,7 +10,6 @@ int checkRightExit(struct pacghost * ghost);
 int checkBottomExit(struct pacghost * ghost);
 int isSurround(struct pacghost * ghost);
 int face2faceTrap(struct pacghost * ghost);
-// void nguyenvinhlinh_ai(struct pacghost * ghost);
 
 int face2face(struct pacghost * ghost){
 	char map2d[height][width];

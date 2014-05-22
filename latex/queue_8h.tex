@@ -1,0 +1,61 @@
+\hypertarget{queue_8h}{\section{src/queue.h File Reference}
+\label{queue_8h}\index{src/queue.\-h@{src/queue.\-h}}
+}
+{\ttfamily \#include \char`\"{}cell.\-h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structqueue}{queue}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structqueue}{queue} $\ast$ \hyperlink{queue_8h_a8955fed8a7fd124e073b8639c869a29e}{queue\-\_\-create} (struct \hyperlink{structcell}{cell} $\ast$\hyperlink{structcell}{cell})
+\item 
+void \hyperlink{queue_8h_a126ede80cffb6f1842d913c6dba15d78}{enqueue} (struct \hyperlink{structcell}{cell} $\ast$\hyperlink{structcell}{cell}, struct \hyperlink{structqueue}{queue} $\ast$$\ast$\hyperlink{structqueue}{queue})
+\item 
+struct \hyperlink{structcell}{cell} $\ast$ \hyperlink{queue_8h_aee4c5bd302e32b6acbff10a0be5983ae}{dequeue} (struct \hyperlink{structqueue}{queue} $\ast$$\ast$\hyperlink{structqueue}{queue})
+\item 
+void \hyperlink{queue_8h_ab289c4a3a8f3c943c8825b121334ced7}{queue\-\_\-destroy} (struct \hyperlink{structqueue}{queue} $\ast$\hyperlink{structqueue}{queue})
+\item 
+void \hyperlink{queue_8h_a398771351483a6499c0a5aefd568d469}{queue\-\_\-print} (struct \hyperlink{structqueue}{queue} $\ast$\hyperlink{structqueue}{queue})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{queue_8h_aee4c5bd302e32b6acbff10a0be5983ae}{\index{queue.\-h@{queue.\-h}!dequeue@{dequeue}}
+\index{dequeue@{dequeue}!queue.h@{queue.\-h}}
+\subsubsection[{dequeue}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf cell}$\ast$ dequeue (
+\begin{DoxyParamCaption}
+\item[{struct {\bf queue} $\ast$$\ast$}]{queue}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{queue_8h_aee4c5bd302e32b6acbff10a0be5983ae}
+\hypertarget{queue_8h_a126ede80cffb6f1842d913c6dba15d78}{\index{queue.\-h@{queue.\-h}!enqueue@{enqueue}}
+\index{enqueue@{enqueue}!queue.h@{queue.\-h}}
+\subsubsection[{enqueue}]{\setlength{\rightskip}{0pt plus 5cm}void enqueue (
+\begin{DoxyParamCaption}
+\item[{struct {\bf cell} $\ast$}]{cell, }
+\item[{struct {\bf queue} $\ast$$\ast$}]{queue}
+\end{DoxyParamCaption}
+)}}\label{queue_8h_a126ede80cffb6f1842d913c6dba15d78}
+\hypertarget{queue_8h_a8955fed8a7fd124e073b8639c869a29e}{\index{queue.\-h@{queue.\-h}!queue\-\_\-create@{queue\-\_\-create}}
+\index{queue\-\_\-create@{queue\-\_\-create}!queue.h@{queue.\-h}}
+\subsubsection[{queue\-\_\-create}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf queue}$\ast$ queue\-\_\-create (
+\begin{DoxyParamCaption}
+\item[{struct {\bf cell} $\ast$}]{cell}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [read]}}}\label{queue_8h_a8955fed8a7fd124e073b8639c869a29e}
+\hypertarget{queue_8h_ab289c4a3a8f3c943c8825b121334ced7}{\index{queue.\-h@{queue.\-h}!queue\-\_\-destroy@{queue\-\_\-destroy}}
+\index{queue\-\_\-destroy@{queue\-\_\-destroy}!queue.h@{queue.\-h}}
+\subsubsection[{queue\-\_\-destroy}]{\setlength{\rightskip}{0pt plus 5cm}void queue\-\_\-destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf queue} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)}}\label{queue_8h_ab289c4a3a8f3c943c8825b121334ced7}
+\hypertarget{queue_8h_a398771351483a6499c0a5aefd568d469}{\index{queue.\-h@{queue.\-h}!queue\-\_\-print@{queue\-\_\-print}}
+\index{queue\-\_\-print@{queue\-\_\-print}!queue.h@{queue.\-h}}
+\subsubsection[{queue\-\_\-print}]{\setlength{\rightskip}{0pt plus 5cm}void queue\-\_\-print (
+\begin{DoxyParamCaption}
+\item[{struct {\bf queue} $\ast$}]{queue}
+\end{DoxyParamCaption}
+)}}\label{queue_8h_a398771351483a6499c0a5aefd568d469}

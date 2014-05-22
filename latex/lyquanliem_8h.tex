@@ -1,0 +1,230 @@
+\hypertarget{lyquanliem_8h}{\section{src/lyquanliem.h File Reference}
+\label{lyquanliem_8h}\index{src/lyquanliem.\-h@{src/lyquanliem.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{lyquanliem_8h_a7fc642878ff2b44d98e3e7f13a35f2ab}{initialise\-\_\-ghost\-\_\-map} ()
+\item 
+void \hyperlink{lyquanliem_8h_abab9339284556e1039f18cebb044e0c6}{move\-\_\-randomly} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+void \hyperlink{lyquanliem_8h_a6a75428aee387a6adccfcfe60823c6ed}{choose\-\_\-direction\-\_\-for\-\_\-ghost} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty}, int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up})
+\item 
+int \hyperlink{lyquanliem_8h_ac71c5bd5656df17c5aabc61721905d33}{direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node} (int x\-Start, int y\-Start, int x\-Destination, int y\-Destination)
+\item 
+void \hyperlink{lyquanliem_8h_a2e36b7d195d61f683e831a534c2e7679}{chase\-\_\-after\-\_\-pacman} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+float \hyperlink{lyquanliem_8h_afdfe2ea05845c44e1ccaabcd9f50e1e9}{sqr} (float a)
+\item 
+float \hyperlink{lyquanliem_8h_accbda9078654f519568a349d78916a04}{distance\-\_\-between\-\_\-two\-\_\-points} (int x\-Start, int y\-Start, int x\-Destination, int y\-Destination)
+\item 
+void \hyperlink{lyquanliem_8h_a813521ef0ce8450f7c19bb42266a9599}{free\-\_\-ghost\-\_\-map} ()
+\item 
+int \hyperlink{lyquanliem_8h_a47539be5d3de5856b22709eb9b2dbde3}{random\-\_\-in\-\_\-range} (unsigned int min, unsigned int max)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct winsize \hyperlink{lyquanliem_8h_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+struct \hyperlink{structpacghost}{pacghost} $\ast$ \hyperlink{lyquanliem_8h_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{lyquanliem_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}
+\item 
+char $\ast$ \hyperlink{lyquanliem_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}
+\item 
+int \hyperlink{lyquanliem_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}
+\item 
+int \hyperlink{lyquanliem_8h_a2474a5474cbff19523a51eb1de01cda4}{width}
+\item 
+char $\ast$ \hyperlink{lyquanliem_8h_a31966fe1f93bbf0c47f06b0192a19076}{ghost\-\_\-map}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{lyquanliem_8h_a2e36b7d195d61f683e831a534c2e7679}{\index{lyquanliem.\-h@{lyquanliem.\-h}!chase\-\_\-after\-\_\-pacman@{chase\-\_\-after\-\_\-pacman}}
+\index{chase\-\_\-after\-\_\-pacman@{chase\-\_\-after\-\_\-pacman}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{chase\-\_\-after\-\_\-pacman}]{\setlength{\rightskip}{0pt plus 5cm}void chase\-\_\-after\-\_\-pacman (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_a2e36b7d195d61f683e831a534c2e7679}
+This method move ghost to pacman position
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman,\-:} & pointer to the struct of pacman \\
+\hline
+{\em ghost,\-:} & pointer to the struct of the ghost \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquanliem_8h_a6a75428aee387a6adccfcfe60823c6ed}{\index{lyquanliem.\-h@{lyquanliem.\-h}!choose\-\_\-direction\-\_\-for\-\_\-ghost@{choose\-\_\-direction\-\_\-for\-\_\-ghost}}
+\index{choose\-\_\-direction\-\_\-for\-\_\-ghost@{choose\-\_\-direction\-\_\-for\-\_\-ghost}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{choose\-\_\-direction\-\_\-for\-\_\-ghost}]{\setlength{\rightskip}{0pt plus 5cm}void choose\-\_\-direction\-\_\-for\-\_\-ghost (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{int}]{difficulty, }
+\item[{int}]{is\-\_\-pacman\-\_\-powered\-\_\-up}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_a6a75428aee387a6adccfcfe60823c6ed}
+Choose the direction of the ghost based on the difficulty and power pallette eaten
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & pointer to the array of char which indicate current map \\
+\hline
+{\em pacman} & pointer to the pacman \\
+\hline
+{\em pacghost} & pointer to a ghost we want to choose direction for it \\
+\hline
+{\em diffculty} & an integer indicate the difficulty. 0 for easy and 3 for insane \\
+\hline
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & an integer indicate whether pacman is powered up or not. 0 for no and 1 for yes \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquanliem_8h_ac71c5bd5656df17c5aabc61721905d33}{\index{lyquanliem.\-h@{lyquanliem.\-h}!direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node@{direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node}}
+\index{direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node@{direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}int direction\-\_\-from\-\_\-node\-\_\-to\-\_\-node (
+\begin{DoxyParamCaption}
+\item[{int}]{x\-Start, }
+\item[{int}]{y\-Start, }
+\item[{int}]{x\-Destination, }
+\item[{int}]{y\-Destination}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_ac71c5bd5656df17c5aabc61721905d33}
+The direction that the ghost (with position x\-Start, y\-Start) turn to when move to the destination (with x\-Destination, y\-Destination)
+
+The way direction found is based on the A-\/star algorithm with some modification to fit the program
+
+Reference\-: \href{http://web.mit.edu/eranki/www/tutorials/search/}{\tt http\-://web.\-mit.\-edu/eranki/www/tutorials/search/}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\-Start} & the row of start point \\
+\hline
+{\em y\-Start} & the column of start point \\
+\hline
+{\em x\-Destination} & the row of destination point \\
+\hline
+{\em y\-Destination} & the column of destination point\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the direction that the ghost should turn to 
+\end{DoxyReturn}
+\hypertarget{lyquanliem_8h_accbda9078654f519568a349d78916a04}{\index{lyquanliem.\-h@{lyquanliem.\-h}!distance\-\_\-between\-\_\-two\-\_\-points@{distance\-\_\-between\-\_\-two\-\_\-points}}
+\index{distance\-\_\-between\-\_\-two\-\_\-points@{distance\-\_\-between\-\_\-two\-\_\-points}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{distance\-\_\-between\-\_\-two\-\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}float distance\-\_\-between\-\_\-two\-\_\-points (
+\begin{DoxyParamCaption}
+\item[{int}]{x\-Start, }
+\item[{int}]{y\-Start, }
+\item[{int}]{x\-Destination, }
+\item[{int}]{y\-Destination}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_accbda9078654f519568a349d78916a04}
+Calculate the distance between two points start and destination
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\-Start} & the row of start \\
+\hline
+{\em y\-Start} & the column of start \\
+\hline
+{\em x\-Destination} & the row of destination \\
+\hline
+{\em y\-Destination} & the column of destination\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the distance between start and destination 
+\end{DoxyReturn}
+\hypertarget{lyquanliem_8h_a813521ef0ce8450f7c19bb42266a9599}{\index{lyquanliem.\-h@{lyquanliem.\-h}!free\-\_\-ghost\-\_\-map@{free\-\_\-ghost\-\_\-map}}
+\index{free\-\_\-ghost\-\_\-map@{free\-\_\-ghost\-\_\-map}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{free\-\_\-ghost\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-ghost\-\_\-map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_a813521ef0ce8450f7c19bb42266a9599}
+Free ghost map if it exists \hypertarget{lyquanliem_8h_a7fc642878ff2b44d98e3e7f13a35f2ab}{\index{lyquanliem.\-h@{lyquanliem.\-h}!initialise\-\_\-ghost\-\_\-map@{initialise\-\_\-ghost\-\_\-map}}
+\index{initialise\-\_\-ghost\-\_\-map@{initialise\-\_\-ghost\-\_\-map}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{initialise\-\_\-ghost\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void initialise\-\_\-ghost\-\_\-map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_a7fc642878ff2b44d98e3e7f13a35f2ab}
+Initlialise the ghost map every time the level is changed. The ghost map simply generate the number of move available ways of every valid cell \hypertarget{lyquanliem_8h_abab9339284556e1039f18cebb044e0c6}{\index{lyquanliem.\-h@{lyquanliem.\-h}!move\-\_\-randomly@{move\-\_\-randomly}}
+\index{move\-\_\-randomly@{move\-\_\-randomly}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{move\-\_\-randomly}]{\setlength{\rightskip}{0pt plus 5cm}void move\-\_\-randomly (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_abab9339284556e1039f18cebb044e0c6}
+Move the ghost randomly. Except when it is moving and it cannot turn left or right
+
+
+\begin{DoxyParams}{Parameters}
+{\em ghost} & pointer to the ghost we want to move randomly \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquanliem_8h_a47539be5d3de5856b22709eb9b2dbde3}{\index{lyquanliem.\-h@{lyquanliem.\-h}!random\-\_\-in\-\_\-range@{random\-\_\-in\-\_\-range}}
+\index{random\-\_\-in\-\_\-range@{random\-\_\-in\-\_\-range}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{random\-\_\-in\-\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}int random\-\_\-in\-\_\-range (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{min, }
+\item[{unsigned int}]{max}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_a47539be5d3de5856b22709eb9b2dbde3}
+A function to return a number in range \mbox{[}min,max)
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & the minimum number of range \\
+\hline
+{\em max} & the maximum number (the maximum number can be randomed is max -\/ 1 ) \\
+\hline
+\end{DoxyParams}
+\hypertarget{lyquanliem_8h_afdfe2ea05845c44e1ccaabcd9f50e1e9}{\index{lyquanliem.\-h@{lyquanliem.\-h}!sqr@{sqr}}
+\index{sqr@{sqr}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{sqr}]{\setlength{\rightskip}{0pt plus 5cm}float sqr (
+\begin{DoxyParamCaption}
+\item[{float}]{a}
+\end{DoxyParamCaption}
+)}}\label{lyquanliem_8h_afdfe2ea05845c44e1ccaabcd9f50e1e9}
+Function for getting square of number
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the float to get the squared of\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the square of the float a 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{lyquanliem_8h_a740878ba5052e8a3a3fd0634cb0a8189}{\index{lyquanliem.\-h@{lyquanliem.\-h}!ghost@{ghost}}
+\index{ghost@{ghost}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{ghost}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost}$\ast$ ghost}}\label{lyquanliem_8h_a740878ba5052e8a3a3fd0634cb0a8189}
+pointer to the first ghost in the ghosts array \hypertarget{lyquanliem_8h_a31966fe1f93bbf0c47f06b0192a19076}{\index{lyquanliem.\-h@{lyquanliem.\-h}!ghost\-\_\-map@{ghost\-\_\-map}}
+\index{ghost\-\_\-map@{ghost\-\_\-map}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{ghost\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ ghost\-\_\-map}}\label{lyquanliem_8h_a31966fe1f93bbf0c47f06b0192a19076}
+Pointer to an array of char which indicates the current map with number of direction for ghost \hypertarget{lyquanliem_8h_ad12fc34ce789bce6c8a05d8a17138534}{\index{lyquanliem.\-h@{lyquanliem.\-h}!height@{height}}
+\index{height@{height}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height}}\label{lyquanliem_8h_ad12fc34ce789bce6c8a05d8a17138534}
+An integer value which indicates the height of map \hypertarget{lyquanliem_8h_a7b00b1bfd666e26484471bd17a74eaa9}{\index{lyquanliem.\-h@{lyquanliem.\-h}!map@{map}}
+\index{map@{map}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ map}}\label{lyquanliem_8h_a7b00b1bfd666e26484471bd17a74eaa9}
+Pointer to array of char which indicates the current map \hypertarget{lyquanliem_8h_a47083d9a35bd0770a437ce77a09bc657}{\index{lyquanliem.\-h@{lyquanliem.\-h}!pacman@{pacman}}
+\index{pacman@{pacman}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{pacman}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} pacman}}\label{lyquanliem_8h_a47083d9a35bd0770a437ce77a09bc657}
+variable that store the pacman position on the map and its moving direction \hypertarget{lyquanliem_8h_a114d2a5a196322c42d4cd57cccb1f43b}{\index{lyquanliem.\-h@{lyquanliem.\-h}!w@{w}}
+\index{w@{w}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{lyquanliem_8h_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width \hypertarget{lyquanliem_8h_a2474a5474cbff19523a51eb1de01cda4}{\index{lyquanliem.\-h@{lyquanliem.\-h}!width@{width}}
+\index{width@{width}!lyquanliem.h@{lyquanliem.\-h}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width}}\label{lyquanliem_8h_a2474a5474cbff19523a51eb1de01cda4}
+An integer value which indicates the width of map 

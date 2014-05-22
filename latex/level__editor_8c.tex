@@ -1,0 +1,312 @@
+\hypertarget{level__editor_8c}{\section{src/level\-\_\-editor.c File Reference}
+\label{level__editor_8c}\index{src/level\-\_\-editor.\-c@{src/level\-\_\-editor.\-c}}
+}
+{\ttfamily \#include \char`\"{}level\-\_\-editor.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+{\ttfamily \#include $<$regex.\-h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{level__editor_8c_a1879f9e5604a01f0983829846001ab23}{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}~10
+\item 
+\#define \hyperlink{level__editor_8c_a93493eb8fae5549bd5be67f3449245e0}{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}~30
+\item 
+\#define \hyperlink{level__editor_8c_a7a602a4376595097bdde82a739d7fc9c}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}~\char`\"{}levels/\char`\"{}
+\item 
+\#define \hyperlink{level__editor_8c_a680ab63d028a68a793615c14b807244e}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}~\char`\"{}../levels/\char`\"{}
+\item 
+\#define \hyperlink{level__editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}~\char`\"{}Anonymous\char`\"{}
+\item 
+\#define \hyperlink{level__editor_8c_ae18ca9554768c8cc98f2a8f3212936c7}{D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}~\char`\"{}Unknown\char`\"{}
+\item 
+\#define \hyperlink{level__editor_8c_ad7a970fb49d2ff723bbd67b86ba3b443}{D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}~\char`\"{}level.\-pac\char`\"{}
+\item 
+\#define \hyperlink{level__editor_8c_af27cfac70191e90ee59f2fbfc0142df5}{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~0
+\item 
+\#define \hyperlink{level__editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~1
+\item 
+\#define \hyperlink{level__editor_8c_a74d87509e98e202c778b5a9e4ae89f09}{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~2
+\item 
+\#define \hyperlink{level__editor_8c_ab604bbfe7359083e9abc00907e8acb12}{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}~3
+\item 
+\#define \hyperlink{level__editor_8c_a528521b4019fe0dbc561165851660df5}{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}~4
+\item 
+\#define \hyperlink{level__editor_8c_a977b7c2763deb11541bc962426297045}{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}~5
+\item 
+\#define \hyperlink{level__editor_8c_aa621edd711419dc69326010aabdb01bb}{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}~6
+\item 
+\#define \hyperlink{level__editor_8c_a4dff2b6100530a45e7c3b38c9484f454}{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}~7
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{level__editor_8c_abde8eeb0337d2894a8aa5d1f2dd8151b}{editor} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{level__editor_8c_af892ff919e1c7850c0bd85827b9b648e}{command\-\_\-mode} ()
+\item 
+void \hyperlink{level__editor_8c_a77a5d2c2bbebb2204a994de0fc9e066d}{display\-\_\-map} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map})
+\item 
+void \hyperlink{level__editor_8c_aac01ba2c86cce30701b994bbfbd7e34a}{edit\-\_\-mode} (int input)
+\item 
+void \hyperlink{level__editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}{new\-\_\-map} (char $\ast$args)
+\item 
+void \hyperlink{level__editor_8c_aaa90b13ddc12479556f96bdaf7cc04a5}{write\-\_\-file} (char $\ast$file)
+\item 
+void \hyperlink{level__editor_8c_ae8f3b08f62235bb7c36c368900757640}{read\-\_\-file} (char $\ast$file)
+\item 
+char $\ast$ \hyperlink{level__editor_8c_ae6db5037820c1c89302ae21566c5bfd1}{create\-\_\-map} (int new\-\_\-height, int new\-\_\-width)
+\item 
+int \hyperlink{level__editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}{starts\-With} (const char $\ast$pre, const char $\ast$str)
+\item 
+int \hyperlink{level__editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}{ends\-With\-Pac} (const char $\ast$str)
+\item 
+void \hyperlink{level__editor_8c_a0e89020536a88fc330cd9e4aa35799b0}{auto\-\_\-fill\-\_\-pellet} (const int current\-\_\-x, const int current\-\_\-y, const char direction)
+\item 
+void \hyperlink{level__editor_8c_add0fcdabdc016490323e4121bc6cb93c}{replace\-\_\-marked\-\_\-point} (const char original, const char replacement)
+\item 
+int \hyperlink{level__editor_8c_a8b8c0e479a095829ab925c906e493de5}{is\-Valid\-Fill\-Cell} (const int current\-\_\-x, const int current\-\_\-y)
+\item 
+void \hyperlink{level__editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{search\-\_\-pacman\-\_\-spawn\-\_\-point} (int $\ast$\hyperlink{lyquochung_8c_a521b6ebf9f61458ee802bedd4ca48b43}{pacman\-\_\-spawn\-\_\-point\-\_\-x}, int $\ast$\hyperlink{lyquochung_8c_ab30017a30378567c5ca2cf3836168ac2}{pacman\-\_\-spawn\-\_\-point\-\_\-y})
+\item 
+int \hyperlink{level__editor_8c_a78839797ab5993e64cbcd43e56e83819}{is\-Valid\-Author} (char $\ast$author\-\_\-arg)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{level__editor_8c_af27cfac70191e90ee59f2fbfc0142df5}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+\index{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~0}}\label{level__editor_8c_af27cfac70191e90ee59f2fbfc0142df5}
+Define Color\-Pallette1 for terminal background \hypertarget{level__editor_8c_a74d87509e98e202c778b5a9e4ae89f09}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+\index{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~2}}\label{level__editor_8c_a74d87509e98e202c778b5a9e4ae89f09}
+Define Color\-Pallette3 for error message \hypertarget{level__editor_8c_aa621edd711419dc69326010aabdb01bb}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}}
+\index{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T~6}}\label{level__editor_8c_aa621edd711419dc69326010aabdb01bb}
+Define Color\-Pallette7 for fruit \hypertarget{level__editor_8c_a4dff2b6100530a45e7c3b38c9484f454}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}}
+\index{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T~7}}\label{level__editor_8c_a4dff2b6100530a45e7c3b38c9484f454}
+Define Color\-Pallette8 for ghost \hypertarget{level__editor_8c_ab604bbfe7359083e9abc00907e8acb12}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}}
+\index{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R~3}}\label{level__editor_8c_ab604bbfe7359083e9abc00907e8acb12}
+Define Color\-Pallette4 for letters \hypertarget{level__editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+\index{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~1}}\label{level__editor_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}
+Define Color\-Pallette2 for map background \hypertarget{level__editor_8c_a977b7c2763deb11541bc962426297045}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}}
+\index{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N~5}}\label{level__editor_8c_a977b7c2763deb11541bc962426297045}
+Define Color\-Pallette6 for pacman \hypertarget{level__editor_8c_a528521b4019fe0dbc561165851660df5}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}}
+\index{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L~4}}\label{level__editor_8c_a528521b4019fe0dbc561165851660df5}
+Define Color\-Pallette5 for wall in map \hypertarget{level__editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R@{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}}
+\index{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R@{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-U\-T\-H\-O\-R~\char`\"{}Anonymous\char`\"{}}}\label{level__editor_8c_a0df6a4797ddf20bd10851daf8ba3e223}
+Define the default author \hypertarget{level__editor_8c_ad7a970fb49d2ff723bbd67b86ba3b443}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E@{D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}}
+\index{D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E@{D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-F\-I\-L\-E\-\_\-\-N\-A\-M\-E~\char`\"{}level.\-pac\char`\"{}}}\label{level__editor_8c_ad7a970fb49d2ff723bbd67b86ba3b443}
+Define the defalut file name \hypertarget{level__editor_8c_a1879f9e5604a01f0983829846001ab23}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T@{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}}
+\index{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T@{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-H\-E\-I\-G\-H\-T~10}}\label{level__editor_8c_a1879f9e5604a01f0983829846001ab23}
+Define default height of map \hypertarget{level__editor_8c_ae18ca9554768c8cc98f2a8f3212936c7}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E@{D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}}
+\index{D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E@{D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-T\-I\-T\-T\-L\-E~\char`\"{}Unknown\char`\"{}}}\label{level__editor_8c_ae18ca9554768c8cc98f2a8f3212936c7}
+Define the default title \hypertarget{level__editor_8c_a93493eb8fae5549bd5be67f3449245e0}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H@{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}}
+\index{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H@{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-E\-F\-A\-U\-L\-T\-\_\-\-W\-I\-D\-T\-H~30}}\label{level__editor_8c_a93493eb8fae5549bd5be67f3449245e0}
+Define default width of the map \hypertarget{level__editor_8c_a7a602a4376595097bdde82a739d7fc9c}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H~\char`\"{}levels/\char`\"{}}}\label{level__editor_8c_a7a602a4376595097bdde82a739d7fc9c}
+Define the directory when opening using sh file in root folder of project \hypertarget{level__editor_8c_a680ab63d028a68a793615c14b807244e}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C~\char`\"{}../levels/\char`\"{}}}\label{level__editor_8c_a680ab63d028a68a793615c14b807244e}
+Define the directory when opening using the executable file in source folder 
+
+\subsection{Function Documentation}
+\hypertarget{level__editor_8c_a0e89020536a88fc330cd9e4aa35799b0}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}}
+\index{auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{auto\-\_\-fill\-\_\-pellet}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-fill\-\_\-pellet (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_a0e89020536a88fc330cd9e4aa35799b0}
+Function for automatically filling all the appropriate place with a simple character \hypertarget{level__editor_8c_af892ff919e1c7850c0bd85827b9b648e}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!command\-\_\-mode@{command\-\_\-mode}}
+\index{command\-\_\-mode@{command\-\_\-mode}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{command\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void command\-\_\-mode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_af892ff919e1c7850c0bd85827b9b648e}
+V\-I liked command mode for map pacman editor. 
+
+This function will check if the input command is either q, w, n, r or wq and performed the following actions\-:
+
+q\-: quit the program and exit to the terminal.
+
+w\-: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name \char`\"{}level.\-pac\char`\"{}.
+
+wq\-: save and then quit the program, this command perform the same actions as the \char`\"{}w\char`\"{} command and then the \char`\"{}q\char`\"{} command.
+
+n\-: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.
+
+r\-: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.\hypertarget{level__editor_8c_ae6db5037820c1c89302ae21566c5bfd1}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!create\-\_\-map@{create\-\_\-map}}
+\index{create\-\_\-map@{create\-\_\-map}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{create\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ create\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_ae6db5037820c1c89302ae21566c5bfd1}
+Create a new map with desire height and width.
+
+
+\begin{DoxyParams}{Parameters}
+{\em height} & is the height of map. \\
+\hline
+{\em width} & is the width of map.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to an array of characters which represent the map . 
+\end{DoxyReturn}
+\hypertarget{level__editor_8c_a77a5d2c2bbebb2204a994de0fc9e066d}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!display\-\_\-map@{display\-\_\-map}}
+\index{display\-\_\-map@{display\-\_\-map}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{display\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_a77a5d2c2bbebb2204a994de0fc9e066d}
+Display current loaded map from an array in the heap memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the pointer to the array of character using to represent the current loaded map. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8c_aac01ba2c86cce30701b994bbfbd7e34a}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!edit\-\_\-mode@{edit\-\_\-mode}}
+\index{edit\-\_\-mode@{edit\-\_\-mode}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{edit\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void edit\-\_\-mode (
+\begin{DoxyParamCaption}
+\item[{int}]{input}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_aac01ba2c86cce30701b994bbfbd7e34a}
+Handling input that change the current edited map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & the A\-S\-C\-I\-I code of the input command. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8c_abde8eeb0337d2894a8aa5d1f2dd8151b}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!editor@{editor}}
+\index{editor@{editor}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{editor}]{\setlength{\rightskip}{0pt plus 5cm}int editor (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_abde8eeb0337d2894a8aa5d1f2dd8151b}
+\hypertarget{level__editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!ends\-With\-Pac@{ends\-With\-Pac}}
+\index{ends\-With\-Pac@{ends\-With\-Pac}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{ends\-With\-Pac}]{\setlength{\rightskip}{0pt plus 5cm}int ends\-With\-Pac (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_ad1ba67de662f1a1791ca1cc3a05c402e}
+Reference\-: \href{http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c}{\tt http\-://stackoverflow.\-com/questions/744766/how-\/to-\/compare-\/ends-\/of-\/strings-\/in-\/c} \hypertarget{level__editor_8c_a78839797ab5993e64cbcd43e56e83819}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!is\-Valid\-Author@{is\-Valid\-Author}}
+\index{is\-Valid\-Author@{is\-Valid\-Author}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{is\-Valid\-Author}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Author (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{author\-\_\-arg}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_a78839797ab5993e64cbcd43e56e83819}
+Function to validate if author name is entered correctly \hypertarget{level__editor_8c_a8b8c0e479a095829ab925c906e493de5}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}}
+\index{is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{is\-Valid\-Fill\-Cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Fill\-Cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_a8b8c0e479a095829ab925c906e493de5}
+Function to determined the input cell is valid to fill with small pellet or not \hypertarget{level__editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!new\-\_\-map@{new\-\_\-map}}
+\index{new\-\_\-map@{new\-\_\-map}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{new\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void new\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{args}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_a87ec0b28c1d954f4b3192a1fba87130e}
+Handling new map creation using with n command in command mode and when the program is loaded.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & the pointer to the array of characters which includes all three parameters which are new file name, height, and width. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8c_ae8f3b08f62235bb7c36c368900757640}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!read\-\_\-file@{read\-\_\-file}}
+\index{read\-\_\-file@{read\-\_\-file}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{read\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void read\-\_\-file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_ae8f3b08f62235bb7c36c368900757640}
+Reading the current map and related information into a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the pointer to the array of characters which indicates the file name to read from the disk. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8c_add0fcdabdc016490323e4121bc6cb93c}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}}
+\index{replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{replace\-\_\-marked\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void replace\-\_\-marked\-\_\-point (
+\begin{DoxyParamCaption}
+\item[{const char}]{original, }
+\item[{const char}]{replacement}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_add0fcdabdc016490323e4121bc6cb93c}
+Replace all the character that mark the possilble small pellet place with the actual small pellet character \hypertarget{level__editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}}
+\index{search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{search\-\_\-pacman\-\_\-spawn\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void search\-\_\-pacman\-\_\-spawn\-\_\-point (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-x, }
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_aa7287a91b4e306dacc3c9a5b8eb6c3e2}
+Function for searching for the first orcurence of pacman spawn point in the map. if there is no spawn point the function will return an errorl \hypertarget{level__editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!starts\-With@{starts\-With}}
+\index{starts\-With@{starts\-With}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{starts\-With}]{\setlength{\rightskip}{0pt plus 5cm}int starts\-With (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{pre, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_afe756d85f40bd74c8ea6c8722ce012fb}
+Function for checking the beginning of the string
+
+
+\begin{DoxyParams}{Parameters}
+{\em pre} & is the pointer to an array of char which we want to check whether the string begin with that or not. \\
+\hline
+{\em str} & is the pointer to an array of char which is the string we want to check.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if false and other numbers if true.
+\end{DoxyReturn}
+Reference\-: \href{http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c}{\tt http\-://stackoverflow.\-com/questions/4770985/something-\/like-\/startswithstr-\/a-\/str-\/b-\/in-\/c} \hypertarget{level__editor_8c_aaa90b13ddc12479556f96bdaf7cc04a5}{\index{level\-\_\-editor.\-c@{level\-\_\-editor.\-c}!write\-\_\-file@{write\-\_\-file}}
+\index{write\-\_\-file@{write\-\_\-file}!level_editor.c@{level\-\_\-editor.\-c}}
+\subsubsection[{write\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void write\-\_\-file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8c_aaa90b13ddc12479556f96bdaf7cc04a5}
+Writing the current map and related information into a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the pointer to the array of characters which indicates the file name to write into the disk. \\
+\hline
+\end{DoxyParams}

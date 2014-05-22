@@ -125,7 +125,7 @@ void display_save_list();
 int load_game(char * file);
 
 /**
-  *
+  * Clear unneccessary characters on the map
   */
 void delete_unneed_char();
 

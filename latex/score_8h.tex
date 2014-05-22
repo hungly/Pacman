@@ -1,0 +1,143 @@
+\hypertarget{score_8h}{\section{src/score.h File Reference}
+\label{score_8h}\index{src/score.\-h@{src/score.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{score_8h_aa4271c3b184603eb85b5fae294942b74}{display\-\_\-score} ()
+\item 
+void \hyperlink{score_8h_ac0bd142f3e54a1bd41dbaae6614901ff}{update\-\_\-score} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, int \hyperlink{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}, int \hyperlink{score_8h_a2474a5474cbff19523a51eb1de01cda4}{width}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, int $\ast$current\-Score, int $\ast$ate\-Pelet, int $\ast$\hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up}, int $\ast$\hyperlink{pacman_8c_a617a47c70795bcff659815ad0efd2266}{counter})
+\item 
+int \hyperlink{score_8h_a9ad19651df5668e7e9784c9559bbfade}{is\-Win} (int ate\-Pelet, int total\-Pelet)
+\item 
+void \hyperlink{score_8h_a5301dac312a70e4a646daaa1dda45985}{display\-\_\-high\-\_\-score} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct winsize \hyperlink{score_8h_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+int \hyperlink{score_8h_aef160b7437d94056f1dc59646cd5b87d}{score}
+\item 
+int \hyperlink{score_8h_a2cb50263f0f7a37d88d397a1d0e66f3a}{live}
+\item 
+int \hyperlink{score_8h_acf4d33ee4cff36f69b924471174dcb11}{level}
+\item 
+char $\ast$ \hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}
+\item 
+int \hyperlink{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}
+\item 
+int \hyperlink{score_8h_a2474a5474cbff19523a51eb1de01cda4}{width}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{score_8h_a5301dac312a70e4a646daaa1dda45985}{\index{score.\-h@{score.\-h}!display\-\_\-high\-\_\-score@{display\-\_\-high\-\_\-score}}
+\index{display\-\_\-high\-\_\-score@{display\-\_\-high\-\_\-score}!score.h@{score.\-h}}
+\subsubsection[{display\-\_\-high\-\_\-score}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-high\-\_\-score (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{score_8h_a5301dac312a70e4a646daaa1dda45985}
+Get the high score from file and display it. The file must be named as \char`\"{}result.\-rec\char`\"{} and save with the following format\-: one line for player, then another for score.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & number of argument \\
+\hline
+{\em argv} & pointer to the array of char which indicate the argument itself \\
+\hline
+\end{DoxyParams}
+\hypertarget{score_8h_aa4271c3b184603eb85b5fae294942b74}{\index{score.\-h@{score.\-h}!display\-\_\-score@{display\-\_\-score}}
+\index{display\-\_\-score@{display\-\_\-score}!score.h@{score.\-h}}
+\subsubsection[{display\-\_\-score}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-score (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{score_8h_aa4271c3b184603eb85b5fae294942b74}
+Display the new score on the screen. \hypertarget{score_8h_a9ad19651df5668e7e9784c9559bbfade}{\index{score.\-h@{score.\-h}!is\-Win@{is\-Win}}
+\index{is\-Win@{is\-Win}!score.h@{score.\-h}}
+\subsubsection[{is\-Win}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Win (
+\begin{DoxyParamCaption}
+\item[{int}]{ate\-Pelet, }
+\item[{int}]{total\-Pelet}
+\end{DoxyParamCaption}
+)}}\label{score_8h_a9ad19651df5668e7e9784c9559bbfade}
+Check if the level is completed or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ate\-Pelet} & indicates the number of pellet pacman has eaten \\
+\hline
+{\em total\-Pellet} & indicates the total number of available pellet in the current loaded map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if all pellet has been eaten, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{score_8h_ac0bd142f3e54a1bd41dbaae6614901ff}{\index{score.\-h@{score.\-h}!update\-\_\-score@{update\-\_\-score}}
+\index{update\-\_\-score@{update\-\_\-score}!score.h@{score.\-h}}
+\subsubsection[{update\-\_\-score}]{\setlength{\rightskip}{0pt plus 5cm}void update\-\_\-score (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{int}]{height, }
+\item[{int}]{width, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{int $\ast$}]{current\-Score, }
+\item[{int $\ast$}]{ate\-Pelet, }
+\item[{int $\ast$}]{is\-\_\-pacman\-\_\-powered\-\_\-up, }
+\item[{int $\ast$}]{counter}
+\end{DoxyParamCaption}
+)}}\label{score_8h_ac0bd142f3e54a1bd41dbaae6614901ff}
+Update the score of the player.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & pointer to the current map in the memory \\
+\hline
+{\em height} & current height of the map \\
+\hline
+{\em width} & current width of the map \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em current\-Score} & pointer to the player's score \\
+\hline
+{\em ate\-Pellet} & pointer to the number of pellet that been eaten \\
+\hline
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & pointer to the integer indicate the status of the pacman \\
+\hline
+{\em counter} & pointer to the integer which store time counter for paman powered up \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\hypertarget{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{\index{score.\-h@{score.\-h}!height@{height}}
+\index{height@{height}!score.h@{score.\-h}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height}}\label{score_8h_ad12fc34ce789bce6c8a05d8a17138534}
+An integer value which indicates the height of map \hypertarget{score_8h_acf4d33ee4cff36f69b924471174dcb11}{\index{score.\-h@{score.\-h}!level@{level}}
+\index{level@{level}!score.h@{score.\-h}}
+\subsubsection[{level}]{\setlength{\rightskip}{0pt plus 5cm}int level}}\label{score_8h_acf4d33ee4cff36f69b924471174dcb11}
+An integer value which indicates the current level of the player \hypertarget{score_8h_a2cb50263f0f7a37d88d397a1d0e66f3a}{\index{score.\-h@{score.\-h}!live@{live}}
+\index{live@{live}!score.h@{score.\-h}}
+\subsubsection[{live}]{\setlength{\rightskip}{0pt plus 5cm}int live}}\label{score_8h_a2cb50263f0f7a37d88d397a1d0e66f3a}
+An integer value which indicates the number of life left for pacman \hypertarget{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{\index{score.\-h@{score.\-h}!map@{map}}
+\index{map@{map}!score.h@{score.\-h}}
+\subsubsection[{map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ map}}\label{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}
+Pointer to array of char which indicates the current map \hypertarget{score_8h_a47083d9a35bd0770a437ce77a09bc657}{\index{score.\-h@{score.\-h}!pacman@{pacman}}
+\index{pacman@{pacman}!score.h@{score.\-h}}
+\subsubsection[{pacman}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} pacman}}\label{score_8h_a47083d9a35bd0770a437ce77a09bc657}
+variable that store the pacman position on the map and its moving direction \hypertarget{score_8h_aef160b7437d94056f1dc59646cd5b87d}{\index{score.\-h@{score.\-h}!score@{score}}
+\index{score@{score}!score.h@{score.\-h}}
+\subsubsection[{score}]{\setlength{\rightskip}{0pt plus 5cm}int score}}\label{score_8h_aef160b7437d94056f1dc59646cd5b87d}
+An integer value which indicates the current score \hypertarget{score_8h_a114d2a5a196322c42d4cd57cccb1f43b}{\index{score.\-h@{score.\-h}!w@{w}}
+\index{w@{w}!score.h@{score.\-h}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{score_8h_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width \hypertarget{score_8h_a2474a5474cbff19523a51eb1de01cda4}{\index{score.\-h@{score.\-h}!width@{width}}
+\index{width@{width}!score.h@{score.\-h}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width}}\label{score_8h_a2474a5474cbff19523a51eb1de01cda4}
+An integer value which indicates the width of map 

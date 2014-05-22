@@ -7,7 +7,7 @@ COSC2451
 
 Programming Techniques
 
-Copyright 2014 Ly Quoc Hung (s3426511), Ly Quan Liem (s3426110)
+Copyright 2014 Ly Quoc Hung (s3426511), Ly Quan Liem (s3426110), Nguyen Vinh Linh (s3410595), Doan Hai Dang (s3425475)
 
 RMIT International University Vietnam
 
@@ -15,12 +15,30 @@ This assignment includes software developed by the above mentioned students.
 
 Assignment description:
 
-  The classic Pacman game, with level editor and individual AI for each of the
+  The classic Pacman game based on the one made by Namco in 1980 with level editor and individual AI for each of the
   4 ghosts. This program is the assignment for "Programming Techniques" course
   (COSC2451) at RMIT International University Vietnam.
 
-  This is the 1st assignment, which involves create a level editor only. The
-  program use a command line interface to display the current loaded map on the
+2. Game features
+  a. Players can choose the difficulty of game, the higher difficulty, the faster game is, and also, the more intelligent ghosts are.
+  b. This game has high score broad which will save ten highest scores and player names. 
+  c. Because of the difficulty of this game, we also offer cheat codes for gamers. There are two cheat codes, first is for god mode, second is for live cheat code:
+    + god mode: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT b a
+    + extra lifes: UP UP DOWN DOWN LEFT LEFT RIGHT RIGHT LEFT RIGHT
+  
+  d. During gameplay, you can pause game by pressing "ESC"
+  e. After pausing game, you can resume game, save game or load game.
+
+  NOTE:
+    It seems that the program may display the map incorrectly sometimes. This program can simply fixed by quit game and restart. Pause game may even solve this program.
+
+    Dang's ghost does not have proper memory allocation which may cause memory leak sometimes. It also seems to cause segmentation fault and crash the program.
+
+    Linh's ghost seldom access unexist variable (using valgrind to check). However, this problem is not critical and does not crash the program
+
+3. Map editor
+  
+  The program use a command line interface to display the current loaded map on the
   screen. The program ad two mode: edit mode and command mode:
   
   Edit mode:
@@ -60,8 +78,7 @@ Assignment description:
     
   Command mode:
   
-    This mode provide user with an vi/vim like command mode to manipulate the
-    map file. The command for this mode are:
+    This mode provide user with an vi/vim like command mode to manipulate the map file. The command for this mode are:
       
       w [filename]: save the current loaded map with the file name specify in
       the [filename] field.
@@ -178,3 +195,11 @@ Third party resources:
   	http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c
   	
   	http://en.chys.info/2009/09/esdelay-ncurses/
+
+    http://stackoverflow.com/questions/4204666/how-to-list-files-in-a-directory-in-a-c-program
+
+    http://rosettacode.org/wiki/Dijkstra's_algorithm#C
+
+    http://stackoverflow.com/questions/1910724/c-retrieving-total-line-numbers-in-a-file
+
+    http://web.mit.edu/eranki/www/tutorials/search/

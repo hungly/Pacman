@@ -23,31 +23,6 @@ int isCollision(struct pacghost * pacman, struct pacghost * ghost){
 	return 0;
 }
 
-/*
-void main(){
-	struct pacghost pacman;
-	pacman.xLocation = 1;
-	pacman.yLocation = 2;
-	struct pacghost ghost[4];
-	ghost[0].xLocation = 11;
-	ghost[1].xLocation = 3;
-	ghost[2].xLocation = 1;
-	ghost[3].xLocation = 3;
-	
-	ghost[0].yLocation = 2;
-	ghost[1].yLocation = 3;
-	ghost[2].yLocation = 2;
-	ghost[3].yLocation = 3;
-
-	if(isCollision(&pacman, ghost) == 1){
-		printf("true");
-	}else {
-		printf("false");
-	}
-	
-}
-*/
-
 void move_character(struct pacghost * character) {
 	if (character->direction == 0 && isValidMoveCell(character->xLocation - 1, character->yLocation)) {
 		character->xLocation -= 1;

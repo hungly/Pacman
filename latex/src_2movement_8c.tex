@@ -1,0 +1,92 @@
+\hypertarget{src_2movement_8c}{\section{src/movement.c File Reference}
+\label{src_2movement_8c}\index{src/movement.\-c@{src/movement.\-c}}
+}
+{\ttfamily \#include \char`\"{}pacghost.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}movement.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{src_2movement_8c_a8b2dd5302a9be01d20a222a1f0098b9a}{is\-Collision} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+void \hyperlink{src_2movement_8c_a91d66031ce1acfd43ce26466cfdb4c3b}{move\-\_\-character} (struct \hyperlink{structpacghost}{pacghost} $\ast$character)
+\item 
+int \hyperlink{src_2movement_8c_a50766b84b0b976a789fa3b2f320edd2b}{is\-Valid\-Move\-Cell} (const int current\-\_\-x, const int current\-\_\-y)
+\item 
+int \hyperlink{src_2movement_8c_a699c29cc527f1d8d8f2f2cf85dec62a7}{can\-Move} (const struct \hyperlink{structpacghost}{pacghost} $\ast$character)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{src_2movement_8c_a699c29cc527f1d8d8f2f2cf85dec62a7}{\index{src/movement.\-c@{src/movement.\-c}!can\-Move@{can\-Move}}
+\index{can\-Move@{can\-Move}!src/movement.c@{src/movement.\-c}}
+\subsubsection[{can\-Move}]{\setlength{\rightskip}{0pt plus 5cm}int can\-Move (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf pacghost} $\ast$}]{character}
+\end{DoxyParamCaption}
+)}}\label{src_2movement_8c_a699c29cc527f1d8d8f2f2cf85dec62a7}
+Check if a given game's character can move on to the next cell based on its direction or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & pointer to the position and direction of the character that position need to be changed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the the given game's character can move on, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{src_2movement_8c_a8b2dd5302a9be01d20a222a1f0098b9a}{\index{src/movement.\-c@{src/movement.\-c}!is\-Collision@{is\-Collision}}
+\index{is\-Collision@{is\-Collision}!src/movement.c@{src/movement.\-c}}
+\subsubsection[{is\-Collision}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Collision (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{src_2movement_8c_a8b2dd5302a9be01d20a222a1f0098b9a}
+Check if the pacman and ghost has collide or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost in the map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if pacman and ghost is collided, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{src_2movement_8c_a50766b84b0b976a789fa3b2f320edd2b}{\index{src/movement.\-c@{src/movement.\-c}!is\-Valid\-Move\-Cell@{is\-Valid\-Move\-Cell}}
+\index{is\-Valid\-Move\-Cell@{is\-Valid\-Move\-Cell}!src/movement.c@{src/movement.\-c}}
+\subsubsection[{is\-Valid\-Move\-Cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Move\-Cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{src_2movement_8c_a50766b84b0b976a789fa3b2f320edd2b}
+Check if a given cell in the map is movable for pacman or ghost.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\-\_\-x} & the row of the cell in the map \\
+\hline
+{\em current\-\_\-y} & the column of the cell in the map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the cell is movable, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{src_2movement_8c_a91d66031ce1acfd43ce26466cfdb4c3b}{\index{src/movement.\-c@{src/movement.\-c}!move\-\_\-character@{move\-\_\-character}}
+\index{move\-\_\-character@{move\-\_\-character}!src/movement.c@{src/movement.\-c}}
+\subsubsection[{move\-\_\-character}]{\setlength{\rightskip}{0pt plus 5cm}void move\-\_\-character (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{character}
+\end{DoxyParamCaption}
+)}}\label{src_2movement_8c_a91d66031ce1acfd43ce26466cfdb4c3b}
+Change a given game's character position based on its direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em character} & pointer to the position and direction of the character that position need to be changed \\
+\hline
+\end{DoxyParams}

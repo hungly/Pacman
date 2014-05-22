@@ -1,0 +1,160 @@
+\hypertarget{doanhaidang_8h}{\section{src/doanhaidang.h File Reference}
+\label{doanhaidang_8h}\index{src/doanhaidang.\-h@{src/doanhaidang.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{doanhaidang_8h_a3767348d5be6302a6a2fee688c935b85}{is\-\_\-valid\-\_\-cell} (int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{doanhaidang_8h_ab2224a2c2a49d1b10db90f34ddf097db}{add\-\_\-cell} (int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}, char direction)
+\item 
+void \hyperlink{doanhaidang_8h_a1861661c102f23acd947c63e440cf0cb}{collect\-\_\-valid\-\_\-cell} (int pacman\-\_\-x, int pacman\-\_\-y)
+\item 
+void \hyperlink{doanhaidang_8h_ae324db8fa276171a798d0dca847faafe}{update\-\_\-map} (struct \hyperlink{structpacghost}{pacghost} \hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\item 
+void \hyperlink{doanhaidang_8h_a78c74b24aa20b10684fdcec33be5029e}{init\-\_\-dang\-\_\-ghost} (struct \hyperlink{structpacghost}{pacghost} \hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\item 
+void \hyperlink{doanhaidang_8h_acd1cf6ec3fad6d2c77152f1b760791b3}{bfs} (int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{doanhaidang_8h_a8dc788c84923dfdeb66fbee10349a7f9}{move\-\_\-dang\-\_\-ghost} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty}, int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up})
+\item 
+void \hyperlink{doanhaidang_8h_a8a5b7f303f7778a7cd830dd330367b23}{finish\-\_\-dang\-\_\-ghost} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{doanhaidang_8h_ab2224a2c2a49d1b10db90f34ddf097db}{\index{doanhaidang.\-h@{doanhaidang.\-h}!add\-\_\-cell@{add\-\_\-cell}}
+\index{add\-\_\-cell@{add\-\_\-cell}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{add\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_ab2224a2c2a49d1b10db90f34ddf097db}
+Keep adding valid cells
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The horizontal location \\
+\hline
+{\em y} & The vertical location \\
+\hline
+{\em direction} & The direction which the process scans \\
+\hline
+\end{DoxyParams}
+\hypertarget{doanhaidang_8h_acd1cf6ec3fad6d2c77152f1b760791b3}{\index{doanhaidang.\-h@{doanhaidang.\-h}!bfs@{bfs}}
+\index{bfs@{bfs}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{bfs}]{\setlength{\rightskip}{0pt plus 5cm}void bfs (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_acd1cf6ec3fad6d2c77152f1b760791b3}
+Breadth First Search all paths
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The horizontal location of ghost \\
+\hline
+{\em y} & The vertical location of ghost \\
+\hline
+\end{DoxyParams}
+\hypertarget{doanhaidang_8h_a1861661c102f23acd947c63e440cf0cb}{\index{doanhaidang.\-h@{doanhaidang.\-h}!collect\-\_\-valid\-\_\-cell@{collect\-\_\-valid\-\_\-cell}}
+\index{collect\-\_\-valid\-\_\-cell@{collect\-\_\-valid\-\_\-cell}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{collect\-\_\-valid\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}void collect\-\_\-valid\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{int}]{pacman\-\_\-x, }
+\item[{int}]{pacman\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_a1861661c102f23acd947c63e440cf0cb}
+This call add\-\_\-cell to collect all valid cells
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman\-\_\-x} & The starting horizontal location of pacman \\
+\hline
+{\em pacman\-\_\-y} & The starting vertical location of pacman \\
+\hline
+\end{DoxyParams}
+\hypertarget{doanhaidang_8h_a8a5b7f303f7778a7cd830dd330367b23}{\index{doanhaidang.\-h@{doanhaidang.\-h}!finish\-\_\-dang\-\_\-ghost@{finish\-\_\-dang\-\_\-ghost}}
+\index{finish\-\_\-dang\-\_\-ghost@{finish\-\_\-dang\-\_\-ghost}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{finish\-\_\-dang\-\_\-ghost}]{\setlength{\rightskip}{0pt plus 5cm}void finish\-\_\-dang\-\_\-ghost (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_a8a5b7f303f7778a7cd830dd330367b23}
+Release memory on heap \hypertarget{doanhaidang_8h_a78c74b24aa20b10684fdcec33be5029e}{\index{doanhaidang.\-h@{doanhaidang.\-h}!init\-\_\-dang\-\_\-ghost@{init\-\_\-dang\-\_\-ghost}}
+\index{init\-\_\-dang\-\_\-ghost@{init\-\_\-dang\-\_\-ghost}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{init\-\_\-dang\-\_\-ghost}]{\setlength{\rightskip}{0pt plus 5cm}void init\-\_\-dang\-\_\-ghost (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost}}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_a78c74b24aa20b10684fdcec33be5029e}
+Initialize everything needed for later functions
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & The pacman \\
+\hline
+\end{DoxyParams}
+\hypertarget{doanhaidang_8h_a3767348d5be6302a6a2fee688c935b85}{\index{doanhaidang.\-h@{doanhaidang.\-h}!is\-\_\-valid\-\_\-cell@{is\-\_\-valid\-\_\-cell}}
+\index{is\-\_\-valid\-\_\-cell@{is\-\_\-valid\-\_\-cell}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{is\-\_\-valid\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-\_\-valid\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_a3767348d5be6302a6a2fee688c935b85}
+Check to see if pacman can move to the cell
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The horizontal location of the cell \\
+\hline
+{\em y} & The vertical location of the cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 is true, 1 is false 
+\end{DoxyReturn}
+\hypertarget{doanhaidang_8h_a8dc788c84923dfdeb66fbee10349a7f9}{\index{doanhaidang.\-h@{doanhaidang.\-h}!move\-\_\-dang\-\_\-ghost@{move\-\_\-dang\-\_\-ghost}}
+\index{move\-\_\-dang\-\_\-ghost@{move\-\_\-dang\-\_\-ghost}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{move\-\_\-dang\-\_\-ghost}]{\setlength{\rightskip}{0pt plus 5cm}void move\-\_\-dang\-\_\-ghost (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{difficulty, }
+\item[{int}]{is\-\_\-pacman\-\_\-powered\-\_\-up}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_a8dc788c84923dfdeb66fbee10349a7f9}
+Instruct ghost to move based on pacman's location
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & The map's information \\
+\hline
+{\em pacman} & The pacman's information \\
+\hline
+{\em ghost} & The ghost's information \\
+\hline
+{\em difficulty} & The game's difficulty \\
+\hline
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & Whether pacman eats power pellet \\
+\hline
+\end{DoxyParams}
+\hypertarget{doanhaidang_8h_ae324db8fa276171a798d0dca847faafe}{\index{doanhaidang.\-h@{doanhaidang.\-h}!update\-\_\-map@{update\-\_\-map}}
+\index{update\-\_\-map@{update\-\_\-map}!doanhaidang.h@{doanhaidang.\-h}}
+\subsubsection[{update\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void update\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost}}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{doanhaidang_8h_ae324db8fa276171a798d0dca847faafe}
+Update data in new map
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & The pacman \\
+\hline
+\end{DoxyParams}

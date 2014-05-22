@@ -17,14 +17,19 @@
 /** Define the directory when opening using the executable file in source folder*/
 #define DIRECTORY_SRC           "../save/"
 
+/** cheat sequence for god mode */
 int god_sequence[] = {KEY_UP, KEY_UP, KEY_DOWN, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_LEFT, KEY_RIGHT, 'b', 'a'};
 
+/** the length of all cheat sequences */
 int sequence_length = 10;
 
+/** number of correct key strike for god cheat */
 int current_god_sequence_index = 0;
 
+/** 8:11 AM cheat sequence for bonus lives */
 int live_sequence[] = {KEY_UP, KEY_UP, KEY_DOWN, KEY_DOWN, KEY_LEFT, KEY_LEFT, KEY_RIGHT, KEY_RIGHT, KEY_LEFT, KEY_RIGHT};
 
+/** number of correct key strike for lives cheat */
 int current_live_sequence_index = 0;
 
 int search_pacman(char * map, struct pacghost * pacman) {
@@ -274,7 +279,7 @@ int load_game(char * file) {
         free(file_name);
     file_name = malloc(sizeof(char) * (strlen(temp_file_name)));
     memcpy(file_name, &temp_file_name[0], strlen(temp_file_name) - 1);
-    file_name[strlen(file_name) - 1] = '\0';
+    file_name[strlen(temp_file_name) - 1] = '\0';
 
     //  update height 
     getline(&temp, &len, f);
@@ -351,13 +356,14 @@ int load_game(char * file) {
     // close file
     fclose(f);
     free(temp);
-
-    // reset pacman's powered up counter
-    counter = 0;
+    free(temp_title);
+    free(temp_author);
+    free(temp_file_name);
 
     // initiliase ai
     initialise_hung_ai();
     initialise_ghost_map();
+
     init_dang_ghost(pacman);
     return 1;
 }
@@ -422,7 +428,7 @@ int handle_pause_menu(int * is_pacman_powered_up, int * counter, int * live){
             mvprintw(11, y_offset - 9, "%s", "ESC. Resume game");
             mvprintw(12, y_offset - 7, "%s", "1. Save game");
             mvprintw(13, y_offset - 7, "%s", "2. Load game");
-            mvprintw(14, y_offset - 7, "%s", "3. Quit game");
+            mvprintw(14, y_offset - 10, "%s", "3. Quit to main menu");
             mvprintw(16, y_offset - 10, "%s", "Your choice is: ");
             inputChoice = getch();
 
@@ -680,8 +686,8 @@ void credit_game(){
     mvprintw(18, y_offset - 21, "         Ly Quoc Hung - s3426511          ");
     mvprintw(19, y_offset - 21, "         \"Hunter\" (Yellow Ghost)          ");
     attrset(COLOR_PAIR(9));
-    mvprintw(21, y_offset - 21, "         Doan Hai Dang - sxxxxxxx         ");
-    mvprintw(22, y_offset - 21, "         \"\"       (Green Ghost)           ");
+    mvprintw(21, y_offset - 21, "         Doan Hai Dang - s3425475         ");
+    mvprintw(22, y_offset - 21, "         \"Warriors\" (Green Ghost)         ");
     attrset(COLOR_PAIR(10));
     mvprintw(24, y_offset - 21, "        Nguyen Vinh Linh - s3410595       ");
     mvprintw(25, y_offset - 21, "           \"Halo\" (Pink Ghost)            ");

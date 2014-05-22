@@ -34,6 +34,15 @@ void display_score();
   */
 void update_score(char * map, int height, int width, struct pacghost * pacman, int * currentScore, int * atePelet, int * is_pacman_powered_up, int * counter);
 
+/**
+ * Check if the level is completed or not.
+ *
+ * @param atePelet indicates the number of pellet pacman has eaten
+ * @param totalPellet indicates the total number of available pellet in the current loaded map
+ *
+ * @return 1 if all pellet has been eaten, 0 otherwise
+ */
+
 int isWin(int atePelet, int totalPelet);
 
 /**

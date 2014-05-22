@@ -1,0 +1,313 @@
+\hypertarget{level__editor_8h}{\section{src/level\-\_\-editor.h File Reference}
+\label{level__editor_8h}\index{src/level\-\_\-editor.\-h@{src/level\-\_\-editor.\-h}}
+}
+{\ttfamily \#include $<$regex.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{level__editor_8h_abde8eeb0337d2894a8aa5d1f2dd8151b}{editor} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{level__editor_8h_af892ff919e1c7850c0bd85827b9b648e}{command\-\_\-mode} ()
+\item 
+void \hyperlink{level__editor_8h_a77a5d2c2bbebb2204a994de0fc9e066d}{display\-\_\-map} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map})
+\item 
+void \hyperlink{level__editor_8h_aac01ba2c86cce30701b994bbfbd7e34a}{edit\-\_\-mode} (int input)
+\item 
+void \hyperlink{level__editor_8h_a87ec0b28c1d954f4b3192a1fba87130e}{new\-\_\-map} (char $\ast$args)
+\item 
+void \hyperlink{level__editor_8h_aaa90b13ddc12479556f96bdaf7cc04a5}{write\-\_\-file} (char $\ast$file)
+\item 
+void \hyperlink{level__editor_8h_ae8f3b08f62235bb7c36c368900757640}{read\-\_\-file} (char $\ast$file)
+\item 
+char $\ast$ \hyperlink{level__editor_8h_ae02ba79dd227d24a04e54c1046e0ee1b}{create\-\_\-map} (int \hyperlink{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}, int \hyperlink{score_8h_a2474a5474cbff19523a51eb1de01cda4}{width})
+\item 
+int \hyperlink{level__editor_8h_afe756d85f40bd74c8ea6c8722ce012fb}{starts\-With} (const char $\ast$pre, const char $\ast$str)
+\item 
+int \hyperlink{level__editor_8h_ad1ba67de662f1a1791ca1cc3a05c402e}{ends\-With\-Pac} (const char $\ast$str)
+\item 
+void \hyperlink{level__editor_8h_a0e89020536a88fc330cd9e4aa35799b0}{auto\-\_\-fill\-\_\-pellet} (const int current\-\_\-x, const int current\-\_\-y, const char direction)
+\item 
+void \hyperlink{level__editor_8h_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{search\-\_\-pacman\-\_\-spawn\-\_\-point} (int $\ast$\hyperlink{lyquochung_8c_a521b6ebf9f61458ee802bedd4ca48b43}{pacman\-\_\-spawn\-\_\-point\-\_\-x}, int $\ast$\hyperlink{lyquochung_8c_ab30017a30378567c5ca2cf3836168ac2}{pacman\-\_\-spawn\-\_\-point\-\_\-y})
+\item 
+int \hyperlink{level__editor_8h_a78839797ab5993e64cbcd43e56e83819}{is\-Valid\-Author} (char $\ast$author\-\_\-arg)
+\item 
+int \hyperlink{level__editor_8h_a8b8c0e479a095829ab925c906e493de5}{is\-Valid\-Fill\-Cell} (const int current\-\_\-x, const int current\-\_\-y)
+\item 
+void \hyperlink{level__editor_8h_add0fcdabdc016490323e4121bc6cb93c}{replace\-\_\-marked\-\_\-point} (const char original, const char replacement)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{level__editor_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}
+\item 
+char $\ast$ \hyperlink{level__editor_8h_a70d51dcba75e5d70d4708c7885550468}{author}
+\item 
+char $\ast$ \hyperlink{level__editor_8h_af06d911bb9e05f491ef3da520d03796c}{title}
+\item 
+char $\ast$ \hyperlink{level__editor_8h_a8505c513bc640d1f69e5f76fb32b24a8}{file\-\_\-name}
+\item 
+char $\ast$ \hyperlink{level__editor_8h_a8eadc6730ef4fbdae87a20414b789faf}{directory}
+\item 
+struct winsize \hyperlink{level__editor_8h_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+int \hyperlink{level__editor_8h_a1bee207ff2415ab72a1e22c86a93f100}{end\-\_\-program}
+\item 
+int \hyperlink{level__editor_8h_ae0ebb9a2dde9db7a8070d03799386e18}{error\-\_\-msg\-\_\-count}
+\item 
+int \hyperlink{level__editor_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}
+\item 
+int \hyperlink{level__editor_8h_a2474a5474cbff19523a51eb1de01cda4}{width}
+\item 
+int \hyperlink{level__editor_8h_a6150e0515f7202e2fb518f7206ed97dc}{x}
+\item 
+int \hyperlink{level__editor_8h_a0a2f84ed7838f07779ae24c5a9086d33}{y}
+\item 
+int \hyperlink{level__editor_8h_a87147769c08c4f0fef7b0ec6077b338d}{x\-\_\-offset}
+\item 
+int \hyperlink{level__editor_8h_abaa275d8b2c76fd77dd271402a4425d3}{y\-\_\-offset}
+\item 
+regex\-\_\-t \hyperlink{level__editor_8h_a0f8fc8b8cd2ff33a04952c702504ccf4}{regex}
+\item 
+int \hyperlink{level__editor_8h_aefa902538b1cd5840102ccc807fe3f37}{reti}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{level__editor_8h_a0e89020536a88fc330cd9e4aa35799b0}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}}
+\index{auto\-\_\-fill\-\_\-pellet@{auto\-\_\-fill\-\_\-pellet}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{auto\-\_\-fill\-\_\-pellet}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-fill\-\_\-pellet (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_a0e89020536a88fc330cd9e4aa35799b0}
+Function for automatically filling all the appropriate place with a simple character \hypertarget{level__editor_8h_af892ff919e1c7850c0bd85827b9b648e}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!command\-\_\-mode@{command\-\_\-mode}}
+\index{command\-\_\-mode@{command\-\_\-mode}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{command\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void command\-\_\-mode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_af892ff919e1c7850c0bd85827b9b648e}
+V\-I liked command mode for map pacman editor. 
+
+This function will check if the input command is either q, w, n, r or wq and performed the following actions\-:
+
+q\-: quit the program and exit to the terminal.
+
+w\-: save the current map to the levels directory, this command accepts a parameter as the file name, if there is no file name, the map will be saved using the default name \char`\"{}level.\-pac\char`\"{}.
+
+wq\-: save and then quit the program, this command perform the same actions as the \char`\"{}w\char`\"{} command and then the \char`\"{}q\char`\"{} command.
+
+n\-: create a new map, this command take three parameters, the first parameter is the new map name, the second and third parameters specify the height and width of the new map respectively.
+
+r\-: load a map from the levels directory into the map editor, this command accept one parameter specify the file name of the map.\hypertarget{level__editor_8h_ae02ba79dd227d24a04e54c1046e0ee1b}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!create\-\_\-map@{create\-\_\-map}}
+\index{create\-\_\-map@{create\-\_\-map}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{create\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ create\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_ae02ba79dd227d24a04e54c1046e0ee1b}
+Create a new map with desire height and width.
+
+
+\begin{DoxyParams}{Parameters}
+{\em height} & is the height of map. \\
+\hline
+{\em width} & is the width of map.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to an array of characters which represent the map . 
+\end{DoxyReturn}
+\hypertarget{level__editor_8h_a77a5d2c2bbebb2204a994de0fc9e066d}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!display\-\_\-map@{display\-\_\-map}}
+\index{display\-\_\-map@{display\-\_\-map}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{display\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_a77a5d2c2bbebb2204a994de0fc9e066d}
+Display current loaded map from an array in the heap memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the pointer to the array of character using to represent the current loaded map. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8h_aac01ba2c86cce30701b994bbfbd7e34a}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!edit\-\_\-mode@{edit\-\_\-mode}}
+\index{edit\-\_\-mode@{edit\-\_\-mode}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{edit\-\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void edit\-\_\-mode (
+\begin{DoxyParamCaption}
+\item[{int}]{input}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_aac01ba2c86cce30701b994bbfbd7e34a}
+Handling input that change the current edited map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & the A\-S\-C\-I\-I code of the input command. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8h_abde8eeb0337d2894a8aa5d1f2dd8151b}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!editor@{editor}}
+\index{editor@{editor}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{editor}]{\setlength{\rightskip}{0pt plus 5cm}int editor (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_abde8eeb0337d2894a8aa5d1f2dd8151b}
+\hypertarget{level__editor_8h_ad1ba67de662f1a1791ca1cc3a05c402e}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!ends\-With\-Pac@{ends\-With\-Pac}}
+\index{ends\-With\-Pac@{ends\-With\-Pac}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{ends\-With\-Pac}]{\setlength{\rightskip}{0pt plus 5cm}int ends\-With\-Pac (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_ad1ba67de662f1a1791ca1cc3a05c402e}
+Reference\-: \href{http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c}{\tt http\-://stackoverflow.\-com/questions/744766/how-\/to-\/compare-\/ends-\/of-\/strings-\/in-\/c} \hypertarget{level__editor_8h_a78839797ab5993e64cbcd43e56e83819}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!is\-Valid\-Author@{is\-Valid\-Author}}
+\index{is\-Valid\-Author@{is\-Valid\-Author}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{is\-Valid\-Author}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Author (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{author\-\_\-arg}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_a78839797ab5993e64cbcd43e56e83819}
+Function to validate if author name is entered correctly \hypertarget{level__editor_8h_a8b8c0e479a095829ab925c906e493de5}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}}
+\index{is\-Valid\-Fill\-Cell@{is\-Valid\-Fill\-Cell}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{is\-Valid\-Fill\-Cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Valid\-Fill\-Cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{current\-\_\-x, }
+\item[{const int}]{current\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_a8b8c0e479a095829ab925c906e493de5}
+Function to determined the input cell is valid to fill with small pellet or not \hypertarget{level__editor_8h_a87ec0b28c1d954f4b3192a1fba87130e}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!new\-\_\-map@{new\-\_\-map}}
+\index{new\-\_\-map@{new\-\_\-map}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{new\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void new\-\_\-map (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{args}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_a87ec0b28c1d954f4b3192a1fba87130e}
+Handling new map creation using with n command in command mode and when the program is loaded.
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & the pointer to the array of characters which includes all three parameters which are new file name, height, and width. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8h_ae8f3b08f62235bb7c36c368900757640}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!read\-\_\-file@{read\-\_\-file}}
+\index{read\-\_\-file@{read\-\_\-file}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{read\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void read\-\_\-file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_ae8f3b08f62235bb7c36c368900757640}
+Reading the current map and related information into a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the pointer to the array of characters which indicates the file name to read from the disk. \\
+\hline
+\end{DoxyParams}
+\hypertarget{level__editor_8h_add0fcdabdc016490323e4121bc6cb93c}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}}
+\index{replace\-\_\-marked\-\_\-point@{replace\-\_\-marked\-\_\-point}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{replace\-\_\-marked\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void replace\-\_\-marked\-\_\-point (
+\begin{DoxyParamCaption}
+\item[{const char}]{original, }
+\item[{const char}]{replacement}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_add0fcdabdc016490323e4121bc6cb93c}
+Replace all the character that mark the possilble small pellet place with the actual small pellet character \hypertarget{level__editor_8h_aa7287a91b4e306dacc3c9a5b8eb6c3e2}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}}
+\index{search\-\_\-pacman\-\_\-spawn\-\_\-point@{search\-\_\-pacman\-\_\-spawn\-\_\-point}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{search\-\_\-pacman\-\_\-spawn\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void search\-\_\-pacman\-\_\-spawn\-\_\-point (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-x, }
+\item[{int $\ast$}]{pacman\-\_\-spawn\-\_\-point\-\_\-y}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_aa7287a91b4e306dacc3c9a5b8eb6c3e2}
+Function for searching for the first orcurence of pacman spawn point in the map. if there is no spawn point the function will return an errorl \hypertarget{level__editor_8h_afe756d85f40bd74c8ea6c8722ce012fb}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!starts\-With@{starts\-With}}
+\index{starts\-With@{starts\-With}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{starts\-With}]{\setlength{\rightskip}{0pt plus 5cm}int starts\-With (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{pre, }
+\item[{const char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_afe756d85f40bd74c8ea6c8722ce012fb}
+Function for checking the beginning of the string
+
+
+\begin{DoxyParams}{Parameters}
+{\em pre} & is the pointer to an array of char which we want to check whether the string begin with that or not. \\
+\hline
+{\em str} & is the pointer to an array of char which is the string we want to check.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if false and other numbers if true.
+\end{DoxyReturn}
+Reference\-: \href{http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c}{\tt http\-://stackoverflow.\-com/questions/4770985/something-\/like-\/startswithstr-\/a-\/str-\/b-\/in-\/c} \hypertarget{level__editor_8h_aaa90b13ddc12479556f96bdaf7cc04a5}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!write\-\_\-file@{write\-\_\-file}}
+\index{write\-\_\-file@{write\-\_\-file}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{write\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void write\-\_\-file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{level__editor_8h_aaa90b13ddc12479556f96bdaf7cc04a5}
+Writing the current map and related information into a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the pointer to the array of characters which indicates the file name to write into the disk. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\hypertarget{level__editor_8h_a70d51dcba75e5d70d4708c7885550468}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!author@{author}}
+\index{author@{author}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{author}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ author}}\label{level__editor_8h_a70d51dcba75e5d70d4708c7885550468}
+Pointer to array to char which indicates the author of current map \hypertarget{level__editor_8h_a8eadc6730ef4fbdae87a20414b789faf}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!directory@{directory}}
+\index{directory@{directory}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{directory}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ directory}}\label{level__editor_8h_a8eadc6730ef4fbdae87a20414b789faf}
+Pointer to array to char which indicates the present working directory \hypertarget{level__editor_8h_a1bee207ff2415ab72a1e22c86a93f100}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!end\-\_\-program@{end\-\_\-program}}
+\index{end\-\_\-program@{end\-\_\-program}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{end\-\_\-program}]{\setlength{\rightskip}{0pt plus 5cm}int end\-\_\-program}}\label{level__editor_8h_a1bee207ff2415ab72a1e22c86a93f100}
+An integer value which indicate the program is ended or not \hypertarget{level__editor_8h_ae0ebb9a2dde9db7a8070d03799386e18}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}}
+\index{error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{error\-\_\-msg\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int error\-\_\-msg\-\_\-count}}\label{level__editor_8h_ae0ebb9a2dde9db7a8070d03799386e18}
+An integer value which indicate the number of error message \hypertarget{level__editor_8h_a8505c513bc640d1f69e5f76fb32b24a8}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!file\-\_\-name@{file\-\_\-name}}
+\index{file\-\_\-name@{file\-\_\-name}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{file\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ file\-\_\-name}}\label{level__editor_8h_a8505c513bc640d1f69e5f76fb32b24a8}
+Pointer to array to char which indicates the file name of current map \hypertarget{level__editor_8h_ad12fc34ce789bce6c8a05d8a17138534}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!height@{height}}
+\index{height@{height}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height}}\label{level__editor_8h_ad12fc34ce789bce6c8a05d8a17138534}
+An integer value which indicates the height of map \hypertarget{level__editor_8h_a7b00b1bfd666e26484471bd17a74eaa9}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!map@{map}}
+\index{map@{map}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ map}}\label{level__editor_8h_a7b00b1bfd666e26484471bd17a74eaa9}
+Pointer to array of char which indicates the current map \hypertarget{level__editor_8h_a0f8fc8b8cd2ff33a04952c702504ccf4}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!regex@{regex}}
+\index{regex@{regex}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{regex}]{\setlength{\rightskip}{0pt plus 5cm}regex\-\_\-t regex}}\label{level__editor_8h_a0f8fc8b8cd2ff33a04952c702504ccf4}
+regex is used to check for input pattern \hypertarget{level__editor_8h_aefa902538b1cd5840102ccc807fe3f37}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!reti@{reti}}
+\index{reti@{reti}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{reti}]{\setlength{\rightskip}{0pt plus 5cm}int reti}}\label{level__editor_8h_aefa902538b1cd5840102ccc807fe3f37}
+reti is an integer which store the result of regex comparision
+
+reti is an integer which store the result of regex comparison \hypertarget{level__editor_8h_af06d911bb9e05f491ef3da520d03796c}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!title@{title}}
+\index{title@{title}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ title}}\label{level__editor_8h_af06d911bb9e05f491ef3da520d03796c}
+Pointer to array to char which indicates the title of current map \hypertarget{level__editor_8h_a114d2a5a196322c42d4cd57cccb1f43b}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!w@{w}}
+\index{w@{w}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{level__editor_8h_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width \hypertarget{level__editor_8h_a2474a5474cbff19523a51eb1de01cda4}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!width@{width}}
+\index{width@{width}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width}}\label{level__editor_8h_a2474a5474cbff19523a51eb1de01cda4}
+An integer value which indicates the width of map \hypertarget{level__editor_8h_a6150e0515f7202e2fb518f7206ed97dc}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!x@{x}}
+\index{x@{x}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}int x}}\label{level__editor_8h_a6150e0515f7202e2fb518f7206ed97dc}
+An integer value which indicates the row where the cursor is located in the map \hypertarget{level__editor_8h_a87147769c08c4f0fef7b0ec6077b338d}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!x\-\_\-offset@{x\-\_\-offset}}
+\index{x\-\_\-offset@{x\-\_\-offset}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{x\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int x\-\_\-offset}}\label{level__editor_8h_a87147769c08c4f0fef7b0ec6077b338d}
+An integer value which indicates the distance (in rows) between the top of terminal and the first row of the map \hypertarget{level__editor_8h_a0a2f84ed7838f07779ae24c5a9086d33}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!y@{y}}
+\index{y@{y}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}int y}}\label{level__editor_8h_a0a2f84ed7838f07779ae24c5a9086d33}
+An integer value which indicates the column where the cursor is located in the map \hypertarget{level__editor_8h_abaa275d8b2c76fd77dd271402a4425d3}{\index{level\-\_\-editor.\-h@{level\-\_\-editor.\-h}!y\-\_\-offset@{y\-\_\-offset}}
+\index{y\-\_\-offset@{y\-\_\-offset}!level_editor.h@{level\-\_\-editor.\-h}}
+\subsubsection[{y\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int y\-\_\-offset}}\label{level__editor_8h_abaa275d8b2c76fd77dd271402a4425d3}
+An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map 

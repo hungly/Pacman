@@ -1,0 +1,162 @@
+\hypertarget{hung_8c}{\section{src/hung.c File Reference}
+\label{hung_8c}\index{src/hung.\-c@{src/hung.\-c}}
+}
+{\ttfamily \#include \char`\"{}hung.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}movement.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pacghost.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}level\-\_\-editor.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{hung_8c_a7b776443a3bdfc2d4fc631394aedf919}{initialise\-\_\-hung\-\_\-ai} (const char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, const int \hyperlink{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}, const int \hyperlink{score_8h_a2474a5474cbff19523a51eb1de01cda4}{width})
+\item 
+int \hyperlink{hung_8c_a1211940eeadb03b0a5d15f2e2ead9369}{count\-\_\-available\-\_\-move\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{hung_8c_a59011333b3bb215f8a3e720770ca6d65}{display\-\_\-ai\-\_\-map} ()
+\item 
+void \hyperlink{hung_8c_a90744a3d7e9b757f672b69754f1f9caf}{display\-\_\-cost\-\_\-table} ()
+\item 
+void \hyperlink{hung_8c_ad8c19191b04a3179321ed7f1d44b5ab1}{finish\-\_\-hung\-\_\-ai} ()
+\item 
+int \hyperlink{hung_8c_a18cdd6e9f6ec64186c1a447e3c793a74}{is\-\_\-corner\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{hung_8c_a7e619896bfbe8ff8df57629021741a1e}{auto\-\_\-find\-\_\-path} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}, const char direction)
+\item 
+void \hyperlink{hung_8c_a41fd877ec165321f5beb445d64132f67}{calculate\-\_\-cost} (const int i, int $\ast$end, int $\ast$cost, const int j)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \hyperlink{hung_8c_a1ee56582718eda014212b37bc79f2d44}{ai\-\_\-map}
+\item 
+int $\ast$ \hyperlink{hung_8c_aa08965f087eca75e09bc2c85f076cff3}{ai\-\_\-map\-\_\-height}
+\item 
+int $\ast$ \hyperlink{hung_8c_a4a33183e7481f2aa7055c541babb06df}{ai\-\_\-map\-\_\-width}
+\item 
+int $\ast$$\ast$ \hyperlink{hung_8c_a7540068ea51b76582c72a41bf1c9f491}{nodes\-\_\-cost}
+\item 
+int \hyperlink{hung_8c_ae29617de649b665cf0d12c07b31c31d1}{num\-\_\-nodes}
+\item 
+int \hyperlink{hung_8c_a521b6ebf9f61458ee802bedd4ca48b43}{pacman\-\_\-spawn\-\_\-point\-\_\-x}
+\item 
+int \hyperlink{hung_8c_ab30017a30378567c5ca2cf3836168ac2}{pacman\-\_\-spawn\-\_\-point\-\_\-y}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{hung_8c_a7e619896bfbe8ff8df57629021741a1e}{\index{hung.\-c@{hung.\-c}!auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}}
+\index{auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}!hung.c@{hung.\-c}}
+\subsubsection[{auto\-\_\-find\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-find\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a7e619896bfbe8ff8df57629021741a1e}
+Automatically filling all the appropriate places (movable cells) with a number. \hypertarget{hung_8c_a41fd877ec165321f5beb445d64132f67}{\index{hung.\-c@{hung.\-c}!calculate\-\_\-cost@{calculate\-\_\-cost}}
+\index{calculate\-\_\-cost@{calculate\-\_\-cost}!hung.c@{hung.\-c}}
+\subsubsection[{calculate\-\_\-cost}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-cost (
+\begin{DoxyParamCaption}
+\item[{const int}]{i, }
+\item[{int $\ast$}]{end, }
+\item[{int $\ast$}]{cost, }
+\item[{const int}]{j}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a41fd877ec165321f5beb445d64132f67}
+\hypertarget{hung_8c_a1211940eeadb03b0a5d15f2e2ead9369}{\index{hung.\-c@{hung.\-c}!count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}}
+\index{count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}!hung.c@{hung.\-c}}
+\subsubsection[{count\-\_\-available\-\_\-move\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int count\-\_\-available\-\_\-move\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a1211940eeadb03b0a5d15f2e2ead9369}
+Count the number of movable cell around a given node on the map. The number range from 0 to maximum of 4.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the row number in the map of the given node \\
+\hline
+{\em y} & the column number in the map of the given node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of moveable cell surround the given node 
+\end{DoxyReturn}
+\hypertarget{hung_8c_a59011333b3bb215f8a3e720770ca6d65}{\index{hung.\-c@{hung.\-c}!display\-\_\-ai\-\_\-map@{display\-\_\-ai\-\_\-map}}
+\index{display\-\_\-ai\-\_\-map@{display\-\_\-ai\-\_\-map}!hung.c@{hung.\-c}}
+\subsubsection[{display\-\_\-ai\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-ai\-\_\-map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a59011333b3bb215f8a3e720770ca6d65}
+\hypertarget{hung_8c_a90744a3d7e9b757f672b69754f1f9caf}{\index{hung.\-c@{hung.\-c}!display\-\_\-cost\-\_\-table@{display\-\_\-cost\-\_\-table}}
+\index{display\-\_\-cost\-\_\-table@{display\-\_\-cost\-\_\-table}!hung.c@{hung.\-c}}
+\subsubsection[{display\-\_\-cost\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-cost\-\_\-table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a90744a3d7e9b757f672b69754f1f9caf}
+\hypertarget{hung_8c_ad8c19191b04a3179321ed7f1d44b5ab1}{\index{hung.\-c@{hung.\-c}!finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}}
+\index{finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}!hung.c@{hung.\-c}}
+\subsubsection[{finish\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void finish\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_ad8c19191b04a3179321ed7f1d44b5ab1}
+Clear all the memory used by the A\-I \hypertarget{hung_8c_a7b776443a3bdfc2d4fc631394aedf919}{\index{hung.\-c@{hung.\-c}!initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}}
+\index{initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}!hung.c@{hung.\-c}}
+\subsubsection[{initialise\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void initialise\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{map, }
+\item[{const int}]{height, }
+\item[{const int}]{width}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a7b776443a3bdfc2d4fc631394aedf919}
+\hypertarget{hung_8c_a18cdd6e9f6ec64186c1a447e3c793a74}{\index{hung.\-c@{hung.\-c}!is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}}
+\index{is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}!hung.c@{hung.\-c}}
+\subsubsection[{is\-\_\-corner\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-\_\-corner\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{hung_8c_a18cdd6e9f6ec64186c1a447e3c793a74}
+Check if the given cell in the map is a corner or not. Corner is the cell which has two movable cells around it and their position is not opposed each other. i.\-e.\-: the two movable cells should not be one above and one below/one on the right and one the left of the given cell.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the row number in the map of the given node \\
+\hline
+{\em y} & the column number in the map of the given node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it is not a corner cell, 1 otherwise 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{hung_8c_a1ee56582718eda014212b37bc79f2d44}{\index{hung.\-c@{hung.\-c}!ai\-\_\-map@{ai\-\_\-map}}
+\index{ai\-\_\-map@{ai\-\_\-map}!hung.c@{hung.\-c}}
+\subsubsection[{ai\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ ai\-\_\-map}}\label{hung_8c_a1ee56582718eda014212b37bc79f2d44}
+\hypertarget{hung_8c_aa08965f087eca75e09bc2c85f076cff3}{\index{hung.\-c@{hung.\-c}!ai\-\_\-map\-\_\-height@{ai\-\_\-map\-\_\-height}}
+\index{ai\-\_\-map\-\_\-height@{ai\-\_\-map\-\_\-height}!hung.c@{hung.\-c}}
+\subsubsection[{ai\-\_\-map\-\_\-height}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ ai\-\_\-map\-\_\-height}}\label{hung_8c_aa08965f087eca75e09bc2c85f076cff3}
+\hypertarget{hung_8c_a4a33183e7481f2aa7055c541babb06df}{\index{hung.\-c@{hung.\-c}!ai\-\_\-map\-\_\-width@{ai\-\_\-map\-\_\-width}}
+\index{ai\-\_\-map\-\_\-width@{ai\-\_\-map\-\_\-width}!hung.c@{hung.\-c}}
+\subsubsection[{ai\-\_\-map\-\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ ai\-\_\-map\-\_\-width}}\label{hung_8c_a4a33183e7481f2aa7055c541babb06df}
+\hypertarget{hung_8c_a7540068ea51b76582c72a41bf1c9f491}{\index{hung.\-c@{hung.\-c}!nodes\-\_\-cost@{nodes\-\_\-cost}}
+\index{nodes\-\_\-cost@{nodes\-\_\-cost}!hung.c@{hung.\-c}}
+\subsubsection[{nodes\-\_\-cost}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$$\ast$ nodes\-\_\-cost}}\label{hung_8c_a7540068ea51b76582c72a41bf1c9f491}
+\hypertarget{hung_8c_ae29617de649b665cf0d12c07b31c31d1}{\index{hung.\-c@{hung.\-c}!num\-\_\-nodes@{num\-\_\-nodes}}
+\index{num\-\_\-nodes@{num\-\_\-nodes}!hung.c@{hung.\-c}}
+\subsubsection[{num\-\_\-nodes}]{\setlength{\rightskip}{0pt plus 5cm}int num\-\_\-nodes}}\label{hung_8c_ae29617de649b665cf0d12c07b31c31d1}
+\hypertarget{hung_8c_a521b6ebf9f61458ee802bedd4ca48b43}{\index{hung.\-c@{hung.\-c}!pacman\-\_\-spawn\-\_\-point\-\_\-x@{pacman\-\_\-spawn\-\_\-point\-\_\-x}}
+\index{pacman\-\_\-spawn\-\_\-point\-\_\-x@{pacman\-\_\-spawn\-\_\-point\-\_\-x}!hung.c@{hung.\-c}}
+\subsubsection[{pacman\-\_\-spawn\-\_\-point\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}int pacman\-\_\-spawn\-\_\-point\-\_\-x}}\label{hung_8c_a521b6ebf9f61458ee802bedd4ca48b43}
+\hypertarget{hung_8c_ab30017a30378567c5ca2cf3836168ac2}{\index{hung.\-c@{hung.\-c}!pacman\-\_\-spawn\-\_\-point\-\_\-y@{pacman\-\_\-spawn\-\_\-point\-\_\-y}}
+\index{pacman\-\_\-spawn\-\_\-point\-\_\-y@{pacman\-\_\-spawn\-\_\-point\-\_\-y}!hung.c@{hung.\-c}}
+\subsubsection[{pacman\-\_\-spawn\-\_\-point\-\_\-y}]{\setlength{\rightskip}{0pt plus 5cm}int pacman\-\_\-spawn\-\_\-point\-\_\-y}}\label{hung_8c_ab30017a30378567c5ca2cf3836168ac2}

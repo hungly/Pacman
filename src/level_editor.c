@@ -53,6 +53,8 @@
 #define COLOR_GHOST             7
 
 int editor(int argc, char *argv[]) {
+    end_program = 0;
+
     int input;
 
     // show the cursor
@@ -61,15 +63,22 @@ int editor(int argc, char *argv[]) {
     /* get terminal size */
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
+    
     /* default values for author, title, file name, height and width */
+    if (author != NULL)
+       free(author);
     author = malloc(sizeof(char) * (strlen(DEFAULT_AUTHOR) + 1));
     memcpy(author, &DEFAULT_AUTHOR[0], strlen(DEFAULT_AUTHOR));
     author[strlen(DEFAULT_AUTHOR)] = '\0';
 
+    if (title != NULL)
+       free(title);
     title = malloc(sizeof(char) * (strlen(DEFAULT_TITTLE) + 1));
     memcpy(title, &DEFAULT_TITTLE[0], strlen(DEFAULT_TITTLE));
     title[strlen(DEFAULT_TITTLE)] = '\0';
 
+    if (file_name != NULL)
+       free(title);
     file_name = malloc(sizeof(char) * (strlen(DEFAULT_FILE_NAME) + 1));
     memcpy(file_name, &DEFAULT_FILE_NAME[0], strlen(DEFAULT_FILE_NAME));
     file_name[strlen(DEFAULT_FILE_NAME)] = '\0';
@@ -101,20 +110,6 @@ int editor(int argc, char *argv[]) {
     /* take input chars, does not wait until new line or carriage return */
     cbreak();
     
-    /* set color pairs */
-    // if(has_colors()) {
-    //     start_color();
-    //     init_pair(1, COLOR_LETTER, COLOR_BACKGROUND);
-    //     init_pair(2, COLOR_LETTER, COLOR_ERROR_BACKGROUND);
-    //     init_pair(3, COLOR_WALL,   COLOR_MAP_BACKGROUND);
-    //     init_pair(4, COLOR_PACMAN, COLOR_MAP_BACKGROUND);
-    //     init_pair(5, COLOR_FRUIT,  COLOR_MAP_BACKGROUND);
-    //     init_pair(6, COLOR_LETTER, COLOR_MAP_BACKGROUND);
-    //     init_pair(7, COLOR_GHOST,  COLOR_MAP_BACKGROUND);
-    //     init_pair(8, COLOR_PACMAN, COLOR_BACKGROUND);
-    //     init_pair(9, COLOR_GHOST,  COLOR_BACKGROUND);
-    // }
-
     /* if there is an argument for the program */
     if (argc == 2) {
     	/* get the path to the file */

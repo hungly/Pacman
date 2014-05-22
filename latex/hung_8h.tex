@@ -1,0 +1,107 @@
+\hypertarget{hung_8h}{\section{src/hung.h File Reference}
+\label{hung_8h}\index{src/hung.\-h@{src/hung.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{hung_8h_a7b776443a3bdfc2d4fc631394aedf919}{initialise\-\_\-hung\-\_\-ai} (const char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, const int \hyperlink{score_8h_ad12fc34ce789bce6c8a05d8a17138534}{height}, const int \hyperlink{score_8h_a2474a5474cbff19523a51eb1de01cda4}{width})
+\item 
+int \hyperlink{hung_8h_a1211940eeadb03b0a5d15f2e2ead9369}{count\-\_\-available\-\_\-move\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{hung_8h_a59011333b3bb215f8a3e720770ca6d65}{display\-\_\-ai\-\_\-map} ()
+\item 
+void \hyperlink{hung_8h_a90744a3d7e9b757f672b69754f1f9caf}{display\-\_\-cost\-\_\-table} ()
+\item 
+void \hyperlink{hung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}{finish\-\_\-hung\-\_\-ai} ()
+\item 
+int \hyperlink{hung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}{is\-\_\-corner\-\_\-cell} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y})
+\item 
+void \hyperlink{hung_8h_a7e619896bfbe8ff8df57629021741a1e}{auto\-\_\-find\-\_\-path} (const int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}, const int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}, const char direction)
+\item 
+void \hyperlink{hung_8h_a41fd877ec165321f5beb445d64132f67}{calculate\-\_\-cost} (const int i, int $\ast$end, int $\ast$cost, const int j)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct winsize \hyperlink{hung_8h_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{hung_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{hung_8h_a7e619896bfbe8ff8df57629021741a1e}{\index{hung.\-h@{hung.\-h}!auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}}
+\index{auto\-\_\-find\-\_\-path@{auto\-\_\-find\-\_\-path}!hung.h@{hung.\-h}}
+\subsubsection[{auto\-\_\-find\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}void auto\-\_\-find\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y, }
+\item[{const char}]{direction}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a7e619896bfbe8ff8df57629021741a1e}
+\hypertarget{hung_8h_a41fd877ec165321f5beb445d64132f67}{\index{hung.\-h@{hung.\-h}!calculate\-\_\-cost@{calculate\-\_\-cost}}
+\index{calculate\-\_\-cost@{calculate\-\_\-cost}!hung.h@{hung.\-h}}
+\subsubsection[{calculate\-\_\-cost}]{\setlength{\rightskip}{0pt plus 5cm}void calculate\-\_\-cost (
+\begin{DoxyParamCaption}
+\item[{const int}]{i, }
+\item[{int $\ast$}]{end, }
+\item[{int $\ast$}]{cost, }
+\item[{const int}]{j}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a41fd877ec165321f5beb445d64132f67}
+\hypertarget{hung_8h_a1211940eeadb03b0a5d15f2e2ead9369}{\index{hung.\-h@{hung.\-h}!count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}}
+\index{count\-\_\-available\-\_\-move\-\_\-cell@{count\-\_\-available\-\_\-move\-\_\-cell}!hung.h@{hung.\-h}}
+\subsubsection[{count\-\_\-available\-\_\-move\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int count\-\_\-available\-\_\-move\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a1211940eeadb03b0a5d15f2e2ead9369}
+\hypertarget{hung_8h_a59011333b3bb215f8a3e720770ca6d65}{\index{hung.\-h@{hung.\-h}!display\-\_\-ai\-\_\-map@{display\-\_\-ai\-\_\-map}}
+\index{display\-\_\-ai\-\_\-map@{display\-\_\-ai\-\_\-map}!hung.h@{hung.\-h}}
+\subsubsection[{display\-\_\-ai\-\_\-map}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-ai\-\_\-map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a59011333b3bb215f8a3e720770ca6d65}
+\hypertarget{hung_8h_a90744a3d7e9b757f672b69754f1f9caf}{\index{hung.\-h@{hung.\-h}!display\-\_\-cost\-\_\-table@{display\-\_\-cost\-\_\-table}}
+\index{display\-\_\-cost\-\_\-table@{display\-\_\-cost\-\_\-table}!hung.h@{hung.\-h}}
+\subsubsection[{display\-\_\-cost\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-cost\-\_\-table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a90744a3d7e9b757f672b69754f1f9caf}
+\hypertarget{hung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}{\index{hung.\-h@{hung.\-h}!finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}}
+\index{finish\-\_\-hung\-\_\-ai@{finish\-\_\-hung\-\_\-ai}!hung.h@{hung.\-h}}
+\subsubsection[{finish\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void finish\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_ad8c19191b04a3179321ed7f1d44b5ab1}
+\hypertarget{hung_8h_a7b776443a3bdfc2d4fc631394aedf919}{\index{hung.\-h@{hung.\-h}!initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}}
+\index{initialise\-\_\-hung\-\_\-ai@{initialise\-\_\-hung\-\_\-ai}!hung.h@{hung.\-h}}
+\subsubsection[{initialise\-\_\-hung\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void initialise\-\_\-hung\-\_\-ai (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{map, }
+\item[{const int}]{height, }
+\item[{const int}]{width}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a7b776443a3bdfc2d4fc631394aedf919}
+\hypertarget{hung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}{\index{hung.\-h@{hung.\-h}!is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}}
+\index{is\-\_\-corner\-\_\-cell@{is\-\_\-corner\-\_\-cell}!hung.h@{hung.\-h}}
+\subsubsection[{is\-\_\-corner\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}int is\-\_\-corner\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{const int}]{x, }
+\item[{const int}]{y}
+\end{DoxyParamCaption}
+)}}\label{hung_8h_a18cdd6e9f6ec64186c1a447e3c793a74}
+
+
+\subsection{Variable Documentation}
+\hypertarget{hung_8h_a47083d9a35bd0770a437ce77a09bc657}{\index{hung.\-h@{hung.\-h}!pacman@{pacman}}
+\index{pacman@{pacman}!hung.h@{hung.\-h}}
+\subsubsection[{pacman}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} pacman}}\label{hung_8h_a47083d9a35bd0770a437ce77a09bc657}
+variable that store the pacman position on the map and its moving direction \hypertarget{hung_8h_a114d2a5a196322c42d4cd57cccb1f43b}{\index{hung.\-h@{hung.\-h}!w@{w}}
+\index{w@{w}!hung.h@{hung.\-h}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{hung_8h_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width 

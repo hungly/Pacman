@@ -1,0 +1,189 @@
+\hypertarget{dijkstra_8c}{\section{src/dijkstra.c File Reference}
+\label{dijkstra_8c}\index{src/dijkstra.\-c@{src/dijkstra.\-c}}
+}
+{\ttfamily \#include \char`\"{}dijkstra.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dijkstra_8c_ad51ded0bbd705f02f73fc60c0b721ced}{B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E}~15
+\item 
+\#define \hyperlink{dijkstra_8c_a16c19de9b8eca127fb6d5dad6b43aa49}{N\-\_\-\-N\-O\-D\-E\-S}~\hyperlink{lyquochung_8c_ae29617de649b665cf0d12c07b31c31d1}{num\-\_\-nodes}
+\item 
+\#define \hyperlink{dijkstra_8c_a171669980e29849aa5e3722d573181ee}{E}(a, b, c)~\hyperlink{dijkstra_8h_a0b52cff8811cb7a994b7ca3d1f0e3081}{add\-\_\-edge}(nodes + a, nodes + b, c)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{dijkstra_8c_a0b52cff8811cb7a994b7ca3d1f0e3081}{add\-\_\-edge} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start, \hyperlink{structnode__t}{node\-\_\-t} $\ast$end, int distance)
+\item 
+void \hyperlink{dijkstra_8c_afa5622979c56194296cbe2395ff02c4f}{free\-\_\-edges} ()
+\item 
+void \hyperlink{dijkstra_8c_a38dcd61e26257e32083226c1c11d4efb}{set\-\_\-dist} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$destination\-\_\-node, \hyperlink{structnode__t}{node\-\_\-t} $\ast$via, int d)
+\item 
+\hyperlink{structnode__t}{node\-\_\-t} $\ast$ \hyperlink{dijkstra_8c_ace090862fe79a5fe5217e4048560ae4b}{pop\-\_\-queue} ()
+\item 
+void \hyperlink{dijkstra_8c_a72ac745dd88db811bcba09d5915c7c84}{calc\-\_\-all} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start)
+\item 
+int \hyperlink{dijkstra_8c_ae63fc6d7679f2618166e82686bf47372}{show\-\_\-path} (\hyperlink{structnode__t}{node\-\_\-t} $\ast$start\-\_\-node, \hyperlink{structnode__t}{node\-\_\-t} $\ast$destination\-\_\-node)
+\item 
+int \hyperlink{dijkstra_8c_ae3ae867e50465f1548ce18d0a44b56f3}{dijkstra} (const int \hyperlink{lyquochung_8c_ae29617de649b665cf0d12c07b31c31d1}{num\-\_\-nodes}, int $\ast$$\ast$\hyperlink{lyquochung_8c_a7540068ea51b76582c72a41bf1c9f491}{nodes\-\_\-cost}, int $\ast$$\ast$\hyperlink{lyquochung_8c_af3556bd960b4e0d89ad86b68c7abad17}{routing\-\_\-table})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structedge__t}{edge\-\_\-t} $\ast$ \hyperlink{dijkstra_8c_a5601118077eda2062ead1780af51c74b}{edge\-\_\-root} = 0
+\item 
+\hyperlink{structedge__t}{edge\-\_\-t} $\ast$ \hyperlink{dijkstra_8c_a458c4e975634820622e37b1dec36c2ad}{e\-\_\-next} = 0
+\item 
+\hyperlink{dijkstra_8h_a7649140efb5483af2fe3102f0c6630f3}{heap\-\_\-t} $\ast$ \hyperlink{dijkstra_8c_a030aa741640330c5c035c1a9dfd6e87f}{heap}
+\item 
+int \hyperlink{dijkstra_8c_a2fba52115b6829135ff5c64eaea555a6}{heap\-\_\-len}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{dijkstra_8c_ad51ded0bbd705f02f73fc60c0b721ced}{\index{dijkstra.\-c@{dijkstra.\-c}!B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E@{B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E}}
+\index{B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E@{B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\-L\-O\-C\-K\-\_\-\-S\-I\-Z\-E~15}}\label{dijkstra_8c_ad51ded0bbd705f02f73fc60c0b721ced}
+\hypertarget{dijkstra_8c_a171669980e29849aa5e3722d573181ee}{\index{dijkstra.\-c@{dijkstra.\-c}!E@{E}}
+\index{E@{E}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{E}]{\setlength{\rightskip}{0pt plus 5cm}\#define E(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf add\-\_\-edge}(nodes + a, nodes + b, c)}}\label{dijkstra_8c_a171669980e29849aa5e3722d573181ee}
+\hypertarget{dijkstra_8c_a16c19de9b8eca127fb6d5dad6b43aa49}{\index{dijkstra.\-c@{dijkstra.\-c}!N\-\_\-\-N\-O\-D\-E\-S@{N\-\_\-\-N\-O\-D\-E\-S}}
+\index{N\-\_\-\-N\-O\-D\-E\-S@{N\-\_\-\-N\-O\-D\-E\-S}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{N\-\_\-\-N\-O\-D\-E\-S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\-\_\-\-N\-O\-D\-E\-S~{\bf num\-\_\-nodes}}}\label{dijkstra_8c_a16c19de9b8eca127fb6d5dad6b43aa49}
+
+
+\subsection{Function Documentation}
+\hypertarget{dijkstra_8c_a0b52cff8811cb7a994b7ca3d1f0e3081}{\index{dijkstra.\-c@{dijkstra.\-c}!add\-\_\-edge@{add\-\_\-edge}}
+\index{add\-\_\-edge@{add\-\_\-edge}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{add\-\_\-edge}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-edge (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start, }
+\item[{{\bf node\-\_\-t} $\ast$}]{end, }
+\item[{int}]{distance}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_a0b52cff8811cb7a994b7ca3d1f0e3081}
+Add an edge to the digram with start, end node and the cost.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & pointer to the start node of this edge \\
+\hline
+{\em end} & pointer to the end node of this edge \\
+\hline
+{\em distance} & the cost to go from start node to end node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8c_a72ac745dd88db811bcba09d5915c7c84}{\index{dijkstra.\-c@{dijkstra.\-c}!calc\-\_\-all@{calc\-\_\-all}}
+\index{calc\-\_\-all@{calc\-\_\-all}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{calc\-\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void calc\-\_\-all (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_a72ac745dd88db811bcba09d5915c7c84}
+Calculate all the shortest path from one node to all other node in the memory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & pointer to the original node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8c_ae3ae867e50465f1548ce18d0a44b56f3}{\index{dijkstra.\-c@{dijkstra.\-c}!dijkstra@{dijkstra}}
+\index{dijkstra@{dijkstra}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{dijkstra}]{\setlength{\rightskip}{0pt plus 5cm}int dijkstra (
+\begin{DoxyParamCaption}
+\item[{const int}]{num\-\_\-nodes, }
+\item[{int $\ast$$\ast$}]{nodes\-\_\-cost, }
+\item[{int $\ast$$\ast$}]{routing\-\_\-table}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_ae3ae867e50465f1548ce18d0a44b56f3}
+Calculate all the shortest path from ebery node to all other nodes that existed in the map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\-\_\-nodes} & indicates the number of nodes in the current loaded map \\
+\hline
+{\em nodes\-\_\-cost} & pointer to the pointer to an integer indicate an 2\-D array which store cost to go from one node to the node connected directly to it \\
+\hline
+{\em routing\-\_\-talbe} & pointer to the pointer to an integer indicates an 2\-D array which will store the result of the dijkstra algorithm for the A\-I to read from \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8c_afa5622979c56194296cbe2395ff02c4f}{\index{dijkstra.\-c@{dijkstra.\-c}!free\-\_\-edges@{free\-\_\-edges}}
+\index{free\-\_\-edges@{free\-\_\-edges}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{free\-\_\-edges}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-edges (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_afa5622979c56194296cbe2395ff02c4f}
+Remove an edge from the memory. \hypertarget{dijkstra_8c_ace090862fe79a5fe5217e4048560ae4b}{\index{dijkstra.\-c@{dijkstra.\-c}!pop\-\_\-queue@{pop\-\_\-queue}}
+\index{pop\-\_\-queue@{pop\-\_\-queue}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{pop\-\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node\-\_\-t}$\ast$ pop\-\_\-queue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_ace090862fe79a5fe5217e4048560ae4b}
+Pop a node from the queue \hypertarget{dijkstra_8c_a38dcd61e26257e32083226c1c11d4efb}{\index{dijkstra.\-c@{dijkstra.\-c}!set\-\_\-dist@{set\-\_\-dist}}
+\index{set\-\_\-dist@{set\-\_\-dist}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{set\-\_\-dist}]{\setlength{\rightskip}{0pt plus 5cm}void set\-\_\-dist (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{destination\-\_\-node, }
+\item[{{\bf node\-\_\-t} $\ast$}]{via, }
+\item[{int}]{d}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_a38dcd61e26257e32083226c1c11d4efb}
+Set the distance from the original node to the curent node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nd} & pointer to the current checked node \\
+\hline
+{\em via} & pointer to the previous node that lead to the current node from the original node. \\
+\hline
+{\em d} & distance from the original node to this node \\
+\hline
+\end{DoxyParams}
+\hypertarget{dijkstra_8c_ae63fc6d7679f2618166e82686bf47372}{\index{dijkstra.\-c@{dijkstra.\-c}!show\-\_\-path@{show\-\_\-path}}
+\index{show\-\_\-path@{show\-\_\-path}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{show\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}int show\-\_\-path (
+\begin{DoxyParamCaption}
+\item[{{\bf node\-\_\-t} $\ast$}]{start\-\_\-node, }
+\item[{{\bf node\-\_\-t} $\ast$}]{destination\-\_\-node}
+\end{DoxyParamCaption}
+)}}\label{dijkstra_8c_ae63fc6d7679f2618166e82686bf47372}
+Show the next node to get to if you want to go from 1 node to other node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ns} & pointer to the starting node \\
+\hline
+{\em nd} & pointer to the destination node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the node which need to be reached if you want to archive the shortest path from 1 node to another node 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{dijkstra_8c_a458c4e975634820622e37b1dec36c2ad}{\index{dijkstra.\-c@{dijkstra.\-c}!e\-\_\-next@{e\-\_\-next}}
+\index{e\-\_\-next@{e\-\_\-next}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{e\-\_\-next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf edge\-\_\-t} $\ast$ e\-\_\-next = 0}}\label{dijkstra_8c_a458c4e975634820622e37b1dec36c2ad}
+\hypertarget{dijkstra_8c_a5601118077eda2062ead1780af51c74b}{\index{dijkstra.\-c@{dijkstra.\-c}!edge\-\_\-root@{edge\-\_\-root}}
+\index{edge\-\_\-root@{edge\-\_\-root}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{edge\-\_\-root}]{\setlength{\rightskip}{0pt plus 5cm}{\bf edge\-\_\-t}$\ast$ edge\-\_\-root = 0}}\label{dijkstra_8c_a5601118077eda2062ead1780af51c74b}
+\hypertarget{dijkstra_8c_a030aa741640330c5c035c1a9dfd6e87f}{\index{dijkstra.\-c@{dijkstra.\-c}!heap@{heap}}
+\index{heap@{heap}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{heap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf heap\-\_\-t}$\ast$ heap}}\label{dijkstra_8c_a030aa741640330c5c035c1a9dfd6e87f}
+\hypertarget{dijkstra_8c_a2fba52115b6829135ff5c64eaea555a6}{\index{dijkstra.\-c@{dijkstra.\-c}!heap\-\_\-len@{heap\-\_\-len}}
+\index{heap\-\_\-len@{heap\-\_\-len}!dijkstra.c@{dijkstra.\-c}}
+\subsubsection[{heap\-\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}int heap\-\_\-len}}\label{dijkstra_8c_a2fba52115b6829135ff5c64eaea555a6}

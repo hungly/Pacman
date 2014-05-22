@@ -1,0 +1,106 @@
+\hypertarget{nguyenvinhlinh_8c}{\section{src/nguyenvinhlinh.c File Reference}
+\label{nguyenvinhlinh_8c}\index{src/nguyenvinhlinh.\-c@{src/nguyenvinhlinh.\-c}}
+}
+{\ttfamily \#include \char`\"{}nguyenvinhlinh.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pacghost.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{nguyenvinhlinh_8c_adce99ecb09c58898e1891a7f67641803}{face2face} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+void \hyperlink{nguyenvinhlinh_8c_a3a63f52781c38419c71d789968da6553}{direct\-To\-Pacman} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_a8beed969dbc407a9bb5e6183b843a84a}{find\-Relative\-Position} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_a87550755a72c0bf1d2db13d2506f806e}{check\-Top\-Exit} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_a10e5ca2d1c4ffaa391cdedcdbba475ac}{check\-Left\-Exit} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_a883ee76e852578c3c07a3ac87cbe031b}{check\-Right\-Exit} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_ad3dc949b8fa7a996ce9194f670eb0ea3}{check\-Bottom\-Exit} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_a2baf6e68653310ad6ff4cb708d134674}{is\-Surround} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+int \hyperlink{nguyenvinhlinh_8c_afebc3bff15950d182b91fa940f8c947f}{face2face\-Trap} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+void \hyperlink{nguyenvinhlinh_8c_a855390044262d62cd01e861d2d74764b}{nguyenvinhlinh\-\_\-ai} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty}, const int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{nguyenvinhlinh_8c_ad3dc949b8fa7a996ce9194f670eb0ea3}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!check\-Bottom\-Exit@{check\-Bottom\-Exit}}
+\index{check\-Bottom\-Exit@{check\-Bottom\-Exit}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{check\-Bottom\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}int check\-Bottom\-Exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_ad3dc949b8fa7a996ce9194f670eb0ea3}
+\hypertarget{nguyenvinhlinh_8c_a10e5ca2d1c4ffaa391cdedcdbba475ac}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!check\-Left\-Exit@{check\-Left\-Exit}}
+\index{check\-Left\-Exit@{check\-Left\-Exit}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{check\-Left\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}int check\-Left\-Exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a10e5ca2d1c4ffaa391cdedcdbba475ac}
+\hypertarget{nguyenvinhlinh_8c_a883ee76e852578c3c07a3ac87cbe031b}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!check\-Right\-Exit@{check\-Right\-Exit}}
+\index{check\-Right\-Exit@{check\-Right\-Exit}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{check\-Right\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}int check\-Right\-Exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a883ee76e852578c3c07a3ac87cbe031b}
+\hypertarget{nguyenvinhlinh_8c_a87550755a72c0bf1d2db13d2506f806e}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!check\-Top\-Exit@{check\-Top\-Exit}}
+\index{check\-Top\-Exit@{check\-Top\-Exit}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{check\-Top\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}int check\-Top\-Exit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a87550755a72c0bf1d2db13d2506f806e}
+\hypertarget{nguyenvinhlinh_8c_a3a63f52781c38419c71d789968da6553}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!direct\-To\-Pacman@{direct\-To\-Pacman}}
+\index{direct\-To\-Pacman@{direct\-To\-Pacman}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{direct\-To\-Pacman}]{\setlength{\rightskip}{0pt plus 5cm}void direct\-To\-Pacman (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a3a63f52781c38419c71d789968da6553}
+\hypertarget{nguyenvinhlinh_8c_adce99ecb09c58898e1891a7f67641803}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!face2face@{face2face}}
+\index{face2face@{face2face}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{face2face}]{\setlength{\rightskip}{0pt plus 5cm}int face2face (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_adce99ecb09c58898e1891a7f67641803}
+\hypertarget{nguyenvinhlinh_8c_afebc3bff15950d182b91fa940f8c947f}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!face2face\-Trap@{face2face\-Trap}}
+\index{face2face\-Trap@{face2face\-Trap}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{face2face\-Trap}]{\setlength{\rightskip}{0pt plus 5cm}int face2face\-Trap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_afebc3bff15950d182b91fa940f8c947f}
+\hypertarget{nguyenvinhlinh_8c_a8beed969dbc407a9bb5e6183b843a84a}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!find\-Relative\-Position@{find\-Relative\-Position}}
+\index{find\-Relative\-Position@{find\-Relative\-Position}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{find\-Relative\-Position}]{\setlength{\rightskip}{0pt plus 5cm}int find\-Relative\-Position (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a8beed969dbc407a9bb5e6183b843a84a}
+\hypertarget{nguyenvinhlinh_8c_a2baf6e68653310ad6ff4cb708d134674}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!is\-Surround@{is\-Surround}}
+\index{is\-Surround@{is\-Surround}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{is\-Surround}]{\setlength{\rightskip}{0pt plus 5cm}int is\-Surround (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a2baf6e68653310ad6ff4cb708d134674}
+\hypertarget{nguyenvinhlinh_8c_a855390044262d62cd01e861d2d74764b}{\index{nguyenvinhlinh.\-c@{nguyenvinhlinh.\-c}!nguyenvinhlinh\-\_\-ai@{nguyenvinhlinh\-\_\-ai}}
+\index{nguyenvinhlinh\-\_\-ai@{nguyenvinhlinh\-\_\-ai}!nguyenvinhlinh.c@{nguyenvinhlinh.\-c}}
+\subsubsection[{nguyenvinhlinh\-\_\-ai}]{\setlength{\rightskip}{0pt plus 5cm}void nguyenvinhlinh\-\_\-ai (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{difficulty, }
+\item[{const int}]{is\-\_\-pacman\-\_\-powered\-\_\-up}
+\end{DoxyParamCaption}
+)}}\label{nguyenvinhlinh_8c_a855390044262d62cd01e861d2d74764b}

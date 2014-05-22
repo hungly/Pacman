@@ -1,24 +1,131 @@
 \hypertarget{pacman_8c}{\section{src/pacman.c File Reference}
 \label{pacman_8c}\index{src/pacman.\-c@{src/pacman.\-c}}
 }
-{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}core.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}level\-\_\-editor.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}movement.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pacghost.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}score.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lyquochung.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nguyenvinhlinh.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}doanhaidang.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lyquanliem.\-h\char`\"{}}\\*
 {\ttfamily \#include $<$curses.\-h$>$}\\*
-{\ttfamily \#include $<$signal.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$regex.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\-h$>$}\\*
+{\ttfamily \#include $<$sys/time.\-h$>$}\\*
 {\ttfamily \#include $<$time.\-h$>$}\\*
-{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
+\#define \hyperlink{pacman_8c_a7a602a4376595097bdde82a739d7fc9c}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}~\char`\"{}levels/\char`\"{}
+\item 
+\#define \hyperlink{pacman_8c_a680ab63d028a68a793615c14b807244e}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}~\char`\"{}../levels/\char`\"{}
+\item 
 \#define \hyperlink{pacman_8c_af27cfac70191e90ee59f2fbfc0142df5}{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~0
 \item 
-\#define \hyperlink{pacman_8c_a528521b4019fe0dbc561165851660df5}{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}~1
+\#define \hyperlink{pacman_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~1
 \item 
-\#define \hyperlink{pacman_8c_a977b7c2763deb11541bc962426297045}{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}~2
+\#define \hyperlink{pacman_8c_a74d87509e98e202c778b5a9e4ae89f09}{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}~2
+\item 
+\#define \hyperlink{pacman_8c_ab604bbfe7359083e9abc00907e8acb12}{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}~3
+\item 
+\#define \hyperlink{pacman_8c_a528521b4019fe0dbc561165851660df5}{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}~4
+\item 
+\#define \hyperlink{pacman_8c_a977b7c2763deb11541bc962426297045}{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}~5
+\item 
+\#define \hyperlink{pacman_8c_aa621edd711419dc69326010aabdb01bb}{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}~6
+\item 
+\#define \hyperlink{pacman_8c_a4dff2b6100530a45e7c3b38c9484f454}{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}~7
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \hyperlink{pacman_8c_ac9bfc0db1b81a5e565fec4cb636581c8}{show\-Menu} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{pacman_8c_ad31f992698d40dfa07186ca7574b0c02}{start\-New\-Game} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{pacman_8c_ad8df6f2e8ca718a0607a8390840720e5}{change\-\_\-difficulty} ()
+\item 
 int \hyperlink{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{pacman_8c_a70d51dcba75e5d70d4708c7885550468}{author}
+\item 
+char $\ast$ \hyperlink{pacman_8c_a8eadc6730ef4fbdae87a20414b789faf}{directory}
+\item 
+char $\ast$ \hyperlink{pacman_8c_a004b893a4391189108c29182f992a68a}{levels} \mbox{[}$\,$\mbox{]} = \{\char`\"{}level1.\-pac\char`\"{}, \char`\"{}level2.\-pac\char`\"{}, \char`\"{}level3.\-pac\char`\"{}, \char`\"{}level4.\-pac\char`\"{}\}
+\item 
+char $\ast$ \hyperlink{pacman_8c_a8505c513bc640d1f69e5f76fb32b24a8}{file\-\_\-name}
+\item 
+char $\ast$ \hyperlink{pacman_8c_a7b00b1bfd666e26484471bd17a74eaa9}{map}
+\item 
+char $\ast$ \hyperlink{pacman_8c_af06d911bb9e05f491ef3da520d03796c}{title}
+\item 
+double \hyperlink{pacman_8c_a08ee87a1e2341537db1bfad0465ec279}{speed\-\_\-change\-\_\-rate} \mbox{[}$\,$\mbox{]} = \{0.\-99, 0.\-97, 0.\-95, 0.\-93\}
+\item 
+int \hyperlink{pacman_8c_a5fb2fd800b4f685e013bf544fca7ff8b}{ate\-Pellet} = 0
+\item 
+int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty} = 3
+\item 
+int \hyperlink{pacman_8c_a617a47c70795bcff659815ad0efd2266}{counter} = 0
+\item 
+int \hyperlink{pacman_8c_a4647d0a97a1f11a3d2ac41a3526dc2ce}{end\-\_\-game} = 0
+\item 
+int \hyperlink{pacman_8c_a1bee207ff2415ab72a1e22c86a93f100}{end\-\_\-program} = 0
+\item 
+int \hyperlink{pacman_8c_ae0ebb9a2dde9db7a8070d03799386e18}{error\-\_\-msg\-\_\-count} = 1
+\item 
+int \hyperlink{pacman_8c_a5d9ac2408b6a29c67407726711d6e9c6}{ghost\-\_\-counter} \mbox{[}$\,$\mbox{]} = \{0, 0, 0, 0\}
+\item 
+int \hyperlink{pacman_8c_a2cb50263f0f7a37d88d397a1d0e66f3a}{live} = 3
+\item 
+int \hyperlink{pacman_8c_acf4d33ee4cff36f69b924471174dcb11}{level} = 1
+\item 
+int \hyperlink{pacman_8c_ae224d20a8536398afc6a860f26b4b58d}{level\-\_\-offset} = 0
+\item 
+int \hyperlink{pacman_8c_ae33866188597063baab2455e628b883f}{num\-\_\-levels} = 4
+\item 
+int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up} = 0
+\item 
+int \hyperlink{pacman_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}
+\item 
+int \hyperlink{pacman_8c_a2474a5474cbff19523a51eb1de01cda4}{width}
+\item 
+int \hyperlink{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{x} = 0
+\item 
+int \hyperlink{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y} = 0
+\item 
+int \hyperlink{pacman_8c_a87147769c08c4f0fef7b0ec6077b338d}{x\-\_\-offset}
+\item 
+int \hyperlink{pacman_8c_abaa275d8b2c76fd77dd271402a4425d3}{y\-\_\-offset}
+\item 
+int \hyperlink{pacman_8c_aefa902538b1cd5840102ccc807fe3f37}{reti}
+\item 
+int \hyperlink{pacman_8c_aef160b7437d94056f1dc59646cd5b87d}{score} = 0
+\item 
+int \hyperlink{pacman_8c_a896833914df777cd482d6757722fb12b}{total\-Pellet}
+\item 
+long \hyperlink{pacman_8c_aa19882755b7240169d63a7a60468cfc1}{turns\-\_\-time}
+\item 
+regex\-\_\-t \hyperlink{pacman_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}{regex}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{pacman_8c_a47083d9a35bd0770a437ce77a09bc657}{pacman}
+\item 
+struct \hyperlink{structpacghost}{pacghost} \hyperlink{pacman_8c_a780e6157f1e135cd36e2947f175134d3}{ghosts} \mbox{[}4\mbox{]}
+\item 
+struct \hyperlink{structpacghost}{pacghost} $\ast$ \hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost} = \&(\hyperlink{pacman_8c_a780e6157f1e135cd36e2947f175134d3}{ghosts}\mbox{[}0\mbox{]})
+\item 
+struct winsize \hyperlink{pacman_8c_a114d2a5a196322c42d4cd57cccb1f43b}{w}
+\item 
+void($\ast$ \hyperlink{pacman_8c_a2a559ca2c70bf75bcd0c0382728a73d7}{ai\-\_\-functions} \mbox{[}4\mbox{]})(char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, int \hyperlink{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{difficulty}, int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up})
 \end{DoxyCompactItemize}
 
 
@@ -26,16 +133,44 @@ int \hyperlink{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, cha
 \hypertarget{pacman_8c_af27cfac70191e90ee59f2fbfc0142df5}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
 \index{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman.c@{pacman.\-c}}
 \subsubsection[{C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~0}}\label{pacman_8c_af27cfac70191e90ee59f2fbfc0142df5}
-\hypertarget{pacman_8c_a977b7c2763deb11541bc962426297045}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}}
+Define Color\-Pallette1 for terminal background \hypertarget{pacman_8c_a74d87509e98e202c778b5a9e4ae89f09}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+\index{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman.c@{pacman.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-E\-R\-R\-O\-R\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~2}}\label{pacman_8c_a74d87509e98e202c778b5a9e4ae89f09}
+Define Color\-Pallette3 for error message \hypertarget{pacman_8c_aa621edd711419dc69326010aabdb01bb}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}}
+\index{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T@{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}!pacman.c@{pacman.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-F\-R\-U\-I\-T~6}}\label{pacman_8c_aa621edd711419dc69326010aabdb01bb}
+Define Color\-Pallette7 for fruit \hypertarget{pacman_8c_a4dff2b6100530a45e7c3b38c9484f454}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}}
+\index{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T@{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}!pacman.c@{pacman.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-G\-H\-O\-S\-T~7}}\label{pacman_8c_a4dff2b6100530a45e7c3b38c9484f454}
+Define Color\-Pallette8 for ghost \hypertarget{pacman_8c_ab604bbfe7359083e9abc00907e8acb12}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}}
+\index{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R@{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}!pacman.c@{pacman.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-L\-E\-T\-T\-E\-R~3}}\label{pacman_8c_ab604bbfe7359083e9abc00907e8acb12}
+Define Color\-Pallette4 for letters \hypertarget{pacman_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}}
+\index{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D@{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}!pacman.c@{pacman.\-c}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-M\-A\-P\-\_\-\-B\-A\-C\-K\-G\-R\-O\-U\-N\-D~1}}\label{pacman_8c_aa0c3931283632f3b28ad3ab6fe6d7ffb}
+Define Color\-Pallette2 for map background \hypertarget{pacman_8c_a977b7c2763deb11541bc962426297045}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}}
 \index{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N@{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}!pacman.c@{pacman.\-c}}
-\subsubsection[{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N~2}}\label{pacman_8c_a977b7c2763deb11541bc962426297045}
-\hypertarget{pacman_8c_a528521b4019fe0dbc561165851660df5}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}}
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-P\-A\-C\-M\-A\-N~5}}\label{pacman_8c_a977b7c2763deb11541bc962426297045}
+Define Color\-Pallette6 for pacman \hypertarget{pacman_8c_a528521b4019fe0dbc561165851660df5}{\index{pacman.\-c@{pacman.\-c}!C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}}
 \index{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L@{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}!pacman.c@{pacman.\-c}}
-\subsubsection[{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L~1}}\label{pacman_8c_a528521b4019fe0dbc561165851660df5}
-
+\subsubsection[{C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\-O\-L\-O\-R\-\_\-\-W\-A\-L\-L~4}}\label{pacman_8c_a528521b4019fe0dbc561165851660df5}
+Define Color\-Pallette5 for wall in map \hypertarget{pacman_8c_a7a602a4376595097bdde82a739d7fc9c}{\index{pacman.\-c@{pacman.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}!pacman.c@{pacman.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H~\char`\"{}levels/\char`\"{}}}\label{pacman_8c_a7a602a4376595097bdde82a739d7fc9c}
+Define the directory when opening using sh file in root folder of project \hypertarget{pacman_8c_a680ab63d028a68a793615c14b807244e}{\index{pacman.\-c@{pacman.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}!pacman.c@{pacman.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C~\char`\"{}../levels/\char`\"{}}}\label{pacman_8c_a680ab63d028a68a793615c14b807244e}
+Define the directory when opening using the executable file in source folder 
 
 \subsection{Function Documentation}
-\hypertarget{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{pacman.\-c@{pacman.\-c}!main@{main}}
+\hypertarget{pacman_8c_ad8df6f2e8ca718a0607a8390840720e5}{\index{pacman.\-c@{pacman.\-c}!change\-\_\-difficulty@{change\-\_\-difficulty}}
+\index{change\-\_\-difficulty@{change\-\_\-difficulty}!pacman.c@{pacman.\-c}}
+\subsubsection[{change\-\_\-difficulty}]{\setlength{\rightskip}{0pt plus 5cm}void change\-\_\-difficulty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pacman_8c_ad8df6f2e8ca718a0607a8390840720e5}
+Change difficulty when starting game \hypertarget{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{pacman.\-c@{pacman.\-c}!main@{main}}
 \index{main@{main}!pacman.c@{pacman.\-c}}
 \subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
 \begin{DoxyParamCaption}
@@ -43,3 +178,128 @@ int \hyperlink{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, cha
 \item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
 \end{DoxyParamCaption}
 )}}\label{pacman_8c_a0ddf1224851353fc92bfbff6f499fa97}
+\hypertarget{pacman_8c_ac9bfc0db1b81a5e565fec4cb636581c8}{\index{pacman.\-c@{pacman.\-c}!show\-Menu@{show\-Menu}}
+\index{show\-Menu@{show\-Menu}!pacman.c@{pacman.\-c}}
+\subsubsection[{show\-Menu}]{\setlength{\rightskip}{0pt plus 5cm}void show\-Menu (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{pacman_8c_ac9bfc0db1b81a5e565fec4cb636581c8}
+Show the game's main menu \hypertarget{pacman_8c_ad31f992698d40dfa07186ca7574b0c02}{\index{pacman.\-c@{pacman.\-c}!start\-New\-Game@{start\-New\-Game}}
+\index{start\-New\-Game@{start\-New\-Game}!pacman.c@{pacman.\-c}}
+\subsubsection[{start\-New\-Game}]{\setlength{\rightskip}{0pt plus 5cm}void start\-New\-Game (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{pacman_8c_ad31f992698d40dfa07186ca7574b0c02}
+Start the game. 
+
+\subsection{Variable Documentation}
+\hypertarget{pacman_8c_a2a559ca2c70bf75bcd0c0382728a73d7}{\index{pacman.\-c@{pacman.\-c}!ai\-\_\-functions@{ai\-\_\-functions}}
+\index{ai\-\_\-functions@{ai\-\_\-functions}!pacman.c@{pacman.\-c}}
+\subsubsection[{ai\-\_\-functions}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ ai\-\_\-functions\mbox{[}4\mbox{]})(char $\ast${\bf map}, struct {\bf pacghost} $\ast${\bf pacman}, struct {\bf pacghost} $\ast${\bf ghost}, int {\bf difficulty}, int {\bf is\-\_\-pacman\-\_\-powered\-\_\-up})}}\label{pacman_8c_a2a559ca2c70bf75bcd0c0382728a73d7}
+Function pointers for A\-I \hypertarget{pacman_8c_a5fb2fd800b4f685e013bf544fca7ff8b}{\index{pacman.\-c@{pacman.\-c}!ate\-Pellet@{ate\-Pellet}}
+\index{ate\-Pellet@{ate\-Pellet}!pacman.c@{pacman.\-c}}
+\subsubsection[{ate\-Pellet}]{\setlength{\rightskip}{0pt plus 5cm}int ate\-Pellet = 0}}\label{pacman_8c_a5fb2fd800b4f685e013bf544fca7ff8b}
+An integer value which indicates the number of pellet that been eaten \hypertarget{pacman_8c_a70d51dcba75e5d70d4708c7885550468}{\index{pacman.\-c@{pacman.\-c}!author@{author}}
+\index{author@{author}!pacman.c@{pacman.\-c}}
+\subsubsection[{author}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ author}}\label{pacman_8c_a70d51dcba75e5d70d4708c7885550468}
+Pointer to array to char which indicates the author of current map \hypertarget{pacman_8c_a617a47c70795bcff659815ad0efd2266}{\index{pacman.\-c@{pacman.\-c}!counter@{counter}}
+\index{counter@{counter}!pacman.c@{pacman.\-c}}
+\subsubsection[{counter}]{\setlength{\rightskip}{0pt plus 5cm}int counter = 0}}\label{pacman_8c_a617a47c70795bcff659815ad0efd2266}
+An integer value which indicates the time left for the pacman powered up \hypertarget{pacman_8c_a016a5d341f375d13639c75bf5987fb23}{\index{pacman.\-c@{pacman.\-c}!difficulty@{difficulty}}
+\index{difficulty@{difficulty}!pacman.c@{pacman.\-c}}
+\subsubsection[{difficulty}]{\setlength{\rightskip}{0pt plus 5cm}int difficulty = 3}}\label{pacman_8c_a016a5d341f375d13639c75bf5987fb23}
+An integer value which indicates the game difficulty \hypertarget{pacman_8c_a8eadc6730ef4fbdae87a20414b789faf}{\index{pacman.\-c@{pacman.\-c}!directory@{directory}}
+\index{directory@{directory}!pacman.c@{pacman.\-c}}
+\subsubsection[{directory}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ directory}}\label{pacman_8c_a8eadc6730ef4fbdae87a20414b789faf}
+Pointer to array to char which indicates the present working directory \hypertarget{pacman_8c_a4647d0a97a1f11a3d2ac41a3526dc2ce}{\index{pacman.\-c@{pacman.\-c}!end\-\_\-game@{end\-\_\-game}}
+\index{end\-\_\-game@{end\-\_\-game}!pacman.c@{pacman.\-c}}
+\subsubsection[{end\-\_\-game}]{\setlength{\rightskip}{0pt plus 5cm}int end\-\_\-game = 0}}\label{pacman_8c_a4647d0a97a1f11a3d2ac41a3526dc2ce}
+An integer value which indicates the game is over or not \hypertarget{pacman_8c_a1bee207ff2415ab72a1e22c86a93f100}{\index{pacman.\-c@{pacman.\-c}!end\-\_\-program@{end\-\_\-program}}
+\index{end\-\_\-program@{end\-\_\-program}!pacman.c@{pacman.\-c}}
+\subsubsection[{end\-\_\-program}]{\setlength{\rightskip}{0pt plus 5cm}int end\-\_\-program = 0}}\label{pacman_8c_a1bee207ff2415ab72a1e22c86a93f100}
+An integer value which indicate the program is ended or not \hypertarget{pacman_8c_ae0ebb9a2dde9db7a8070d03799386e18}{\index{pacman.\-c@{pacman.\-c}!error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}}
+\index{error\-\_\-msg\-\_\-count@{error\-\_\-msg\-\_\-count}!pacman.c@{pacman.\-c}}
+\subsubsection[{error\-\_\-msg\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}int error\-\_\-msg\-\_\-count = 1}}\label{pacman_8c_ae0ebb9a2dde9db7a8070d03799386e18}
+An integer value which indicate the number of error message \hypertarget{pacman_8c_a8505c513bc640d1f69e5f76fb32b24a8}{\index{pacman.\-c@{pacman.\-c}!file\-\_\-name@{file\-\_\-name}}
+\index{file\-\_\-name@{file\-\_\-name}!pacman.c@{pacman.\-c}}
+\subsubsection[{file\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ file\-\_\-name}}\label{pacman_8c_a8505c513bc640d1f69e5f76fb32b24a8}
+Pointer to array to char which indicates the file name of current map \hypertarget{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{\index{pacman.\-c@{pacman.\-c}!ghost@{ghost}}
+\index{ghost@{ghost}!pacman.c@{pacman.\-c}}
+\subsubsection[{ghost}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost}$\ast$ ghost = \&({\bf ghosts}\mbox{[}0\mbox{]})}}\label{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}
+pointer to the first ghost in the ghosts array \hypertarget{pacman_8c_a5d9ac2408b6a29c67407726711d6e9c6}{\index{pacman.\-c@{pacman.\-c}!ghost\-\_\-counter@{ghost\-\_\-counter}}
+\index{ghost\-\_\-counter@{ghost\-\_\-counter}!pacman.c@{pacman.\-c}}
+\subsubsection[{ghost\-\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}int ghost\-\_\-counter\mbox{[}$\,$\mbox{]} = \{0, 0, 0, 0\}}}\label{pacman_8c_a5d9ac2408b6a29c67407726711d6e9c6}
+An integer value which indicate the number of maps available \hypertarget{pacman_8c_a780e6157f1e135cd36e2947f175134d3}{\index{pacman.\-c@{pacman.\-c}!ghosts@{ghosts}}
+\index{ghosts@{ghosts}!pacman.c@{pacman.\-c}}
+\subsubsection[{ghosts}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} ghosts\mbox{[}4\mbox{]}}}\label{pacman_8c_a780e6157f1e135cd36e2947f175134d3}
+array that store the ghosts position on the map and their moving direction \hypertarget{pacman_8c_ad12fc34ce789bce6c8a05d8a17138534}{\index{pacman.\-c@{pacman.\-c}!height@{height}}
+\index{height@{height}!pacman.c@{pacman.\-c}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height}}\label{pacman_8c_ad12fc34ce789bce6c8a05d8a17138534}
+An integer value which indicates the height of map \hypertarget{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{\index{pacman.\-c@{pacman.\-c}!is\-\_\-pacman\-\_\-powered\-\_\-up@{is\-\_\-pacman\-\_\-powered\-\_\-up}}
+\index{is\-\_\-pacman\-\_\-powered\-\_\-up@{is\-\_\-pacman\-\_\-powered\-\_\-up}!pacman.c@{pacman.\-c}}
+\subsubsection[{is\-\_\-pacman\-\_\-powered\-\_\-up}]{\setlength{\rightskip}{0pt plus 5cm}int is\-\_\-pacman\-\_\-powered\-\_\-up = 0}}\label{pacman_8c_aa49c100c8b968cdfef859f4f32752081}
+An integer value which indicates the powered up status of the pacman \hypertarget{pacman_8c_acf4d33ee4cff36f69b924471174dcb11}{\index{pacman.\-c@{pacman.\-c}!level@{level}}
+\index{level@{level}!pacman.c@{pacman.\-c}}
+\subsubsection[{level}]{\setlength{\rightskip}{0pt plus 5cm}int level = 1}}\label{pacman_8c_acf4d33ee4cff36f69b924471174dcb11}
+An integer value which indicates the current level of the player \hypertarget{pacman_8c_ae224d20a8536398afc6a860f26b4b58d}{\index{pacman.\-c@{pacman.\-c}!level\-\_\-offset@{level\-\_\-offset}}
+\index{level\-\_\-offset@{level\-\_\-offset}!pacman.c@{pacman.\-c}}
+\subsubsection[{level\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int level\-\_\-offset = 0}}\label{pacman_8c_ae224d20a8536398afc6a860f26b4b58d}
+An integer value which indicates level offset on the list \hypertarget{pacman_8c_a004b893a4391189108c29182f992a68a}{\index{pacman.\-c@{pacman.\-c}!levels@{levels}}
+\index{levels@{levels}!pacman.c@{pacman.\-c}}
+\subsubsection[{levels}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ levels\mbox{[}$\,$\mbox{]} = \{\char`\"{}level1.\-pac\char`\"{}, \char`\"{}level2.\-pac\char`\"{}, \char`\"{}level3.\-pac\char`\"{}, \char`\"{}level4.\-pac\char`\"{}\}}}\label{pacman_8c_a004b893a4391189108c29182f992a68a}
+Pointer to array of char which indicates the list of available levels \hypertarget{pacman_8c_a2cb50263f0f7a37d88d397a1d0e66f3a}{\index{pacman.\-c@{pacman.\-c}!live@{live}}
+\index{live@{live}!pacman.c@{pacman.\-c}}
+\subsubsection[{live}]{\setlength{\rightskip}{0pt plus 5cm}int live = 3}}\label{pacman_8c_a2cb50263f0f7a37d88d397a1d0e66f3a}
+An integer value which indicates the number of life left for pacman \hypertarget{pacman_8c_a7b00b1bfd666e26484471bd17a74eaa9}{\index{pacman.\-c@{pacman.\-c}!map@{map}}
+\index{map@{map}!pacman.c@{pacman.\-c}}
+\subsubsection[{map}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ map}}\label{pacman_8c_a7b00b1bfd666e26484471bd17a74eaa9}
+Pointer to array of char which indicates the current map \hypertarget{pacman_8c_ae33866188597063baab2455e628b883f}{\index{pacman.\-c@{pacman.\-c}!num\-\_\-levels@{num\-\_\-levels}}
+\index{num\-\_\-levels@{num\-\_\-levels}!pacman.c@{pacman.\-c}}
+\subsubsection[{num\-\_\-levels}]{\setlength{\rightskip}{0pt plus 5cm}int num\-\_\-levels = 4}}\label{pacman_8c_ae33866188597063baab2455e628b883f}
+An integer value which indicates the number of level for before circle around \hypertarget{pacman_8c_a47083d9a35bd0770a437ce77a09bc657}{\index{pacman.\-c@{pacman.\-c}!pacman@{pacman}}
+\index{pacman@{pacman}!pacman.c@{pacman.\-c}}
+\subsubsection[{pacman}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pacghost} pacman}}\label{pacman_8c_a47083d9a35bd0770a437ce77a09bc657}
+variable that store the pacman position on the map and its moving direction \hypertarget{pacman_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}{\index{pacman.\-c@{pacman.\-c}!regex@{regex}}
+\index{regex@{regex}!pacman.c@{pacman.\-c}}
+\subsubsection[{regex}]{\setlength{\rightskip}{0pt plus 5cm}regex\-\_\-t regex}}\label{pacman_8c_a0f8fc8b8cd2ff33a04952c702504ccf4}
+regex is used to check for input pattern \hypertarget{pacman_8c_aefa902538b1cd5840102ccc807fe3f37}{\index{pacman.\-c@{pacman.\-c}!reti@{reti}}
+\index{reti@{reti}!pacman.c@{pacman.\-c}}
+\subsubsection[{reti}]{\setlength{\rightskip}{0pt plus 5cm}int reti}}\label{pacman_8c_aefa902538b1cd5840102ccc807fe3f37}
+reti is an integer which store the result of regex comparison \hypertarget{pacman_8c_aef160b7437d94056f1dc59646cd5b87d}{\index{pacman.\-c@{pacman.\-c}!score@{score}}
+\index{score@{score}!pacman.c@{pacman.\-c}}
+\subsubsection[{score}]{\setlength{\rightskip}{0pt plus 5cm}int score = 0}}\label{pacman_8c_aef160b7437d94056f1dc59646cd5b87d}
+An integer value which indicates the current score \hypertarget{pacman_8c_a08ee87a1e2341537db1bfad0465ec279}{\index{pacman.\-c@{pacman.\-c}!speed\-\_\-change\-\_\-rate@{speed\-\_\-change\-\_\-rate}}
+\index{speed\-\_\-change\-\_\-rate@{speed\-\_\-change\-\_\-rate}!pacman.c@{pacman.\-c}}
+\subsubsection[{speed\-\_\-change\-\_\-rate}]{\setlength{\rightskip}{0pt plus 5cm}double speed\-\_\-change\-\_\-rate\mbox{[}$\,$\mbox{]} = \{0.\-99, 0.\-97, 0.\-95, 0.\-93\}}}\label{pacman_8c_a08ee87a1e2341537db1bfad0465ec279}
+An double array which indicates the speed changing rate of the game based on difficulty \hypertarget{pacman_8c_af06d911bb9e05f491ef3da520d03796c}{\index{pacman.\-c@{pacman.\-c}!title@{title}}
+\index{title@{title}!pacman.c@{pacman.\-c}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ title}}\label{pacman_8c_af06d911bb9e05f491ef3da520d03796c}
+Pointer to array to char which indicates the title of current map \hypertarget{pacman_8c_a896833914df777cd482d6757722fb12b}{\index{pacman.\-c@{pacman.\-c}!total\-Pellet@{total\-Pellet}}
+\index{total\-Pellet@{total\-Pellet}!pacman.c@{pacman.\-c}}
+\subsubsection[{total\-Pellet}]{\setlength{\rightskip}{0pt plus 5cm}int total\-Pellet}}\label{pacman_8c_a896833914df777cd482d6757722fb12b}
+An integer value which indicates the total number of pellet in the map \hypertarget{pacman_8c_aa19882755b7240169d63a7a60468cfc1}{\index{pacman.\-c@{pacman.\-c}!turns\-\_\-time@{turns\-\_\-time}}
+\index{turns\-\_\-time@{turns\-\_\-time}!pacman.c@{pacman.\-c}}
+\subsubsection[{turns\-\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}long turns\-\_\-time}}\label{pacman_8c_aa19882755b7240169d63a7a60468cfc1}
+An integer value which indicates the time for each game 'frame' \hypertarget{pacman_8c_a114d2a5a196322c42d4cd57cccb1f43b}{\index{pacman.\-c@{pacman.\-c}!w@{w}}
+\index{w@{w}!pacman.c@{pacman.\-c}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}struct winsize w}}\label{pacman_8c_a114d2a5a196322c42d4cd57cccb1f43b}
+The size of ncruses terminal in characters of height and width \hypertarget{pacman_8c_a2474a5474cbff19523a51eb1de01cda4}{\index{pacman.\-c@{pacman.\-c}!width@{width}}
+\index{width@{width}!pacman.c@{pacman.\-c}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width}}\label{pacman_8c_a2474a5474cbff19523a51eb1de01cda4}
+An integer value which indicates the width of map \hypertarget{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}{\index{pacman.\-c@{pacman.\-c}!x@{x}}
+\index{x@{x}!pacman.c@{pacman.\-c}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}int x = 0}}\label{pacman_8c_a6150e0515f7202e2fb518f7206ed97dc}
+An integer value which indicates the row where the cursor is located in the map \hypertarget{pacman_8c_a87147769c08c4f0fef7b0ec6077b338d}{\index{pacman.\-c@{pacman.\-c}!x\-\_\-offset@{x\-\_\-offset}}
+\index{x\-\_\-offset@{x\-\_\-offset}!pacman.c@{pacman.\-c}}
+\subsubsection[{x\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int x\-\_\-offset}}\label{pacman_8c_a87147769c08c4f0fef7b0ec6077b338d}
+An integer value which indicates the distance (in rows) between the top of terminal and the first row of the map \hypertarget{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}{\index{pacman.\-c@{pacman.\-c}!y@{y}}
+\index{y@{y}!pacman.c@{pacman.\-c}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}int y = 0}}\label{pacman_8c_a0a2f84ed7838f07779ae24c5a9086d33}
+An integer value which indicates the column where the cursor is located in the map \hypertarget{pacman_8c_abaa275d8b2c76fd77dd271402a4425d3}{\index{pacman.\-c@{pacman.\-c}!y\-\_\-offset@{y\-\_\-offset}}
+\index{y\-\_\-offset@{y\-\_\-offset}!pacman.c@{pacman.\-c}}
+\subsubsection[{y\-\_\-offset}]{\setlength{\rightskip}{0pt plus 5cm}int y\-\_\-offset}}\label{pacman_8c_abaa275d8b2c76fd77dd271402a4425d3}
+An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map 

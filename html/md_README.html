@@ -37,6 +37,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -61,7 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,66 +80,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><p>Pacman</p>
 <p>COSC2451</p>
 <p>Programming Techniques</p>
-<p>Copyright 2014 Ly Quoc Hung (s3426511), Ly Quan Liem (s3426110)</p>
+<p>Copyright 2014 Ly Quoc Hung (s3426511), Ly Quan Liem (s3426110), Nguyen Vinh Linh (s3410595), Doan Hai Dang (s3425475)</p>
 <p>RMIT International University Vietnam</p>
 <p>This assignment includes software developed by the above mentioned students.</p>
 <p>Assignment description:</p>
-<p>The classic Pacman game, with level editor and individual AI for each of the 4 ghosts. This program is the assignment for "Programming Techniques" course (COSC2451) at RMIT International University Vietnam.</p>
-<p>This is the 1st assignment, which involves create a level editor only. The program use a command line interface to display the current loaded map on the screen. The program ad two mode: edit mode and command mode:</p>
-<p>Edit mode:</p>
-<p>In this mode user can move around the map the create by default or by command and edit the current character at the cursor with:</p>
-<p>q/Q: add an upper left corner character</p>
-<p>e/E: add an upper right corner character</p>
-<p>z/Z: add a lower left corner character</p>
-<p>c/C: add a lower right corner character</p>
-<p>w/x: add a vertical bar character</p>
-<p>a/d: add a horizontal bar character</p>
-<p>s: add a small pellet character</p>
-<p>S: add a power pellet character</p>
-<p>f/F: add a fruit spawn point character</p>
-<p>g/G: add a ghost spawn point character</p>
-<p>p/P: add a pacman spawn point character</p>
-<p>' ' (space): erase the current character</p>
-<p>Additionally, user can switch from edit mode to command mode by pressing ":" (colon) key.</p>
-<p>All the above command will take effect immediately after the respect key is pressed.</p>
-<p>Command mode:</p>
-<p>This mode provide user with an vi/vim like command mode to manipulate the map file. The command for this mode are:</p>
-<p>w [filename]: save the current loaded map with the file name specify in the [filename] field.</p>
-<p>Note:</p>
-<p>This command will check if the end of the [filename] is ended with ".pac" or not. If [filename] end with ".pac" then it will use this file name, otherwise ".pac" will be automatically added to the end of [filename].</p>
-<p>This command will overridden any file that already exist on the disk with the same file name after appending the ".pac".</p>
-<p>w: save the current loaded map with the file name specify in the "Map
+<p>The classic Pacman game based on the one made by Namco in 1980 with level editor and individual AI for each of the 4 ghosts. This program is the assignment for "Programming Techniques" course (COSC2451) at RMIT International University Vietnam.</p>
+<ol type="1">
+<li><p class="startli">Game features a. Players can choose the difficulty of game, the higher difficulty, the faster game is, and also, the more intelligent ghosts are. b. This game has high score broad which will save ten highest scores and player names. c. Because of the difficulty of this game, we also offer cheat codes for gamers. There are two cheat codes, first is for god mode, second is for live cheat code:</p>
+<ul>
+<li>god mode: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT b a</li>
+<li>extra lifes: UP UP DOWN DOWN LEFT LEFT RIGHT RIGHT LEFT RIGHT</li>
+</ul>
+<p class="startli">d. During gameplay, you can pause game by pressing "ESC" e. After pausing game, you can resume game, save game or load game.</p>
+<p class="startli">NOTE: It seems that the program may display the map incorrectly sometimes. This program can simply fixed by quit game and restart. Pause game may even solve this program.</p>
+<p class="startli">Dang's ghost does not have proper memory allocation which may cause memory leak sometimes. It also seems to cause segmentation fault and crash the program.</p>
+<p class="startli">Linh's ghost seldom access unexist variable (using valgrind to check). However, this problem is not critical and does not crash the program</p>
+</li>
+</ol>
+<ol type="1">
+<li><p class="startli">Map editor</p>
+<p class="startli">The program use a command line interface to display the current loaded map on the screen. The program ad two mode: edit mode and command mode:</p>
+<p class="startli">Edit mode:</p>
+<p class="startli">In this mode user can move around the map the create by default or by command and edit the current character at the cursor with:</p>
+<p class="startli">q/Q: add an upper left corner character</p>
+<p class="startli">e/E: add an upper right corner character</p>
+<p class="startli">z/Z: add a lower left corner character</p>
+<p class="startli">c/C: add a lower right corner character</p>
+<p class="startli">w/x: add a vertical bar character</p>
+<p class="startli">a/d: add a horizontal bar character</p>
+<p class="startli">s: add a small pellet character</p>
+<p class="startli">S: add a power pellet character</p>
+<p class="startli">f/F: add a fruit spawn point character</p>
+<p class="startli">g/G: add a ghost spawn point character</p>
+<p class="startli">p/P: add a pacman spawn point character</p>
+<p class="startli">' ' (space): erase the current character</p>
+<p class="startli">Additionally, user can switch from edit mode to command mode by pressing ":" (colon) key.</p>
+<p class="startli">All the above command will take effect immediately after the respect key is pressed.</p>
+<p class="startli">Command mode:</p>
+<p class="startli">This mode provide user with an vi/vim like command mode to manipulate the map file. The command for this mode are:</p>
+<p class="startli">w [filename]: save the current loaded map with the file name specify in the [filename] field.</p>
+<p class="startli">Note:</p>
+<p class="startli">This command will check if the end of the [filename] is ended with ".pac" or not. If [filename] end with ".pac" then it will use this file name, otherwise ".pac" will be automatically added to the end of [filename].</p>
+<p class="startli">This command will overridden any file that already exist on the disk with the same file name after appending the ".pac".</p>
+<p class="startli">w: save the current loaded map with the file name specify in the "Map
       file name" field on the screen. Regarding the file name, this command will treat it the same way as the "w [filename]" command.</p>
-<p>q: quit the program without saving any change made.</p>
-<p>wq [filename]: quit the program saving all change in the file with the file name specify in the [filename] field. Regarding the file name, this command will treat it the same way as the "w [filename]" command.</p>
-<p>wq: quit the program saving all change in the file with the file name specify in the "Map file name" field on the screen. Regarding the file name, this command will treat it the same way as the "w [filename]" command.</p>
-<p>r [filename]: read a map in the "levels" directory with the name specify in the [filename]. This command will return an error if no such file with [filename] found in the directory. This command will read the file with the exact name provided with or without ".pac". E.g.: it will read the file "example" instead of "example.pac".</p>
-<p>n [filename] [row] [col]: create a new map with file name specify in [filename] and with size specify in the [row] and [col]. This command will return an error if not enough arguments are provided or there is an error in the argument. The size limit of the map will be dynamic and based on the current size of the program terminal.</p>
-<p>a [author(s)]: modify the author of the current loaded map. The author is displayed in the "Author" field on the screen and will saved in the map file. The author must had the format [name] &lt;[email]&gt;, there can be many authors but each author must have the above format and separate by a ',' (comma).</p>
-<p>t [maptittle]: modify the tittle of the current loaded map. The tittle is displayed in the "Map tittle" field on the screen and will be saved in the map file.</p>
-<p>auto: automatically add small pellet character to all the possible place where a pacman can reach based on the pacman spawn point. This function only work if there is at least 1 pacman spawn point (p/P in edit mode) on the map and it will based on that spawn point. If there are more than one spawn points then the first one (if you read the map from left to right and top to bottom) will be used.</p>
-<p>All the above command only work after hitting "Enter" button.</p>
-<p>User can exit command mode any time by pressing "Escape" key and it will work immediately.</p>
-<p>NOTE:</p>
-<p>If you maximize the program window (using the maximize window button) and then create a map that fit the size of the window (number of row larger that 22 and number of column larger than 64) and then restore the window to its original size (using minimize button) then the map will not display correctly. Its is recommended to not switch to maximize and minimize continuously, you should choose only one window size (maximize or normal) and stck with it.</p>
-<p>There is a case of where our program can read other people map and save it normally but other people while they CAN read map produced by our program but their program will crash (segmentation fault) while attempting to save the map although there is no change made. Their program can read and write other people map normally though.</p>
-<p>More detail of the problem:</p>
-<p>People can read map file produced by our program normally without any problem.</p>
-<p>If they try to write that file back to disk with the same or different name their program will crash giving "segmentation fault" error.</p>
-<p>Our program can read map file produced by others programs and it can save the file normally.</p>
-<p>If we open a map file that produced by others programs and that file is working correctly (no crash while saving), if we save that file without doing any modification to the file then the problem appear on the others programs. There is no difference in the file as we can tell while open by a text editor and while checking the file using a program that compare the original and newly saved file in binary mode (compare the bits).</p>
-<p>We suspect that our program had written some strange characters in the file but our write function only write character in the array, integer for map height and width and "\n" character so we have yet to find out the cause of the problem.</p>
+<p class="startli">q: quit the program without saving any change made.</p>
+<p class="startli">wq [filename]: quit the program saving all change in the file with the file name specify in the [filename] field. Regarding the file name, this command will treat it the same way as the "w [filename]" command.</p>
+<p class="startli">wq: quit the program saving all change in the file with the file name specify in the "Map file name" field on the screen. Regarding the file name, this command will treat it the same way as the "w [filename]" command.</p>
+<p class="startli">r [filename]: read a map in the "levels" directory with the name specify in the [filename]. This command will return an error if no such file with [filename] found in the directory. This command will read the file with the exact name provided with or without ".pac". E.g.: it will read the file "example" instead of "example.pac".</p>
+<p class="startli">n [filename] [row] [col]: create a new map with file name specify in [filename] and with size specify in the [row] and [col]. This command will return an error if not enough arguments are provided or there is an error in the argument. The size limit of the map will be dynamic and based on the current size of the program terminal.</p>
+<p class="startli">a [author(s)]: modify the author of the current loaded map. The author is displayed in the "Author" field on the screen and will saved in the map file. The author must had the format [name] &lt;[email]&gt;, there can be many authors but each author must have the above format and separate by a ',' (comma).</p>
+<p class="startli">t [maptittle]: modify the tittle of the current loaded map. The tittle is displayed in the "Map tittle" field on the screen and will be saved in the map file.</p>
+<p class="startli">auto: automatically add small pellet character to all the possible place where a pacman can reach based on the pacman spawn point. This function only work if there is at least 1 pacman spawn point (p/P in edit mode) on the map and it will based on that spawn point. If there are more than one spawn points then the first one (if you read the map from left to right and top to bottom) will be used.</p>
+<p class="startli">All the above command only work after hitting "Enter" button.</p>
+<p class="startli">User can exit command mode any time by pressing "Escape" key and it will work immediately.</p>
+<p class="startli">NOTE:</p>
+<p class="startli">If you maximize the program window (using the maximize window button) and then create a map that fit the size of the window (number of row larger that 22 and number of column larger than 64) and then restore the window to its original size (using minimize button) then the map will not display correctly. Its is recommended to not switch to maximize and minimize continuously, you should choose only one window size (maximize or normal) and stck with it.</p>
+<p class="startli">There is a case of where our program can read other people map and save it normally but other people while they CAN read map produced by our program but their program will crash (segmentation fault) while attempting to save the map although there is no change made. Their program can read and write other people map normally though.</p>
+<p class="startli">More detail of the problem:</p>
+<p class="startli">People can read map file produced by our program normally without any problem.</p>
+<p class="startli">If they try to write that file back to disk with the same or different name their program will crash giving "segmentation fault" error.</p>
+<p class="startli">Our program can read map file produced by others programs and it can save the file normally.</p>
+<p class="startli">If we open a map file that produced by others programs and that file is working correctly (no crash while saving), if we save that file without doing any modification to the file then the problem appear on the others programs. There is no difference in the file as we can tell while open by a text editor and while checking the file using a program that compare the original and newly saved file in binary mode (compare the bits).</p>
+<p class="startli">We suspect that our program had written some strange characters in the file but our write function only write character in the array, integer for map height and width and "\n" character so we have yet to find out the cause of the problem.</p>
+</li>
+</ol>
 <p>Third party resources:</p>
 <p>NCURSES</p>
 <p>This software uses the NCURSES library package, which is under MIT License. This package can be redistributed free of charge in any forms.</p>
 <p>Some methods implemented in the program are found on:</p>
 <p><a href="http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c">http://stackoverflow.com/questions/4770985/something-like-startswithstr-a-str-b-in-c</a></p>
 <p><a href="http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c">http://stackoverflow.com/questions/744766/how-to-compare-ends-of-strings-in-c</a></p>
-<p><a href="http://en.chys.info/2009/09/esdelay-ncurses/">http://en.chys.info/2009/09/esdelay-ncurses/</a> </p>
+<p><a href="http://en.chys.info/2009/09/esdelay-ncurses/">http://en.chys.info/2009/09/esdelay-ncurses/</a></p>
+<p><a href="http://stackoverflow.com/questions/4204666/how-to-list-files-in-a-directory-in-a-c-program">http://stackoverflow.com/questions/4204666/how-to-list-files-in-a-directory-in-a-c-program</a></p>
+<p><a href="http://rosettacode.org/wiki/Dijkstra's_algorithm#C">http://rosettacode.org/wiki/Dijkstra's_algorithm#C</a></p>
+<p><a href="http://stackoverflow.com/questions/1910724/c-retrieving-total-line-numbers-in-a-file">http://stackoverflow.com/questions/1910724/c-retrieving-total-line-numbers-in-a-file</a></p>
+<p><a href="http://web.mit.edu/eranki/www/tutorials/search/">http://web.mit.edu/eranki/www/tutorials/search/</a> </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 4 2014 19:14:36 for Pacman by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun May 11 2014 04:05:14 for Pacman by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['read_5ffile',['read_file',['../pacman-level-editor_8c.html#ae8f3b08f62235bb7c36c368900757640',1,'pacman-level-editor.c']]],
-  ['replace_5fmarked_5fpoint',['replace_marked_point',['../pacman-level-editor_8c.html#add0fcdabdc016490323e4121bc6cb93c',1,'pacman-level-editor.c']]]
+  ['random_5fin_5frange',['random_in_range',['../lyquanliem_8c.html#a47539be5d3de5856b22709eb9b2dbde3',1,'random_in_range(unsigned int min, unsigned int max):&#160;lyquanliem.c'],['../lyquanliem_8h.html#a47539be5d3de5856b22709eb9b2dbde3',1,'random_in_range(unsigned int min, unsigned int max):&#160;lyquanliem.c']]],
+  ['random_5fnode',['random_node',['../lyquochung_8c.html#ae40dba9610c5568a43288e0b0f4e3a53',1,'random_node(const int max, struct pacghost *pacman):&#160;lyquochung.c'],['../lyquochung_8h.html#ae40dba9610c5568a43288e0b0f4e3a53',1,'random_node(const int max, struct pacghost *pacman):&#160;lyquochung.c']]],
+  ['read_5ffile',['read_file',['../level__editor_8c.html#ae8f3b08f62235bb7c36c368900757640',1,'read_file(char *file):&#160;level_editor.c'],['../level__editor_8h.html#ae8f3b08f62235bb7c36c368900757640',1,'read_file(char *file):&#160;level_editor.c']]],
+  ['record_5fplayer_5fresult',['record_player_result',['../core_8c.html#aff0c4444786da6c5d2b08e1af0b42011',1,'record_player_result(char *name):&#160;core.c'],['../core_8h.html#aff0c4444786da6c5d2b08e1af0b42011',1,'record_player_result(char *name):&#160;core.c']]],
+  ['replace_5fmarked_5fpoint',['replace_marked_point',['../level__editor_8c.html#add0fcdabdc016490323e4121bc6cb93c',1,'replace_marked_point(const char original, const char replacement):&#160;level_editor.c'],['../level__editor_8h.html#add0fcdabdc016490323e4121bc6cb93c',1,'replace_marked_point(const char original, const char replacement):&#160;level_editor.c']]],
+  ['resume_5fpause_5fgame',['resume_pause_game',['../core_8c.html#a2307b836121d5b18a2b7377280a87af0',1,'resume_pause_game():&#160;core.c'],['../core_8h.html#a2307b836121d5b18a2b7377280a87af0',1,'resume_pause_game():&#160;core.c']]],
+  ['run_5faway',['run_away',['../lyquochung_8c.html#ae50812b97724540cd962a9de9e8d106e',1,'run_away(struct pacghost *pacman, struct pacghost *ghost):&#160;lyquochung.c'],['../lyquochung_8h.html#ae50812b97724540cd962a9de9e8d106e',1,'run_away(struct pacghost *pacman, struct pacghost *ghost):&#160;lyquochung.c']]]
 ];

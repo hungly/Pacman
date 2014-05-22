@@ -45,7 +45,7 @@ char *author;
 /** Pointer to array to char which indicates the present working directory */
 char *directory;
 
-/** Pointer to array of char which indicates the list of availble levels */
+/** Pointer to array of char which indicates the list of available levels */
 char * levels[] = {"level1.pac", "level2.pac", "level3.pac", "level4.pac"};
 
 /** Pointer to array to char which indicates the file name of current map */
@@ -78,7 +78,7 @@ int end_program = 0;
 /** An integer value which indicate the number of error message */
 int error_msg_count = 1;
 
-/** An integer value which indicate the number of maps availble */
+/** An integer value which indicate the number of maps available */
 int ghost_counter[] = {0, 0, 0, 0};
 
 /** An integer value which indicates the number of life left for pacman */
@@ -90,7 +90,7 @@ int level = 1;
 /** An integer value which indicates level offset on the list */
 int level_offset = 0;
 
-/** An integer value which indicates the number of level for before circle arround */
+/** An integer value which indicates the number of level for before circle around */
 int num_levels = 4;
 
 /** An integer value which indicates the powered up status of the pacman */
@@ -114,7 +114,7 @@ int x_offset;
 /** An integer value which indicates the distance (in columns) between the left most of terminal and the first column of the map */
 int y_offset;
 
-/** reti is an integer which store the result of regex comparision */
+/** reti is an integer which store the result of regex comparison */
 int reti;
 
 /** An integer value which indicates the current score */
@@ -128,17 +128,20 @@ long turns_time;
 
 /** regex is used to  check for input pattern */
 regex_t regex;
-
+ 
+/** variable that store the pacman position on the map and its moving direction */
 struct pacghost pacman;
 
+/** array that store the ghosts position on the map and their moving direction */
 struct pacghost ghosts[4];
 
+/** pointer to the first ghost in the ghosts array */
 struct pacghost * ghost = &(ghosts[0]);
 
 /** The size of ncruses terminal in characters of height and width */
 struct winsize w;
 
-/** Funtion pointers for AI */
+/** Function pointers for AI */
 void (*ai_functions[4])(char * map, struct pacghost * pacman, struct pacghost * ghost, int difficulty, int is_pacman_powered_up);
 /**
   * Show the game's main menu
@@ -149,16 +152,19 @@ void showMenu(int argc, char *argv[]);
   * Start the game.
   */
 void startNewGame(int argc, char *argv[]);
+
+/**
+  * Change difficulty when starting game
+  */
 void change_difficulty();
 
 int main(int argc, char *argv[]) {
-	/* initiallse function name */
+	/* initialize function name */
 	ai_functions[0] = hung_ai;
 	ai_functions[1] = nguyenvinhlinh_ai;
 	ai_functions[2] = choose_direction_for_ghost;
 	ai_functions[3] = move_dang_ghost;
 
-	// ai_functions[3] = dang's AI here;
 	initscr();
 
     /* get terminal size */
@@ -185,7 +191,7 @@ int main(int argc, char *argv[]) {
     // show the main menu
 	showMenu(argc, argv);
 
-	// finsh the program
+	// finish the program
     endwin();
     exit(0);
 }
@@ -255,8 +261,7 @@ void showMenu(int argc, char *argv[]) {
 void startNewGame(int argc, char *argv[]){
 	int input;
 	timeout(0);
-	// rset game status
-	counter = 0;
+	// reset game status
 	level_offset = 0;
 	level = 1;
 	live = 3;
@@ -276,7 +281,7 @@ void startNewGame(int argc, char *argv[]){
     /* take input chars, does not wait until new line or carriage return */
     cbreak();
     while(!end_game) {
-    	// update turn time based on level and diffivultly
+    	// update turn time based on level and difficultly
     	turns_time = 200000000L * pow(speed_change_rate[difficulty], level / num_levels);
     	// reset counter
     	counter = 0;
@@ -339,12 +344,12 @@ void startNewGame(int argc, char *argv[]){
 		for (int i = 0; i < 4; i++)
 			ghost[i].direction = 4;
 
-	    // initilise ate pellet
+	    // initialize ate pellet
 		atePellet = 0;
-		// count the total number of pelet
+		// count the total number of pellet
 		count_pellet(map, &totalPellet);
 
-		// initialise ai (if needed)
+		// initialize ai (if needed)
 		initialise_hung_ai();
 		initialise_ghost_map();
 		init_dang_ghost(pacman);
@@ -433,7 +438,7 @@ void startNewGame(int argc, char *argv[]){
 		    for (int i = 0; i < 4; i++) {
 		    	// check collision
 		        if (isCollision(&pacman, &ghosts[i])) {
-		        	// if collide deteced
+		        	// if collide detected
 		            if (is_pacman_powered_up) {
 		            	// pacman is powered up
 		               	if (ghost_counter[i] == 0) {
@@ -453,7 +458,7 @@ void startNewGame(int argc, char *argv[]){
 			                end_game = 1;
 			                break;
 			            } else {
-			            	// redue live and move pacman back to it spawn point
+			            	// reduce live and move pacman back to it spawn point
 			                live--;
 			                search_pacman(map, &pacman);
 			                // search for ghost spawn point
@@ -472,25 +477,11 @@ void startNewGame(int argc, char *argv[]){
 		    // move the ghost if speed counter is 0, 2 or 4
 	    	// move function for pacman
 	    	move_character(&pacman);
-	        //
-	        // call AI main functions here, it should be 4 function calls after this, each for 1 ghost
-	        // AI funtion should have this signature:
-	        // function(map, &pacman, &ghosts[i], difficulty, is_pacman_powered_up)
-	        // - map: the current map, it is a 1D array
-	        // - &pacman: the pacghost struct which store coordinations and direction, the direction value are:
-	        //   + 0: up
-	        //   + 1: right
-	        //   + 2: down
-	        //   + 3: left
-	        //   + 4: stay/do not move
-	        // - &ghost[i] is the same as &pacman except it is an array of 4 ghost
-	        // - difficulty: game difficult level (0 is easy to 3 is insane, 4 in total)
-	        // - is_pacman_powered_up: pacman current status which indicate it can kill a ghost (1 is can hunt ghots and 0 is cannot)
-	        //
+
 	        // move ghost if speed counter is 0 or 3
 		    for (int i = 0; i < 4; i++)
 		       	if (ghost_counter[i] == 0)
-			       	// call AI's function 
+			       	// call AI's function for ghost
 					(*ai_functions[i])(map, &pacman, &ghosts[i], difficulty, is_pacman_powered_up);
 							
 		    // call move function for the ghosts
@@ -529,16 +520,20 @@ void startNewGame(int argc, char *argv[]){
 	}
 }
 
+
 void change_difficulty(){
 	int diff;
-	do{	clear();
-	printw("Enter game difficulty:\n");
-	printw("1 - Easy\n");
-	printw("2 - Normal\n");
-	printw("3 - Hard\n");
-	printw("4 - Insance\n");
-	diff = getch();
+	y_offset = w.ws_col / 2;
+	do{	
+		clear();
+		mvprintw(11, y_offset - 11, "Enter game difficulty:\n");
+		mvprintw(12, y_offset - 9,"1 - Easy\n");
+		mvprintw(13, y_offset - 9,"2 - Normal\n");
+		mvprintw(14,y_offset - 9,"3 - Hard\n");
+		mvprintw(15, y_offset - 9,"4 - Insane\n");
+		diff = getch();
 	} while (diff != '1' && diff != '2' && diff != '3' && diff != '4');
-	difficulty = diff - '1';
+
+difficulty = diff - '1';
 
 }

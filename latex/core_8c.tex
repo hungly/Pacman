@@ -1,0 +1,321 @@
+\hypertarget{core_8c}{\section{src/core.c File Reference}
+\label{core_8c}\index{src/core.\-c@{src/core.\-c}}
+}
+{\ttfamily \#include \char`\"{}core.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pacghost.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$curses.\-h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}level\-\_\-editor.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$dirent.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}score.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lyquochung.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lyquanliem.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}doanhaidang.\-h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{core_8c_a7a602a4376595097bdde82a739d7fc9c}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}~\char`\"{}save/\char`\"{}
+\item 
+\#define \hyperlink{core_8c_a680ab63d028a68a793615c14b807244e}{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}~\char`\"{}../save/\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{core_8c_a2e2617827965007cc2ee074afea764a4}{search\-\_\-pacman} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman})
+\item 
+int \hyperlink{core_8c_aa0d6a03d6d30d274bc966dfcca14bf00}{search\-\_\-ghost} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int ghost\-\_\-number)
+\item 
+void \hyperlink{core_8c_a27a6f2346fcfe5983cae3ee359ee5f98}{display\-\_\-characters} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost}, const int \hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up}, int \hyperlink{pacman_8c_a617a47c70795bcff659815ad0efd2266}{counter}, int \hyperlink{pacman_8c_a5d9ac2408b6a29c67407726711d6e9c6}{ghost\-\_\-counter}\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{core_8c_ad4c6066147f3d5429e63ba0035c12a04}{delete\-\_\-characters} (struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{score_8h_a47083d9a35bd0770a437ce77a09bc657}{pacman}, struct \hyperlink{structpacghost}{pacghost} $\ast$\hyperlink{pacman_8c_a740878ba5052e8a3a3fd0634cb0a8189}{ghost})
+\item 
+void \hyperlink{core_8c_a057240a65e82de71444888e37cd31357}{count\-\_\-pellet} (char $\ast$\hyperlink{score_8h_a7b00b1bfd666e26484471bd17a74eaa9}{map}, int $\ast$pellet)
+\item 
+void \hyperlink{core_8c_a68476d6aa52b877b05f08d2dc5aee78a}{count\-\_\-down} (int $\ast$\hyperlink{pacman_8c_a617a47c70795bcff659815ad0efd2266}{counter}, int \hyperlink{pacman_8c_a5d9ac2408b6a29c67407726711d6e9c6}{ghost\-\_\-counter}\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{core_8c_ab242ae90cc74c9df853e3f514247e2eb}{save\-\_\-game} (char $\ast$\hyperlink{pacman_8c_a8505c513bc640d1f69e5f76fb32b24a8}{file\-\_\-name})
+\item 
+int \hyperlink{core_8c_a7bba504c3420bdee739113e6908083c6}{load\-\_\-game} (char $\ast$file)
+\item 
+void \hyperlink{core_8c_acf11d3d8f85d1d110eab6aab435a0ac4}{display\-\_\-save\-\_\-list} ()
+\item 
+void \hyperlink{core_8c_a448e8d310b7b3a57b4022ba1289c0702}{delete\-\_\-unneed\-\_\-char} ()
+\item 
+int \hyperlink{core_8c_a3f641a88ade8080b317a4e2f8adba358}{handle\-\_\-pause\-\_\-menu} (int $\ast$\hyperlink{pacman_8c_aa49c100c8b968cdfef859f4f32752081}{is\-\_\-pacman\-\_\-powered\-\_\-up}, int $\ast$\hyperlink{pacman_8c_a617a47c70795bcff659815ad0efd2266}{counter}, int $\ast$\hyperlink{score_8h_a2cb50263f0f7a37d88d397a1d0e66f3a}{live})
+\item 
+void \hyperlink{core_8c_a2307b836121d5b18a2b7377280a87af0}{resume\-\_\-pause\-\_\-game} ()
+\item 
+void \hyperlink{core_8c_a4b299553b14b4ecce1f14c1cc0353789}{end\-\_\-game\-\_\-dialog} ()
+\item 
+void \hyperlink{core_8c_aff0c4444786da6c5d2b08e1af0b42011}{record\-\_\-player\-\_\-result} (char $\ast$name)
+\item 
+void \hyperlink{core_8c_ace1e738f402335abdfe6fc741fb47635}{credit\-\_\-game} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{core_8c_a5b63b89ff20f3368df3bdf0fe8e1ccb0}{god\-\_\-sequence} \mbox{[}$\,$\mbox{]} = \{K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, 'b', 'a'\}
+\item 
+int \hyperlink{core_8c_abaabf560fb3af4673804574a97f7e0fd}{sequence\-\_\-length} = 10
+\item 
+int \hyperlink{core_8c_a84f70f33a1d769657ce2d643ce43c875}{current\-\_\-god\-\_\-sequence\-\_\-index} = 0
+\item 
+int \hyperlink{core_8c_a960c90d19f7a0e980c33890da55da4aa}{live\-\_\-sequence} \mbox{[}$\,$\mbox{]} = \{K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T\}
+\item 
+int \hyperlink{core_8c_a46ece0192c57730590ee42848c7cc695}{current\-\_\-live\-\_\-sequence\-\_\-index} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{core_8c_a7a602a4376595097bdde82a739d7fc9c}{\index{core.\-c@{core.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}!core.c@{core.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-H~\char`\"{}save/\char`\"{}}}\label{core_8c_a7a602a4376595097bdde82a739d7fc9c}
+Define the directory when opening using sh file in root folder of project \hypertarget{core_8c_a680ab63d028a68a793615c14b807244e}{\index{core.\-c@{core.\-c}!D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}}
+\index{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C@{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}!core.c@{core.\-c}}
+\subsubsection[{D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\-I\-R\-E\-C\-T\-O\-R\-Y\-\_\-\-S\-R\-C~\char`\"{}../save/\char`\"{}}}\label{core_8c_a680ab63d028a68a793615c14b807244e}
+Define the directory when opening using the executable file in source folder 
+
+\subsection{Function Documentation}
+\hypertarget{core_8c_a68476d6aa52b877b05f08d2dc5aee78a}{\index{core.\-c@{core.\-c}!count\-\_\-down@{count\-\_\-down}}
+\index{count\-\_\-down@{count\-\_\-down}!core.c@{core.\-c}}
+\subsubsection[{count\-\_\-down}]{\setlength{\rightskip}{0pt plus 5cm}void count\-\_\-down (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{counter, }
+\item[{int}]{ghost\-\_\-counter\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a68476d6aa52b877b05f08d2dc5aee78a}
+Decrease the counters which indicate the time left for pacman powered up or ghost cool down time
+
+
+\begin{DoxyParams}{Parameters}
+{\em counter} & indicate time left for the pacman powered up \\
+\hline
+{\em ghost\-\_\-counter\mbox{[}$\,$\mbox{]}} & array store the counter indicate the cool down time for each ghost \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_a057240a65e82de71444888e37cd31357}{\index{core.\-c@{core.\-c}!count\-\_\-pellet@{count\-\_\-pellet}}
+\index{count\-\_\-pellet@{count\-\_\-pellet}!core.c@{core.\-c}}
+\subsubsection[{count\-\_\-pellet}]{\setlength{\rightskip}{0pt plus 5cm}void count\-\_\-pellet (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{int $\ast$}]{pellet}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a057240a65e82de71444888e37cd31357}
+Count the total number of pellet in the map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the read map from file with the 'p' character indicates pacman spawn point \\
+\hline
+{\em pellet} & pointer to the variable that stor the total number of pellet \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_ace1e738f402335abdfe6fc741fb47635}{\index{core.\-c@{core.\-c}!credit\-\_\-game@{credit\-\_\-game}}
+\index{credit\-\_\-game@{credit\-\_\-game}!core.c@{core.\-c}}
+\subsubsection[{credit\-\_\-game}]{\setlength{\rightskip}{0pt plus 5cm}void credit\-\_\-game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{core_8c_ace1e738f402335abdfe6fc741fb47635}
+Show the game credit. \hypertarget{core_8c_ad4c6066147f3d5429e63ba0035c12a04}{\index{core.\-c@{core.\-c}!delete\-\_\-characters@{delete\-\_\-characters}}
+\index{delete\-\_\-characters@{delete\-\_\-characters}!core.c@{core.\-c}}
+\subsubsection[{delete\-\_\-characters}]{\setlength{\rightskip}{0pt plus 5cm}void delete\-\_\-characters (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost}
+\end{DoxyParamCaption}
+)}}\label{core_8c_ad4c6066147f3d5429e63ba0035c12a04}
+Clear pacman and all the ghosts on the screen based on it position
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost in the map \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_a448e8d310b7b3a57b4022ba1289c0702}{\index{core.\-c@{core.\-c}!delete\-\_\-unneed\-\_\-char@{delete\-\_\-unneed\-\_\-char}}
+\index{delete\-\_\-unneed\-\_\-char@{delete\-\_\-unneed\-\_\-char}!core.c@{core.\-c}}
+\subsubsection[{delete\-\_\-unneed\-\_\-char}]{\setlength{\rightskip}{0pt plus 5cm}void delete\-\_\-unneed\-\_\-char (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a448e8d310b7b3a57b4022ba1289c0702}
+Clear unneccessary characters on the map \hypertarget{core_8c_a27a6f2346fcfe5983cae3ee359ee5f98}{\index{core.\-c@{core.\-c}!display\-\_\-characters@{display\-\_\-characters}}
+\index{display\-\_\-characters@{display\-\_\-characters}!core.c@{core.\-c}}
+\subsubsection[{display\-\_\-characters}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-characters (
+\begin{DoxyParamCaption}
+\item[{struct {\bf pacghost} $\ast$}]{pacman, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{is\-\_\-pacman\-\_\-powered\-\_\-up, }
+\item[{int}]{counter, }
+\item[{int}]{ghost\-\_\-counter\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a27a6f2346fcfe5983cae3ee359ee5f98}
+Display pacman and all the ghosts on the screen based on it position and other game's status
+
+
+\begin{DoxyParams}{Parameters}
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost in the map \\
+\hline
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & indicates the pacman status \\
+\hline
+{\em counter} & indicate time left for the pacman powered up \\
+\hline
+{\em ghost\-\_\-counter\mbox{[}$\,$\mbox{]}} & array store the counter indicate the cool down time for each ghost \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_acf11d3d8f85d1d110eab6aab435a0ac4}{\index{core.\-c@{core.\-c}!display\-\_\-save\-\_\-list@{display\-\_\-save\-\_\-list}}
+\index{display\-\_\-save\-\_\-list@{display\-\_\-save\-\_\-list}!core.c@{core.\-c}}
+\subsubsection[{display\-\_\-save\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}void display\-\_\-save\-\_\-list (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{core_8c_acf11d3d8f85d1d110eab6aab435a0ac4}
+Display the list of save file is /save directory \hypertarget{core_8c_a4b299553b14b4ecce1f14c1cc0353789}{\index{core.\-c@{core.\-c}!end\-\_\-game\-\_\-dialog@{end\-\_\-game\-\_\-dialog}}
+\index{end\-\_\-game\-\_\-dialog@{end\-\_\-game\-\_\-dialog}!core.c@{core.\-c}}
+\subsubsection[{end\-\_\-game\-\_\-dialog}]{\setlength{\rightskip}{0pt plus 5cm}void end\-\_\-game\-\_\-dialog (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a4b299553b14b4ecce1f14c1cc0353789}
+Display a dialog that allow user to enter name. \hypertarget{core_8c_a3f641a88ade8080b317a4e2f8adba358}{\index{core.\-c@{core.\-c}!handle\-\_\-pause\-\_\-menu@{handle\-\_\-pause\-\_\-menu}}
+\index{handle\-\_\-pause\-\_\-menu@{handle\-\_\-pause\-\_\-menu}!core.c@{core.\-c}}
+\subsubsection[{handle\-\_\-pause\-\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}int handle\-\_\-pause\-\_\-menu (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{is\-\_\-pacman\-\_\-powered\-\_\-up, }
+\item[{int $\ast$}]{counter, }
+\item[{int $\ast$}]{live}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a3f641a88ade8080b317a4e2f8adba358}
+Handle the pause menu
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\-\_\-pacman\-\_\-powered\-\_\-up} & indicate whether pacman has eaten power pellet. 1 if true else 0 \\
+\hline
+{\em counter} & indicate the countdown of powered up \\
+\hline
+{\em live} & indicate the number of live \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_a7bba504c3420bdee739113e6908083c6}{\index{core.\-c@{core.\-c}!load\-\_\-game@{load\-\_\-game}}
+\index{load\-\_\-game@{load\-\_\-game}!core.c@{core.\-c}}
+\subsubsection[{load\-\_\-game}]{\setlength{\rightskip}{0pt plus 5cm}int load\-\_\-game (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a7bba504c3420bdee739113e6908083c6}
+Load the current game
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & indicate the file name to be loaded\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if file exist, else 0 
+\end{DoxyReturn}
+\hypertarget{core_8c_aff0c4444786da6c5d2b08e1af0b42011}{\index{core.\-c@{core.\-c}!record\-\_\-player\-\_\-result@{record\-\_\-player\-\_\-result}}
+\index{record\-\_\-player\-\_\-result@{record\-\_\-player\-\_\-result}!core.c@{core.\-c}}
+\subsubsection[{record\-\_\-player\-\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}void record\-\_\-player\-\_\-result (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{core_8c_aff0c4444786da6c5d2b08e1af0b42011}
+Record name and score.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & is the name that user inputted \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_a2307b836121d5b18a2b7377280a87af0}{\index{core.\-c@{core.\-c}!resume\-\_\-pause\-\_\-game@{resume\-\_\-pause\-\_\-game}}
+\index{resume\-\_\-pause\-\_\-game@{resume\-\_\-pause\-\_\-game}!core.c@{core.\-c}}
+\subsubsection[{resume\-\_\-pause\-\_\-game}]{\setlength{\rightskip}{0pt plus 5cm}void resume\-\_\-pause\-\_\-game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a2307b836121d5b18a2b7377280a87af0}
+Resume the game after the pause/save/load progress \hypertarget{core_8c_ab242ae90cc74c9df853e3f514247e2eb}{\index{core.\-c@{core.\-c}!save\-\_\-game@{save\-\_\-game}}
+\index{save\-\_\-game@{save\-\_\-game}!core.c@{core.\-c}}
+\subsubsection[{save\-\_\-game}]{\setlength{\rightskip}{0pt plus 5cm}void save\-\_\-game (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{core_8c_ab242ae90cc74c9df853e3f514247e2eb}
+Save the current game progress
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\-\_\-name} & indicate the file name to be saved \\
+\hline
+\end{DoxyParams}
+\hypertarget{core_8c_aa0d6a03d6d30d274bc966dfcca14bf00}{\index{core.\-c@{core.\-c}!search\-\_\-ghost@{search\-\_\-ghost}}
+\index{search\-\_\-ghost@{search\-\_\-ghost}!core.c@{core.\-c}}
+\subsubsection[{search\-\_\-ghost}]{\setlength{\rightskip}{0pt plus 5cm}int search\-\_\-ghost (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{ghost, }
+\item[{const int}]{ghost\-\_\-number}
+\end{DoxyParamCaption}
+)}}\label{core_8c_aa0d6a03d6d30d274bc966dfcca14bf00}
+Search for ghost spawn point and set the ghost position at that point.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the read map from file with the 'p' character indicates pacman spawn point \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map \\
+\hline
+{\em ghost} & pointer to the current position and direction of the ghost in the map \\
+\hline
+{\em ghost\-\_\-number} & the index of the ghost in the ghost's array\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the 1 if success found a spawn point, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{core_8c_a2e2617827965007cc2ee074afea764a4}{\index{core.\-c@{core.\-c}!search\-\_\-pacman@{search\-\_\-pacman}}
+\index{search\-\_\-pacman@{search\-\_\-pacman}!core.c@{core.\-c}}
+\subsubsection[{search\-\_\-pacman}]{\setlength{\rightskip}{0pt plus 5cm}int search\-\_\-pacman (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{map, }
+\item[{struct {\bf pacghost} $\ast$}]{pacman}
+\end{DoxyParamCaption}
+)}}\label{core_8c_a2e2617827965007cc2ee074afea764a4}
+Search for pacman spawn point and set the pacman position at that point.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the read map from file with the 'p' character indicates pacman spawn point \\
+\hline
+{\em pacman} & pointer to the current position and direction of the pacman in the map\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the 1 if success found a spawn point, 0 otherwise 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{core_8c_a84f70f33a1d769657ce2d643ce43c875}{\index{core.\-c@{core.\-c}!current\-\_\-god\-\_\-sequence\-\_\-index@{current\-\_\-god\-\_\-sequence\-\_\-index}}
+\index{current\-\_\-god\-\_\-sequence\-\_\-index@{current\-\_\-god\-\_\-sequence\-\_\-index}!core.c@{core.\-c}}
+\subsubsection[{current\-\_\-god\-\_\-sequence\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int current\-\_\-god\-\_\-sequence\-\_\-index = 0}}\label{core_8c_a84f70f33a1d769657ce2d643ce43c875}
+number of correct key strike for god cheat \hypertarget{core_8c_a46ece0192c57730590ee42848c7cc695}{\index{core.\-c@{core.\-c}!current\-\_\-live\-\_\-sequence\-\_\-index@{current\-\_\-live\-\_\-sequence\-\_\-index}}
+\index{current\-\_\-live\-\_\-sequence\-\_\-index@{current\-\_\-live\-\_\-sequence\-\_\-index}!core.c@{core.\-c}}
+\subsubsection[{current\-\_\-live\-\_\-sequence\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int current\-\_\-live\-\_\-sequence\-\_\-index = 0}}\label{core_8c_a46ece0192c57730590ee42848c7cc695}
+number of correct key strike for lives cheat \hypertarget{core_8c_a5b63b89ff20f3368df3bdf0fe8e1ccb0}{\index{core.\-c@{core.\-c}!god\-\_\-sequence@{god\-\_\-sequence}}
+\index{god\-\_\-sequence@{god\-\_\-sequence}!core.c@{core.\-c}}
+\subsubsection[{god\-\_\-sequence}]{\setlength{\rightskip}{0pt plus 5cm}int god\-\_\-sequence\mbox{[}$\,$\mbox{]} = \{K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, 'b', 'a'\}}}\label{core_8c_a5b63b89ff20f3368df3bdf0fe8e1ccb0}
+cheat sequence for god mode \hypertarget{core_8c_a960c90d19f7a0e980c33890da55da4aa}{\index{core.\-c@{core.\-c}!live\-\_\-sequence@{live\-\_\-sequence}}
+\index{live\-\_\-sequence@{live\-\_\-sequence}!core.c@{core.\-c}}
+\subsubsection[{live\-\_\-sequence}]{\setlength{\rightskip}{0pt plus 5cm}int live\-\_\-sequence\mbox{[}$\,$\mbox{]} = \{K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-U\-P, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-D\-O\-W\-N, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T, K\-E\-Y\-\_\-\-L\-E\-F\-T, K\-E\-Y\-\_\-\-R\-I\-G\-H\-T\}}}\label{core_8c_a960c90d19f7a0e980c33890da55da4aa}
+8\-:11 A\-M cheat sequence for bonus lives \hypertarget{core_8c_abaabf560fb3af4673804574a97f7e0fd}{\index{core.\-c@{core.\-c}!sequence\-\_\-length@{sequence\-\_\-length}}
+\index{sequence\-\_\-length@{sequence\-\_\-length}!core.c@{core.\-c}}
+\subsubsection[{sequence\-\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}int sequence\-\_\-length = 10}}\label{core_8c_abaabf560fb3af4673804574a97f7e0fd}
+the length of all cheat sequences 
